@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Entrar - Cachaçaria Wilbert</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background-color: #fdfaf5;
+      color: #2d1e12;
+      max-width: 1920px;
+      margin: auto;
+    }
+
+    header {
+      background-color: #4e2e1b;
+      color: #fff;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    nav a {
+      margin-left: 40px;
+      text-decoration: none;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    .form-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 80px 0;
+    }
+
+    .form-box {
+      width: 500px;
+      background-color: #fff;
+      border: 1px solid #d1bfa3;
+      border-radius: 8px;
+      padding: 40px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    .form-box h2 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background-color: #4e2e1b;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .switch-link {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.95rem;
+      color: #7d6a4f;
+    }
+
+    .switch-link a {
+      color: #4e2e1b;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer {
+      background-color: #4e2e1b;
+      color: #fff;
+      text-align: center;
+      padding: 30px;
+      margin-top: 60px;
+      font-size: 0.9rem;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Cachaçaria Wilbert</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="produtos.html">Produtos</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Atendimento</a>
+      <a href="login.html">Entrar</a>
+      <a href="carrinho.html">Carrinho</a>
+    </nav>
+  </header>
+
+  <section class="form-section">
+    <div class="form-box">
+      <h2>Entrar</h2>
+      <form>
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" placeholder="Digite seu e-mail" />
+        </div>
+        <div class="form-group">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" placeholder="Digite sua senha" />
+        </div>
+        <button type="submit" class="btn">Acessar Conta</button>
+      </form>
+      <div class="switch-link">
+        Ainda não tem cadastro? <a href="#">Criar uma conta</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Cachaçaria Wilbert &copy; 2025</p>
+    <p>contato@wilbert.com.br | (99) 9999-9999</p>
+    <p>Instagram: @wilbert</p>
+  </footer>
+</body>
+</html>

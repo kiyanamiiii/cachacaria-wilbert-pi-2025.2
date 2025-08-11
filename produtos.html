@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Produtos - Cachaçaria Wilbert</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background-color: #fdfaf5;
+      color: #2d1e12;
+      max-width: 1920px;
+      margin: auto;
+    }
+    header {
+      background-color: #4e2e1b;
+      color: #fff;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    nav a {
+      margin-left: 40px;
+      text-decoration: none;
+      color: #fff;
+      font-size: 1rem;
+    }
+    .section {
+      padding: 60px;
+    }
+    .section h2 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #c2a675;
+      display: inline-block;
+    }
+    .produtos-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      margin-top: 40px;
+    }
+    .produto {
+      background-color: #fff;
+      border: 1px solid #d1bfa3;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      user-select: none;
+    }
+    .imagem-placeholder {
+      width: 100%;
+      height: 220px;
+      background-color: #bbb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #666;
+      font-size: 1.2rem;
+    }
+    .produto .info {
+      padding: 20px;
+    }
+    .produto .info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    .produto .info p {
+      font-style: italic;
+      color: #7d6a4f;
+      margin-bottom: 10px;
+    }
+    .produto .info a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #4e2e1b;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    footer {
+      background-color: #4e2e1b;
+      color: #fff;
+      text-align: center;
+      padding: 30px;
+      margin-top: 60px;
+      user-select: none;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Cachaçaria Wilbert</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="produtos.html">Produtos</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Atendimento</a>
+      <a href="login.html">Entrar</a>
+      <a href="carrinho.html">Carrinho</a>
+    </nav>
+  </header>
+
+  <section class="section">
+    <h2>Nosso Catálogo de Produtos</h2>
+    <div class="produtos-grid">
+      <div class="produto">
+        <div class="imagem-placeholder">Imagem Produto 1</div>
+        <div class="info">
+          <h3>Cachaça Ouro Envelhecida</h3>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <a href="produto.html">Ver detalhes</a>
+        </div>
+      </div>
+      <div class="produto">
+        <div class="imagem-placeholder">Imagem Produto 2</div>
+        <div class="info">
+          <h3>Cachaça Prata Premium</h3>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <a href="produto.html">Ver detalhes</a>
+        </div>
+      </div>
+      <div class="produto">
+        <div class="imagem-placeholder">Imagem Produto 3</div>
+        <div class="info">
+          <h3>Kit Degustação 3 Rótulos</h3>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <a href="produto.html">Ver detalhes</a>
+        </div>
+      </div>
+      <div class="produto">
+        <div class="imagem-placeholder">Imagem Produto 4</div>
+        <div class="info">
+          <h3>Cachaça Reserva Especial</h3>
+          <p>Lorem ipsum dolor sit amet.</p>
+          <a href="produto.html">Ver detalhes</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Cachaçaria Wilbert &copy; 2025</p>
+    <p>contato@wilbert.com.br | (99) 9999-9999</p>
+    <p>Instagram: @wilbert</p>
+  </footer>
+</body>
+</html>
