@@ -1,3 +1,11 @@
+* {
+  font-family: jetbrains-mono, monospace;
+}
+
+p {
+  margin: 0;
+}
+
 body {
   font-family: "Georgia", serif;
   background-color: #fdfaf5;
@@ -6,6 +14,7 @@ body {
   margin: auto;
 }
 
+/* Header */
 header {
   background-color: aliceblue;
   display: flex;
@@ -15,10 +24,10 @@ header {
   padding: 20px;
 }
 
-.logo {
-  font-size: 2rem;
-  font-weight: bold;
-  padding: 10px;
+header div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 nav a {
@@ -28,13 +37,73 @@ nav a {
   font-size: 1rem;
 }
 
-/*.w-100 */
-.d-block {
+/* Classes do header */
+.logo-cachacaria {
+  margin-right: 14px;
+}
+
+.container-button-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-primary {
+  background-color: transparent;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  transition: ease-in-out 100ms;
+}
+
+.btn-primary:hover {
+  background-color: lightgray;
+}
+
+.btn-primary:active {
+  background-color: rgb(163, 163, 163);
+}
+
+/* Sidebar */
+.offcanvas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.offcanvas-header {
+  background-color: rgb(189, 189, 189);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.offcanvas-title {
+  font-size: 40px;
+}
+
+/* Carrosel */
+.carousel-inner img {
   object-fit: contain;
   width: 100%;
   height: 500px;
 }
 
+/* Sections */
+section {
+  padding: 60px;
+}
+
+section h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #c2a675;
+  display: inline-block;
+}
+
+/* Classes das sections */
 .section {
   padding: 60px;
 }
@@ -70,17 +139,6 @@ nav a {
   user-select: none;
 }
 
-.imagem-placeholder {
-  width: 100%;
-  height: 220px;
-  background-color: #bbb;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #666;
-  font-size: 1.2rem;
-}
-
 .produto .info {
   padding: 20px;
 }
@@ -107,14 +165,15 @@ nav a {
   font-weight: bold;
 }
 
-footer {
-  background-color: #4e2e1b;
-  color: #fff;
-  text-align: center;
-  padding: 30px;
-  margin-top: 60px;
-  user-select: none;
-  font-size: 0.9rem;
+.imagem-placeholder {
+  width: 100%;
+  height: 220px;
+  background-color: #bbb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #666;
+  font-size: 1.2rem;
 }
 
 .container {
@@ -123,52 +182,15 @@ footer {
   align-items: center;
 }
 
-.btn-primary {
-  background-color: transparent;
-  border: none;
-  border-radius: 6px;
-  padding: 10px;
-  transition: ease-in-out 100ms;
+/* Footer */
+footer {
+  background-color: #4e2e1b;
+  color: #fff;
+  padding: 20px;
 }
 
-.btn-primary:hover {
-  background-color: lightgray;
-  transition: ease-in-out 100ms;
-}
-
-.btn-primary:active {
-  background-color: rgb(175, 175, 175);
-}
-
-.btn-primary:hover {
-  background-color: transparent;
-}
-
-.container-button-header {
+footer div {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.offcanvas {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.offcanvas-header {
-  background-color: rgb(189, 189, 189);
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "Times New Roman", Times, serif;
-}
-
-.offcanvas-title {
-  font-size: 40px;
-}
-
-.logo-cachacaria {
-  margin-right: 14px;
 }
