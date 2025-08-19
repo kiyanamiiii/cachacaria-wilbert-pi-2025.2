@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bootstrap demo</title>
+    <title>Cachaçaria Wilbert</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -14,65 +14,88 @@
   </head>
 
   <body>
-    <!-- Botão para abrir a sidebar -->
-    <button
-      class="btn btn-primary"
-      type="button"
-      data-bs-toggle="offcanvas"
-      data-bs-target="#offcanvasWithBothOptions"
-      aria-controls="offcanvasWithBothOptions"
-    >
-      Menu
-    </button>
-    <!---->
-    <div
-      class="offcanvas offcanvas-start"
-      data-bs-scroll="false"
-      tabindex="-1"
-      id="offcanvasWithBothOptions"
-      aria-labelledby="offcanvasWithBothOptionsLabel"
-    >
-      <div class="offcanvas-header">
-        <h1 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Menu</h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
+    <header>
+      <div style="display: flex; justify-content: center; align-items: center">
+        <img
+          src="https://placehold.co/70"
+          alt="logo-cachacaria"
+          class="logo-cachacaria"
+        />
+        <h1>Cachaçaria Wilbert</h1>
       </div>
-      <div class="offcanvas-body">
-        <div style="display: grid">
-          <a href="/index.html">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-house-fill"
-              viewBox="0 0 16 16"
-              style="width: 1.5em; height: 1.5em"
-            >
-              <path
-                d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"
-              />
-              <path
-                d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"
-              />
-            </svg>
-          </a>
-          <div class="container">
-            <a href="produtos.html"
-              ><img
-                src="bottle.png"
-                alt=""
+      <!-- Botão para abrir a sidebar -->
+      <div class="container-button-header">
+        <button
+          class="btn-primary"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasWithBothOptions"
+          aria-controls="offcanvasWithBothOptions"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-list"
+            viewBox="0 0 16 16"
+            style="width: 2em; height: 2em; color: black"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!---->
+
+      <!-- Sidebar -->
+      <div
+        class="offcanvas offcanvas-start"
+        data-bs-scroll="false"
+        tabindex="-1"
+        id="offcanvasWithBothOptions"
+        aria-labelledby="offcanvasWithBothOptionsLabel"
+      >
+        <div class="offcanvas-header">
+          <p class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Menu</p>
+        </div>
+        <div class="offcanvas-body">
+          <div style="display: grid">
+            <a href="/index.html">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-house-fill"
+                viewBox="0 0 16 16"
                 style="width: 1.5em; height: 1.5em"
-              />Produtos</a
-            >
+              >
+                <path
+                  d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"
+                />
+                <path
+                  d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"
+                />
+              </svg>
+            </a>
+            <div class="container">
+              <a href="produtos.html"
+                ><img
+                  src="bottle.png"
+                  alt=""
+                  style="width: 1.5em; height: 1.5em"
+                />Produtos</a
+              >
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <!---->
+    </header>
 
     <!-- Carrosel de Slides, banner e afins-->
     <div
@@ -103,23 +126,23 @@
         ></button>
       </div>
       <div class="carousel-inner">
-        <div class="carousel-item active" data-bs-interval="1000">
+        <div class="carousel-item active" data-bs-interval="5000">
           <img
-            src="/images/bannerTeste.jpg"
+            src="https://placehold.co/1920x500"
             class="d-block w-100"
             alt="banner1"
           />
         </div>
-        <div class="carousel-item" data-bs-interval="2000">
+        <div class="carousel-item" data-bs-interval="2500">
           <img
-            src="/images/bannerTeste.jpg"
+            src="https://placehold.co/1920x500"
             class="d-block w-100"
             alt="banner2"
           />
         </div>
         <div class="carousel-item">
           <img
-            src="/images/bannerTeste.jpg"
+            src="https://placehold.co/1920x500"
             class="d-block w-100"
             alt="banner3"
           />
