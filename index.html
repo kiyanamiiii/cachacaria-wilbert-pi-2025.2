@@ -28,7 +28,7 @@
       <!-- Botão para abrir a sidebar -->
       <div class="container-button-header">
         <button
-          class="btn-primary"
+          class="menu-button"
           type="button"
           data-bs-toggle="offcanvas"
           data-bs-target="#offcanvasWithBothOptions"
@@ -39,7 +39,7 @@
             width="16"
             height="16"
             fill="currentColor"
-            class="bi bi-list"
+            class=""
             viewBox="0 0 16 16"
             style="width: 2em; height: 2em; color: black"
           >
@@ -64,32 +64,63 @@
           <p class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Menu</p>
         </div>
         <div class="offcanvas-body">
-          <div style="display: grid">
-            <a href="/index.html">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-house-fill"
-                viewBox="0 0 16 16"
-                style="width: 1.5em; height: 1.5em"
-              >
-                <path
-                  d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"
-                />
-                <path
-                  d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"
-                />
-              </svg>
-            </a>
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 10px;
+              justify-content: center;
+              align-items: center;
+            "
+          >
+            <div class="container">
+              <a href="/index.html">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class=""
+                  viewBox="0 0 16 16"
+                  style="width: 1.5em; height: 1.5em; color: black"
+                >
+                  <path
+                    d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"
+                  />
+                  <path
+                    d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"
+                  />
+                </svg>
+                Home
+              </a>
+            </div>
             <div class="container">
               <a href="produtos.html"
                 ><img
-                  src="/icons/bottle.png"
+                  src="/assets/icons/bottle.png"
                   alt=""
                   style="width: 1.5em; height: 1.5em"
                 />Produtos</a
+              >
+            </div>
+            <div class="container">
+              <a href="/sobre.html"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                  style="width: 1.5em; height: 1.5em; color: black"
+                >
+                  <path
+                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
+                  />
+                  <path
+                    d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"
+                  />
+                </svg>
+                Sobre</a
               >
             </div>
           </div>
@@ -130,7 +161,7 @@
       <div class="carousel-inner">
         <div class="carousel-item active" data-bs-interval="5000">
           <img
-            src="https://placehold.co/1920x500"
+            src="/assets/img/banner-teste2.png"
             class="d-block w-100"
             alt="banner1"
           />
