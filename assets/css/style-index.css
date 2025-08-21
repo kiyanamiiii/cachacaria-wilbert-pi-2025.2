@@ -147,7 +147,8 @@ nav a {
   border: none;
 }
 
-.product:hover {
+.product:hover,
+.product-body:hover {
   transform: scale(1.05);
   margin-bottom: 20px;
 }
