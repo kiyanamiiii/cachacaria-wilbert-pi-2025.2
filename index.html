@@ -11,6 +11,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="/assets/css/style-index.css" />
+    <script src="/assets/js/index.js" defer></script>
   </head>
 
   <body>
@@ -158,7 +159,7 @@
       <div class="carousel-inner">
         <div class="carousel-item active" data-bs-interval="5000">
           <img
-            src="/assets/img/banner-teste2.png"
+            src="https://placehold.co/1920x500"
             class="d-block w-100"
             alt="banner1"
           />
@@ -199,16 +200,47 @@
     </div>
     <!-- Produtos -->
     <section class="product-section">
-      <div class="product-title">Produtos em Destaque</div>
-      <div class="products">
+      <div class="product-container">
         <div class="product">
-          <img src="https://placehold.co/500x500" alt="" />
-          <div class="product-info">
-            <div class="">dawd</div>
-            <div>dawd</div>
+          <div class="card product-card">
+            <div class="product-image-div">
+              <a href="/produto.html">
+                <img
+                  src="https://placehold.co/300x300"
+                  alt=""
+                  class="card-img-top product-image"
+                />
+              </a>
+            </div>
+            <div class="card-body product-body">
+              <h5 class="card-title product-title">[Produto 1]</h5>
+              <p class="card-text product-text">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
+                enim possimus vel, ea non delectus et cum quasi quas incidunt
+                fugit fuga doloribus vitae quod dolorum ducimus, ab eum cumque.
+              </p>
+              <div
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <button class="btn-primary product-button">
+                  <a href="/produto.html" style="color: white">Ver Produto</a>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      <button
+        id="add-product-btn"
+        class="btn btn-primary"
+        style="margin: 20px auto; display: block"
+      >
+        Adicionar Produto
+      </button>
     </section>
 
     <!-- FOOTER -->

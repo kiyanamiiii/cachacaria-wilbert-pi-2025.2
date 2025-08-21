@@ -121,80 +121,65 @@ nav a {
 
 /* Sections */
 .product-section {
-  padding: 60px;
+  padding: 20px;
+  /* 
+  margin: 60px 120px;
+  */
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-section h2 {
-  font-size: 2rem;
-  margin-bottom: 30px;
-  border-bottom: 2px solid #c2a675;
-  display: inline-block;
-}
-
-/* Classes das sections */
-.section {
-  padding: 60px;
-}
-
-.product-title {
-  font-size: 2rem;
-  margin-bottom: 30px;
-  border-bottom: 2px solid #c2a675;
-  display: inline-block;
-}
-
-.descricao {
-  font-size: 1.1rem;
-  max-width: 900px;
-  line-height: 1.6;
-  font-style: italic;
-  color: #7d6a4f;
-}
-
-.product {
+/* Produtos */
+.product-container {
   display: flex;
-  gap: 40px;
-  margin-top: 40px;
-  flex: 1;
-  background-color: #fff;
-  border: 1px solid #d1bfa3;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-  user-select: none;
-}
-
-.product .info {
-  font-style: italic;
-  color: #7d6a4f;
-  margin-bottom: 10px;
-}
-
-.product .product-info {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #4e2e1b;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 4px;
-  font-weight: bold;
-}
-
-.imagem-placeholder {
-  width: 100%;
-  height: 220px;
-  background-color: #bbb;
-  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
   justify-content: center;
-  align-items: center;
-  color: #666;
-  font-size: 1.2rem;
+}
+.product {
+}
+
+.product,
+.product-body {
+  width: 300px;
+  transition: ease-in-out 200ms;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.product:hover {
+  transform: scale(1.05);
+  margin-bottom: 20px;
+}
+
+.product-image-div img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.product-button {
+  width: 140px;
+  margin-top: 15px;
+  background-color: #c2a675;
+  border: none;
+  border-radius: 10px;
+  height: 33px;
+}
+
+.product-button:hover {
+  background-color: #a67c52;
+  color: white;
+}
+
+.product-button:active {
+  background-color: #8c5e3c;
+  color: white;
 }
 
 /* Footer */
 footer {
-  background-color: #4e2e1b;
+  background-color: gray;
   color: #fff;
   padding: 20px;
 }
