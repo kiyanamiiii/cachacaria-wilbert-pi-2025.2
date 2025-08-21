@@ -14,7 +14,7 @@
   </head>
 
   <body>
-    <!-- Header -->
+    <!-- HEADER -->
     <header>
       <div style="display: flex; justify-content: center; align-items: center">
         <img
@@ -25,7 +25,7 @@
         <h1>Cachaçaria Wilbert</h1>
       </div>
 
-      <!-- Botão para abrir a sidebar -->
+      <!-- Botão sidebar -->
       <div class="container-button-header">
         <button
           class="menu-button"
@@ -39,7 +39,6 @@
             width="16"
             height="16"
             fill="currentColor"
-            class=""
             viewBox="0 0 16 16"
             style="width: 2em; height: 2em; color: black"
           >
@@ -50,7 +49,6 @@
           </svg>
         </button>
       </div>
-      <!---->
 
       <!-- Sidebar -->
       <div
@@ -73,14 +71,13 @@
               align-items: center;
             "
           >
-            <div class="container">
+            <div class="container-sidebar">
               <a href="/index.html">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
                   height="16"
                   fill="currentColor"
-                  class=""
                   viewBox="0 0 16 16"
                   style="width: 1.5em; height: 1.5em; color: black"
                 >
@@ -94,18 +91,19 @@
                 Home
               </a>
             </div>
-            <div class="container">
-              <a href="produtos.html"
-                ><img
+            <div class="container-sidebar">
+              <a href="produtos.html">
+                <img
                   src="/assets/icons/bottle.png"
                   alt=""
                   style="width: 1.5em; height: 1.5em"
-                />Produtos</a
-              >
+                />
+                Produtos
+              </a>
             </div>
-            <div class="container">
-              <a href="/sobre.html"
-                ><svg
+            <div class="container-sidebar">
+              <a href="/sobre.html">
+                <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
                   height="16"
@@ -120,17 +118,16 @@
                     d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"
                   />
                 </svg>
-                Sobre</a
-              >
+                Sobre
+              </a>
             </div>
           </div>
         </div>
       </div>
-      <!---->
     </header>
-    <!---->
 
-    <!-- Carrosel de Slides, banner e afins-->
+    <!-- Seção produtos e afins -->
+    <!-- Carrossel -->
     <div
       id="carouselExampleInterval"
       class="carousel slide"
@@ -200,48 +197,21 @@
         <span class="visually-hidden">Next</span>
       </button>
     </div>
-    <!---->
-
-    <!-- Seção Bem-Vindos, footer e outrem 
-    <section class="section">
-      <h2>Bem-vindo à nossa cachaçaria</h2>
-      <p class="descricao">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec
-        vestibulum orci. Nullam non commodo libero. Proin vel tellus augue.
-      </p>
-    </section>
-    
-    <section class="section">
-      <h2>Produtos em Destaque</h2>
-      <div class="produtos">
-        <div class="produto">
-          <div class="imagem-placeholder">Imagem Produto 1</div>
-          <div class="info">
-            <h3>Cachaça Ouro Envelhecida</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur.</p>
-            <a href="produto.html">Ver produto</a>
-          </div>
-        </div>
-        <div class="produto">
-          <div class="imagem-placeholder">Imagem Produto 2</div>
-          <div class="info">
-            <h3>Cachaça Prata Premium</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur.</p>
-            <a href="produto.html">Ver produto</a>
-          </div>
-        </div>
-        <div class="produto">
-          <div class="imagem-placeholder">Imagem Produto 3</div>
-          <div class="info">
-            <h3>Kit Degustação 3 Rótulos</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur.</p>
-            <a href="produto.html">Ver produto</a>
+    <!-- Produtos -->
+    <section class="product-section">
+      <div class="product-title">Produtos em Destaque</div>
+      <div class="products">
+        <div class="product">
+          <img src="https://placehold.co/500x500" alt="" />
+          <div class="product-info">
+            <div class="">dawd</div>
+            <div>dawd</div>
           </div>
         </div>
       </div>
     </section>
-    
-    -->
+
+    <!-- FOOTER -->
     <footer>
       <div>
         <p>&copy; [Texto Placeholder]</p>
