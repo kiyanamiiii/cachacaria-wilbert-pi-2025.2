@@ -1,0 +1,25 @@
+/* Estilos para a página de login */
+
+p {
+  font-size: 30px;
+  padding-bottom: 30px;
+}
+
+.container-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  min-height: calc(100vh - 150px);
+}
+
+.card-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.card {
+}
