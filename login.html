@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/assets/css/footer.css" />
     <link rel="stylesheet" href="/assets/css/style-login.css" />
     <link rel="stylesheet" href="/assets/css/common.css" />
+    <script src="/assets/js/show-pass.js"></script>
   </head>
   <body>
     <header>
@@ -139,7 +140,7 @@
           <form>
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label"
-                >Email address</label
+                >Email</label
               >
               <input
                 type="email"
@@ -155,8 +156,12 @@
               <input
                 type="password"
                 class="form-control"
-                id="exampleInputPassword1"
+                id="password-input"
               />
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" onclick="showPassword()" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Show Password</label>
             </div>
           </form>
         </div>
