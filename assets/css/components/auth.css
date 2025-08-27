@@ -1,7 +1,8 @@
-/* auth.css - estilos para login/registro (escopado) */
+/* auth.css - (escopado) */
 
 .card {
   border-radius: 8px;
+  width: auto;
 }
 .card-body {
   padding: 1.25rem;
@@ -20,6 +21,7 @@ h2.h5 {
   width: 44px;
   gap: 6px;
 }
+
 .toggle-password i {
   font-size: 1.05rem;
 }
@@ -36,8 +38,19 @@ h2.h5 {
   color: #2d1e12;
 }
 
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .page-container {
   max-width: 920px;
+}
+
+.row {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 /* responsividade */

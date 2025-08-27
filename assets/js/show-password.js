@@ -29,30 +29,18 @@ document.addEventListener("click", function (e) {
   }
 });
 
-// simple form preventDefault + minimal feedback
 function handleForm(formId, feedbackId, successText) {
   const form = document.getElementById(formId);
   const fb = document.getElementById(feedbackId);
   if (!form) return;
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
-    // basic validation UI: use HTML5 validity
+
     if (!form.checkValidity()) {
       form.reportValidity();
       if (fb) fb.textContent = "Corrija os campos destacados.";
       return;
     }
     if (fb) fb.textContent = successText;
-    // você pode adicionar aqui ações simuladas (ex: limpar campos)
-    // setTimeout(() => form.reset(), 600);
   });
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  handleForm(
-    "login-form",
-    "login-feedback",
-    "Simulação: login bem-sucedido (não real)."
-  );
-  handleForm("register-form", "register-feedback", "Conta criada (simulação).");
-});
