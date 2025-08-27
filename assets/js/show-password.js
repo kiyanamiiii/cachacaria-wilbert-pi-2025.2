@@ -29,30 +29,127 @@ document.addEventListener("click", function (e) {
   }
 });
 
-// simple form preventDefault + minimal feedback
 function handleForm(formId, feedbackId, successText) {
   const form = document.getElementById(formId);
   const fb = document.getElementById(feedbackId);
   if (!form) return;
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
-    // basic validation UI: use HTML5 validity
     if (!form.checkValidity()) {
       form.reportValidity();
       if (fb) fb.textContent = "Corrija os campos destacados.";
       return;
     }
     if (fb) fb.textContent = successText;
-    // você pode adicionar aqui ações simuladas (ex: limpar campos)
-    // setTimeout(() => form.reset(), 600);
   });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  handleForm(
-    "login-form",
-    "login-feedback",
-    "Simulação: login bem-sucedido (não real)."
-  );
-  handleForm("register-form", "register-feedback", "Conta criada (simulação).");
+  const loginForm = document.getElementById("login-form");
+
+  if (!loginForm) return;
+
+  loginForm.addEventListener("submit", async function (ev) {
+    ev.preventDefault();
+
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+    const feedback = document.getElementById("login-feedback");
+
+    if (!email || !password) {
+      feedback.textContent = "Preencha todos os campos.";
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:8080/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+        credentials: "include", // pega o cookie HttpOnly
+      });
+
+      // Lê body (JSON)
+      const data = await response.json();
+
+      if (!response.ok) {
+        feedback.textContent = `Erro: ${data.message || "erro desconhecido"}`;
+        return;
+      }
+
+      // Token no body
+      if (data.token) {
+        localStorage.setItem("auth_token", data.token);
+        console.log("Token salvo no localStorage:", data.token);
+      }
+
+      // Token no header
+      const authHeader = response.headers.get("Authorization");
+      if (authHeader) {
+        console.log("Token do header:", authHeader);
+      }
+
+      feedback.textContent = "Login bem-sucedido!";
+    } catch (err) {
+      console.error("Erro ao conectar:", err);
+      feedback.textContent = "Erro ao se conectar com o servidor.";
+    }
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const registerForm = document.getElementById("register-form");
+
+  if (!registerForm) return;
+
+  registerForm.addEventListener("submit", async function (ev) {
+    ev.preventDefault();
+
+    const email = document.getElementById("regEmail").value;
+    const password = document.getElementById("regPassword").value;
+    const phone = document.getElementById("regPhone").value;
+
+    if (!email || !password || !phone) {
+      feedback.textContent = "Preencha todos os campos.";
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:8080/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password, phone }),
+        credentials: "include", // pega o cookie HttpOnly
+      });
+
+      // Lê body (JSON)
+      const data = await response.json();
+
+      if (!response.ok) {
+        feedback.textContent = `Erro: ${data.message || "erro desconhecido"}`;
+        return;
+      }
+
+      // Token no body
+      if (data.token) {
+        localStorage.setItem("auth_token", data.token);
+        console.log("Token salvo no localStorage:", data.token);
+      }
+
+      // Token no header
+      const authHeader = response.headers.get("Authorization");
+      if (authHeader) {
+        console.log("Token do header:", authHeader);
+      }
+
+      feedback.textContent = "Registro bem-sucedido!";
+    } catch (err) {
+      console.error("Erro ao conectar:", err);
+      feedback.textContent = "Erro ao se conectar com o servidor.";
+    }
+  });
 });

@@ -8,11 +8,11 @@
 /* Header */
 .site-header {
   width: 100%;
-  background: gray;
+  background: lightcoral;
   border-bottom: 0;
 }
 
-/* logo area (Bootstrap d-flex já aplicado no HTML) */
+/* logo area */
 .header-logo {
   gap: 12px;
 }
