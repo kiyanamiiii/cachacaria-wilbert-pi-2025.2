@@ -1,180 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Cachaçaria Wilbert</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Login - Cachaçaria Wilbert</title>
+
+    <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="/assets/css/header.css" />
-    <link rel="stylesheet" href="/assets/css/footer.css" />
-    <link rel="stylesheet" href="/assets/css/style-login.css" />
-    <link rel="stylesheet" href="/assets/css/common.css" />
-    <script src="/assets/js/show-pass.js"></script>
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+
+    <!-- Project CSS -->
+    <link rel="stylesheet" href="/assets/css/components/common.css" />
+    <link rel="stylesheet" href="/assets/css//components/header.css" />
+    <link rel="stylesheet" href="/assets/css//components/footer.css" />
+    <link rel="stylesheet" href="/assets/css//components/auth.css" />
   </head>
   <body>
-    <header>
-      <div style="display: flex; justify-content: center; align-items: center">
-        <img
-          src="https://placehold.co/70"
-          alt="logo-cachacaria"
-          class="logo-cachacaria"
-        />
-        <h1>Cachaçaria Wilbert</h1>
-      </div>
+    <div id="page-container">
+      <div id="content-wrap">
+    <!-- header -->
+    <div id="header-container"></div>
 
-      <!-- Botão sidebar -->
-      <div class="container-button-header">
-        <button
-          class="menu-button"
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasWithBothOptions"
-          aria-controls="offcanvasWithBothOptions"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            viewBox="0 0 16 16"
-            style="width: 2em; height: 2em; color: black"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
-            />
-          </svg>
-        </button>
-      </div>
+    <main class="page-container my-5">
+      <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-6 col-lg-4">
+          <div class="card shadow-sm">
+            <div class="card-body p-4">
+              <h2 class="h5 mb-3 text-center">Entrar</h2>
 
-      <!-- Sidebar -->
-      <div
-        class="offcanvas offcanvas-start"
-        data-bs-scroll="false"
-        tabindex="-1"
-        id="offcanvasWithBothOptions"
-        aria-labelledby="offcanvasWithBothOptionsLabel"
-      >
-        <div class="offcanvas-header">
-          <p class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Menu</p>
-        </div>
-        <div class="offcanvas-body">
-          <div
-            style="
-              display: flex;
-              flex-direction: column;
-              gap: 10px;
-              justify-content: center;
-              align-items: center;
-            "
-          >
-            <div class="container-sidebar">
-              <a href="/index.html">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  viewBox="0 0 16 16"
-                  style="width: 1.5em; height: 1.5em; color: black"
-                >
-                  <path
-                    d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"
+              <form id="login-form" novalidate>
+                <div class="mb-3">
+                  <label for="loginEmail" class="form-label">E-mail</label>
+                  <input
+                    id="loginEmail"
+                    name="email"
+                    type="email"
+                    class="form-control"
+                    placeholder="seu@exemplo.com"
+                    required
                   />
-                  <path
-                    d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"
-                  />
-                </svg>
-                Home
-              </a>
-            </div>
-            <div class="container-sidebar">
-              <a href="produtos.html">
-                <img
-                  src="/assets/icons/bottle.png"
-                  alt=""
-                  style="width: 1.5em; height: 1.5em"
-                />
-                Produtos
-              </a>
-            </div>
-            <div class="container-sidebar">
-              <a href="/sobre.html">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  viewBox="0 0 16 16"
-                  style="width: 1.5em; height: 1.5em; color: black"
-                >
-                  <path
-                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
-                  />
-                  <path
-                    d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"
-                  />
-                </svg>
-                Sobre
-              </a>
+                </div>
+
+                <div class="mb-3">
+                  <label for="loginPassword" class="form-label">Senha</label>
+                  <div class="input-group">
+                    <input
+                      id="loginPassword"
+                      name="password"
+                      type="password"
+                      class="form-control"
+                      placeholder="Sua senha"
+                      required
+                    />
+                    <button
+                      class="btn btn-outline-secondary toggle-password"
+                      type="button"
+                      data-target="#loginPassword"
+                      aria-label="Mostrar senha"
+                    >
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-primary">Entrar</button>
+                </div>
+
+                <p class="text-center mt-3 mb-0 small">
+                  Não tem conta? <a href="register.html">Crie uma</a>
+                </p>
+              </form>
+
+              <div id="login-feedback" class="mt-3" aria-live="polite"></div>
             </div>
           </div>
         </div>
       </div>
-    </header>
+    </main>
 
-    <!-- Form Login -->
-    <div class="container-card">
-      <div class="card">
-        <div class="card-body">
-          <div
-            style="display: flex; justify-content: center; align-items: center"
-          >
-            <p>Login</p>
-          </div>
-          <form>
-            <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label"
-                >Email</label
-              >
-              <input
-                type="email"
-                class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label"
-                >Password</label
-              >
-              <input
-                type="password"
-                class="form-control"
-                id="password-input"
-              />
-            </div>
-            <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input" onclick="showPassword()" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">Show Password</label>
-            </div>
-            <div>
-              <button type="submit" class="btn btn-primary">Login</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
 
-    <!-- Footer -->
-    </div>
-      <footer id="footer">direto autoral do bilusito &cross;</footer>
-    </div>
+    <!-- footer -->
+    <div id="footer-container"></div>
+
+    <!-- load components -->
+    <script src="/assets/js/load-component.js"></script>
+
+    <!-- show password + form handling -->
+    <script src="/assets/js/show-password.js"></script>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="/assets/css/header.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div
+        class="container d-flex align-items-center justify-content-between py-2"
+      >
+        <!-- Logo e Título -->
+        <div class="d-flex align-items-center header-logo">
+          <img
+            src="https://placehold.co/70"
+            alt="logo-cachacaria"
+            class="logo-cachacaria"
+          />
+          <h1 class="header-title mb-0">Cachaçaria Wilbert</h1>
+        </div>
+
+        <!-- Botão Sidebar -->
+        <div class="header-menu-button">
+          <button
+            class="menu-button"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBothOptions"
+            aria-controls="offcanvasWithBothOptions"
+            aria-label="Abrir menu"
+          >
+            <svg
+              class="icon-hamburger"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Sidebar Offcanvas -->
+      <div
+        class="offcanvas offcanvas-start"
+        data-bs-scroll="false"
+        tabindex="-1"
+        id="offcanvasWithBothOptions"
+        aria-labelledby="offcanvasWithBothOptionsLabel"
+      >
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">
+            Menu
+          </h5>
+          <button
+            type="button"
+            class="btn-close text-reset"
+            data-bs-dismiss="offcanvas"
+            aria-label="Fechar"
+          ></button>
+        </div>
+
+        <div class="offcanvas-body">
+          <div class="sidebar-list d-flex flex-column align-items-center">
+            <div class="container-sidebar">
+              <a
+                href="index.html"
+                class="sidebar-link d-flex align-items-center"
+              >
+                <svg
+                  class="icon-sm"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"
+                  />
+                  <path
+                    d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"
+                  />
+                </svg>
+                <span class="ms-2">Home</span>
+              </a>
+            </div>
+
+            <div class="container-sidebar">
+              <a
+                href="produtos.html"
+                class="sidebar-link d-flex align-items-center"
+              >
+                <svg
+                  class="bi bi-bag-fill icon-sm"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4z"
+                  />
+                </svg>
+                <span class="ms-2">Produtos</span>
+              </a>
+            </div>
+
+            <div class="container-sidebar">
+              <a
+                href="/register.html"
+                class="sidebar-link d-flex align-items-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-door-open-fill icon-sm"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15zM11 2h.5a.5.5 0 0 1 .5.5V15h-1zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1"
+                  />
+                </svg>
+                <span class="ms-2">Registrar</span>
+              </a>
+            </div>
+
+            <div class="container-sidebar">
+              <a
+                href="sobre.html"
+                class="sidebar-link d-flex align-items-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-file-earmark-person-fill icon-sm"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0m2 5.755V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-.245S4 12 8 12s5 1.755 5 1.755"
+                  />
+                </svg>
+                <span class="ms-2">Sobre</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  </body>
+</html>
