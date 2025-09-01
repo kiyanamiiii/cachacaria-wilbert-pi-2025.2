@@ -104,16 +104,15 @@
     <!-- footer (carregado via js) -->
     <div id="footer-container"></div>
 
-    <!-- load components (header/footer) -->
+    <!-- existing: header/footer loader (if any) -->
     <script src="/assets/js/load-component.js"></script>
 
-    <!-- show password + form handling -->
-    <script src="/assets/js/show-password.js"></script>
+    <!-- Bootstrap bundle (REQUIRED before modalHelper uses it) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-      crossorigin="anonymous"
-    ></script>
+    <!-- our small scripts -->
+    <script src="/assets/js/modal.js"></script>
+    <script src="/assets/js/show-password.js"></script>
+    <script src="/assets/js/auth-handlers.js"></script>
   </body>
 </html>
