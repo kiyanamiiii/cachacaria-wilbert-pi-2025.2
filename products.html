@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous" />
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+
+    <!-- Css -->
+    <link rel="stylesheet" href="/assets/css//components/footer.css" />
+    <link rel="stylesheet" href="/assets/css//components/header.css" />
+    <link rel="stylesheet" href="/assets/css//components/common.css" />
+
+    <style>
+        .thumb-img {
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border 0.3s;
+        }
+
+        .thumb-img:hover {
+            border: 2px solid #198754;
+        }
+
+        .product-img {
+            max-height: 450px;
+            object-fit: contain;
+        }
+
+        .botao-compra {
+            background-color: gray;
+        }
+
+        .l {
+            background-color: gray;
+        }
+
+        .footer-container {
+            position: fixed;
+            bottom: 50vh;
+        }
+    </style>
+
+
+</head>
+
+<body class="bg-white">
+    <div id="header-container"></div>
+    <div class="container py-5">
+        <div class="row g-4">
+            <!-- Coluna de miniaturas -->
+            <div class="col-2 d-flex flex-column gap-3">
+                <img src="https://images.unsplash.com/photo-1602526216438-0e2f4b24e7f2?w=400"
+                    class="img-fluid rounded thumb-img" alt="Thumb 1">
+                <img src="https://images.unsplash.com/photo-1600180758895-4ff62c06c9a1?w=400"
+                    class="img-fluid rounded thumb-img" alt="Thumb 2">
+                <img src="https://images.unsplash.com/photo-1613478797829-4a9f6f85db18?w=400"
+                    class="img-fluid rounded thumb-img" alt="Thumb 3">
+                <img src="https://images.unsplash.com/photo-1606813902911-9b41a9db3b17?w=400"
+                    class="img-fluid rounded thumb-img" alt="Thumb 4">
+            </div>
+
+
+            <!-- Coluna imagem principal -->
+            <div class="col-6">
+                <img src="assets/img/CAPUEIRA-Freijo.png" class="img-fluid rounded product-img w-100 border"
+                    alt="Imagem principal">
+            </div>
+
+
+            <!-- Coluna detalhes do produto -->
+            <div class="col-4">
+                <h3 class="fw-bold">Cachaça Safadeza</h3>
+                <p class="text-muted">Disponibilidade: <span class="text-success">Imediata</span></p>
+
+
+                <div class="mb-2">
+                    <span class="badge bg-warning text-dark">Destaque</span>
+                    <p class="badge bg-success l">Lançamento</span>
+                </div>
+
+
+                <div class="mb-2 text-warning fs-5">★★★★★ <small class="text-muted">2 opiniões</small></div>
+
+
+                <div class="mb-3">
+                    <span class="text-muted text-decoration-line-through">R$ 300,00</span>
+                    <span class="fs-3 fw-bold text-success"> R$ 0,50</span>
+                    <p class="text-muted mb-0">ou R$ 0,30 no Pix</p>
+                </div>
+
+
+                <div class="d-flex align-items-center mb-3">
+                    <label for="qty" class="me-2 fw-semibold">Quantidade:</label>
+                    <div class="input-group" style="width: 140px;">
+                        <button class="btn btn-outline-secondary" type="button">-</button>
+                        <input type="text" id="qty" class="form-control text-center" value="1">
+                        <button class="btn btn-outline-secondary" type="button">+</button>
+                    </div>
+                </div>
+
+
+                <div class="d-grid gap-2 mb-3">
+                    <button class="btn btn-success btn-lg botao-compra">
+                        <i class="bi bi-cart"></i> Adicione ao carrinho
+                    </button>
+                </div>
+
+
+                <div class="border-top pt-3">
+                    <label for="cep" class="fw-semibold mb-2">Calcular frete:</label>
+                    <div class="input-group" style="max-width: 280px;">
+                        <input type="text" id="cep" class="form-control" placeholder="00000-000">
+                        <button class="btn btn-dark" type="button">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer-container"></div>
+    </div>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+
+
+    <script src="/assets/js/load-component.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>
