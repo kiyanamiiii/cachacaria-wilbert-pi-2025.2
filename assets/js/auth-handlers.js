@@ -48,7 +48,6 @@ function handleForm(formId, feedbackId, successText) {
 // LOGIN
 document.addEventListener("DOMContentLoaded", function () {
   const loginForm = document.getElementById("login-form");
-
   if (!loginForm) return;
 
   loginForm.addEventListener("submit", async function (ev) {
@@ -60,58 +59,51 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!email || !password) {
       feedback.textContent = "Preencha todos os campos.";
+      feedback.style.color = "red";
       return;
     }
 
     try {
       const response = await fetch("http://localhost:8080/auth/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
-        credentials: "include", // pega o cookie HttpOnly
       });
 
       const data = await response.json();
 
       if (!response.ok) {
         feedback.textContent = `Erro: ${data.message || "erro desconhecido"}`;
+        feedback.style.color = "red";
         return;
       }
 
       // Token no body
       if (data.token) {
+        document.cookie = `auth_token=${data.token}; path=/; secure; samesite=strict`;
         localStorage.setItem("auth_token", data.token);
         console.log("Token salvo no localStorage:", data.token);
       }
 
-      // Token no header
-      const authHeader = response.headers.get("Authorization");
-      if (authHeader) {
-        console.log("Token do header:", authHeader);
-      }
-
       feedback.textContent = "Login bem-sucedido!";
+      feedback.style.color = "green";
 
-      
-        var modal = window.modalHelper.create(
-          "auth-modal",
-          "Login successful",
-          "Redirecting to login"
-        );
-        modal.show();
+      var modal = window.modalHelper.create(
+        "auth-modal",
+        "Login successful",
+        "Redirecting to login"
+      );
+      modal.show();
 
-        setTimeout(function () {
-          try {
-            modal.hide();
-          } catch (e) {}
-          window.location.href = "index.html";
-        }, 900);
+      setTimeout(function () {
+        try { modal.hide(); } catch (e) { }
+        window.location.href = "index.html";
+      }, 900);
 
     } catch (err) {
       console.error("Erro ao conectar:", err);
       feedback.textContent = "Erro ao se conectar com o servidor.";
+      feedback.style.color = "red";
     }
   });
 });
@@ -119,7 +111,6 @@ document.addEventListener("DOMContentLoaded", function () {
 // REGISTRO
 document.addEventListener("DOMContentLoaded", function () {
   const registerForm = document.getElementById("register-form");
-
   if (!registerForm) return;
 
   registerForm.addEventListener("submit", async function (ev) {
@@ -132,55 +123,50 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!email || !password || !phone) {
       feedback.textContent = "Preencha todos os campos.";
+      feedback.style.color = "red";
       return;
     }
 
     try {
       const response = await fetch("http://localhost:8080/auth/register", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, phone }),
-        credentials: "include", // pega o cookie HttpOnly
       });
 
       const data = await response.json();
 
       if (!response.ok) {
         feedback.textContent = `Erro: ${data.message || "erro desconhecido"}`;
+        feedback.style.color = "red";
         return;
       }
 
       if (data.token) {
+        document.cookie = `auth_token=${data.token}; path=/; secure; samesite=strict`;
         localStorage.setItem("auth_token", data.token);
         console.log("Token salvo no localStorage:", data.token);
       }
 
-      const authHeader = response.headers.get("Authorization");
-      if (authHeader) {
-        console.log("Token do header:", authHeader);
-      }
-
       feedback.textContent = "Registro bem-sucedido!";
+      feedback.style.color = "green";
 
-       var modal = window.modalHelper.create(
-          "auth-modal",
-          "Registration successful",
-          "account created. redirecting to home page"
-        );
-        modal.show();
+      var modal = window.modalHelper.create(
+        "auth-modal",
+        "Registration successful",
+        "account created. redirecting to home page"
+      );
+      modal.show();
 
-        setTimeout(function () {
-          try {
-            modal.hide();
-          } catch (e) {}
-          window.location.href = "index.html";
-        }, 900);
+      setTimeout(function () {
+        try { modal.hide(); } catch (e) { }
+        window.location.href = "index.html";
+      }, 900);
 
     } catch (err) {
       console.error("Erro ao conectar:", err);
       feedback.textContent = "Erro ao se conectar com o servidor.";
+      feedback.style.color = "red";
     }
   });
 });
