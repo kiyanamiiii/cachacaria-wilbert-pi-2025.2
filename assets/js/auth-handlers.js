@@ -45,6 +45,8 @@ function handleForm(formId, feedbackId, successText) {
   });
 }
 
+const popupModalDelay = 1500 // ms
+
 // LOGIN
 document.addEventListener("DOMContentLoaded", function () {
   const loginForm = document.getElementById("login-form");
@@ -98,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
       setTimeout(function () {
         try { modal.hide(); } catch (e) { }
         window.location.href = "index.html";
-      }, 900);
+      }, popupModalDelay);
 
     } catch (err) {
       console.error("Erro ao conectar:", err);
@@ -161,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
       setTimeout(function () {
         try { modal.hide(); } catch (e) { }
         window.location.href = "index.html";
-      }, 900);
+      }, popupModalDelay);
 
     } catch (err) {
       console.error("Erro ao conectar:", err);
