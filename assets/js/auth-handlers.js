@@ -90,17 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
       feedback.textContent = "Login bem-sucedido!";
       feedback.style.color = "green";
 
-      var modal = window.modalHelper.create(
-        "auth-modal",
-        "Login successful",
-        "Redirecting to login"
-      );
-      modal.show();
-
-      setTimeout(function () {
-        try { modal.hide(); } catch (e) { }
-        window.location.href = "index.html";
-      }, popupModalDelay);
+      redirectToHomePage("Login bem-sucedido!", "Redirecionando para a página home");
 
     } catch (err) {
       console.error("Erro ao conectar:", err);
@@ -152,18 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       feedback.textContent = "Registro bem-sucedido!";
       feedback.style.color = "green";
-
-      var modal = window.modalHelper.create(
-        "auth-modal",
-        "Registration successful",
-        "account created. redirecting to home page"
-      );
-      modal.show();
-
-      setTimeout(function () {
-        try { modal.hide(); } catch (e) { }
-        window.location.href = "index.html";
-      }, popupModalDelay);
+      redirectToHomePage("Registro bem-sucedido!", "Redirecionando para a página home")
 
     } catch (err) {
       console.error("Erro ao conectar:", err);
@@ -172,3 +151,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+function redirectToHomePage(title, message) {
+  var modal = window.modalHelper.create(
+    "auth-modal",
+    title,
+    message
+  );
+  modal.show();
+
+  setTimeout(function () {
+    try { modal.hide(); } catch (e) { }
+    window.location.href = "index.html";
+  }, popupModalDelay);
+}
