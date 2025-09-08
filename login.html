@@ -9,7 +9,6 @@
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
       crossorigin="anonymous"
     />
 
@@ -20,85 +19,92 @@
     />
 
     <!-- Project CSS -->
-    <link rel="stylesheet" href="/assets/css/components/common.css" />
-    <link rel="stylesheet" href="/assets/css//components/header.css" />
+    <link rel="stylesheet" href="assets/css/pages/login.css" />
     <link rel="stylesheet" href="/assets/css//components/footer.css" />
-    <link rel="stylesheet" href="/assets/css//components/auth.css" />
+    <link rel="stylesheet" href="assets/css/components/header.css" />
+    <link rel="stylesheet" href="/assets/css//components/common.css" />
+    <link rel="stylesheet" href="/assets/css/components/auth.css" />
   </head>
   <body>
     <div id="page-container">
       <div id="content-wrap">
-    <!-- header -->
-    <div id="header-container"></div>
+        <!-- Header -->
+        <div id="header-container"></div>
 
-    <main class="page-container my-5">
-      <div class="row justify-content-md-center">
-        <div class="col-12 col-sm-10 col-md-6 col-lg-6">
-          <div class="card shadow-sm">
-            <div class="card-body p-4">
-              <h2 class="h5 mb-3 text-center">Entrar</h2>
+        <main class="page-container my-5">
+          <div class="row justify-content-md-center">
+            <div class="col-12 col-sm-10 col-md-6 col-lg-6">
+              <div class="card shadow-sm">
+                <div class="card-body p-4">
+                  <h2 class="h5 mb-3 text-center">Entrar</h2>
 
-              <form id="login-form">
-                <div class="mb-3">
-                  <label for="loginEmail" class="form-label">E-mail</label>
-                  <input
-                    id="loginEmail"
-                    name="email"
-                    type="email"
-                    class="form-control"
-                    placeholder="seu@exemplo.com"
-                  />
+                  <form id="login-form">
+                    <div class="mb-3">
+                      <label for="loginEmail" class="form-label">E-mail</label>
+                      <input
+                        id="loginEmail"
+                        name="email"
+                        type="email"
+                        class="form-control"
+                        placeholder="seu@exemplo.com"
+                      />
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="loginPassword" class="form-label"
+                        >Senha</label
+                      >
+                      <div class="input-group">
+                        <input
+                          id="loginPassword"
+                          name="password"
+                          type="password"
+                          class="form-control"
+                          placeholder="Sua senha"
+                        />
+                        <button
+                          class="btn btn-outline-secondary toggle-password"
+                          type="button"
+                          data-target="#loginPassword"
+                          aria-label="Mostrar senha"
+                        >
+                          <i class="bi bi-eye"></i>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- ✅ Feedback de login -->
+                    <div
+                      id="login-feedback"
+                      class="form-text text-danger mb-3"
+                    ></div>
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">
+                        Entrar
+                      </button>
+                    </div>
+
+                    <p class="text-center mt-3 mb-0 small">
+                      Não tem conta? <a href="register.html">Crie uma</a>
+                    </p>
+                  </form>
                 </div>
-
-                <div class="mb-3">
-                  <label for="loginPassword" class="form-label">Senha</label>
-                  <div class="input-group">
-                    <input
-                      id="loginPassword"
-                      name="password"
-                      type="password"
-                      class="form-control"
-                      placeholder="Sua senha"
-                    />
-                    <button
-                      class="btn btn-outline-secondary toggle-password"
-                      type="button"
-                      data-target="#loginPassword"
-                      aria-label="Mostrar senha"
-                    >
-                      <i class="bi bi-eye"></i>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="d-grid gap-2">
-                  <button type="submit" class="btn btn-primary">Entrar</button>
-                </div>
-
-                <p class="text-center mt-3 mb-0 small">
-                  Não tem conta? <a href="register.html">Crie uma</a>
-                </p>
-              </form>
+              </div>
             </div>
           </div>
-        </div>
+        </main>
+
+        <!-- Footer -->
+        <div id="footer-container"></div>
+
+        <!-- Scripts -->
+        <script src="/assets/js/load-component.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="/assets/js/modal.js"></script>
+        <script src="/assets/js/show-password.js"></script>
+        <script src="/assets/js/auth-handlers.js"></script>
       </div>
-    </main>
-
-
-    <!-- footer -->
-    <div id="footer-container"></div>
-
-    <!-- existing: header/footer loader (if any) -->
-    <script src="/assets/js/load-component.js"></script>
-
-    <!-- Bootstrap bundle (REQUIRED before modalHelper uses it) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- our small scripts -->
-    <script src="/assets/js/modal.js"></script>
-    <script src="/assets/js/show-password.js"></script>
-    <script src="/assets/js/auth-handlers.js"></script>
-
+    </div>
   </body>
 </html>

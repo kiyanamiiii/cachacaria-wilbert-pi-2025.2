@@ -9,7 +9,6 @@
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
       crossorigin="anonymous"
     />
 
@@ -20,13 +19,14 @@
     />
 
     <!-- Project CSS -->
-    <link rel="stylesheet" href="/assets/css/components/common.css" />
-    <link rel="stylesheet" href="/assets/css//components/header.css" />
+    <link rel="stylesheet" href="assets/css/pages/register.css" />
     <link rel="stylesheet" href="/assets/css//components/footer.css" />
-    <link rel="stylesheet" href="/assets/css//components/auth.css" />
+    <link rel="stylesheet" href="assets/css/components/header.css" />
+    <link rel="stylesheet" href="/assets/css//components/common.css" />
+    <link rel="stylesheet" href="/assets/css/components/auth.css" />
   </head>
   <body>
-    <!-- header (carregado via load-components.js) -->
+    <!-- Header -->
     <div id="header-container"></div>
 
     <main class="page-container my-5">
@@ -37,7 +37,7 @@
               <h2 class="h5 mb-3 text-center">Criar conta</h2>
 
               <form id="register-form">
-                <!-- email -->
+                <!-- E-mail -->
                 <div class="mb-3">
                   <label for="regEmail" class="form-label">E-mail</label>
                   <input
@@ -49,7 +49,7 @@
                   />
                 </div>
 
-                <!-- senha com show/hide -->
+                <!-- Senha -->
                 <div class="mb-3">
                   <label for="regPassword" class="form-label">Senha</label>
                   <div class="input-group">
@@ -72,7 +72,7 @@
                   </div>
                 </div>
 
-                <!-- telefone -->
+                <!-- Telefone -->
                 <div class="mb-3">
                   <label for="regPhone" class="form-label">Telefone</label>
                   <input
@@ -85,7 +85,14 @@
                   />
                 </div>
 
-                <div class="d-grid gap-2">
+                <!-- ✅ Feedback de registro -->
+                <div
+                  id="register-feedback"
+                  class="form-text text-danger mb-3"
+                ></div>
+
+                <!-- Botão -->
+                <div class="text-center">
                   <button type="submit" class="btn btn-primary">
                     Registrar
                   </button>
@@ -101,16 +108,12 @@
       </div>
     </main>
 
-    <!-- footer (carregado via js) -->
+    <!-- Footer -->
     <div id="footer-container"></div>
 
-    <!-- existing: header/footer loader (if any) -->
+    <!-- Scripts -->
     <script src="/assets/js/load-component.js"></script>
-
-    <!-- Bootstrap bundle (REQUIRED before modalHelper uses it) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- our small scripts -->
     <script src="/assets/js/modal.js"></script>
     <script src="/assets/js/show-password.js"></script>
     <script src="/assets/js/auth-handlers.js"></script>

@@ -7,6 +7,10 @@
     "editor.defaultFormatter": "vscode.html-language-features"
   },
   "editor.formatOnPaste": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  }
+  "editor.formatOnPaste": true,
   "[css]": {
     "editor.defaultFormatter": "vscode.css-language-features"
   }

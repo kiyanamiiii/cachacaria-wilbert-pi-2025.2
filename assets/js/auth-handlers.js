@@ -1,78 +1,167 @@
-// js/auth-handlers.js
-(function (document, window) {
-  "use strict";
+// Toggle de senha (mostrar/ocultar)
+document.addEventListener("click", function (e) {
+  const btn = e.target.closest(".toggle-password");
+  if (!btn) return;
 
-  // auth handlers
-  function textOf(el) {
-    return el ? String(el.value || "").trim() : "";
+  const targetSelector = btn.dataset.target;
+  const input = document.querySelector(
+    targetSelector || btn.getAttribute("data-target")
+  );
+  if (!input) return;
+
+  const icon = btn.querySelector("i");
+  if (input.type === "password") {
+    input.type = "text";
+    if (icon) {
+      icon.classList.remove("bi-eye");
+      icon.classList.add("bi-eye-slash");
+    }
+    btn.setAttribute("aria-pressed", "true");
+    btn.setAttribute("aria-label", "Ocultar senha");
+  } else {
+    input.type = "password";
+    if (icon) {
+      icon.classList.remove("bi-eye-slash");
+      icon.classList.add("bi-eye");
+    }
+    btn.setAttribute("aria-pressed", "false");
+    btn.setAttribute("aria-label", "Mostrar senha");
   }
-  function setFeedback(el, msg) {
-    if (!el) return;
-    el.textContent = msg;
-  }
+});
 
-  document.addEventListener("DOMContentLoaded", function () {
-    // login
-    var loginForm = document.getElementById("login-form");
-    var loginFeedback = document.getElementById("login-feedback");
-    if (loginForm) {
-      loginForm.addEventListener("submit", function (ev) {
-        ev.preventDefault();
-        setFeedback(loginFeedback, "");
+// Função utilitária para lidar com formulários simples
+function handleForm(formId, feedbackId, successText) {
+  const form = document.getElementById(formId);
+  const fb = document.getElementById(feedbackId);
+  if (!form) return;
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      if (fb) fb.textContent = "Corrija os campos destacados.";
+      return;
+    }
+    if (fb) fb.textContent = successText;
+  });
+}
 
-        var email = textOf(document.getElementById("loginEmail"));
-        var password = textOf(document.getElementById("loginPassword"));
-        if (!email || !password) {
-          setFeedback(loginFeedback, "preencha todos os campos.");
-          return;
-        }
+const popupModalDelay = 1500 // ms
 
-        var modal = window.modalHelper.create(
-          "auth-modal",
-          "Login successful",
-          "you will be redirected to the home page."
-        );
-        modal.show();
+// LOGIN
+document.addEventListener("DOMContentLoaded", function () {
+  const loginForm = document.getElementById("login-form");
+  if (!loginForm) return;
 
-        setTimeout(function () {
-          try {
-            modal.hide();
-          } catch (e) {}
-          window.location.href = "index.html";
-        }, 900);
-      });
+  loginForm.addEventListener("submit", async function (ev) {
+    ev.preventDefault();
+
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+    const feedback = document.getElementById("login-feedback");
+
+    if (!email || !password) {
+      feedback.textContent = "Preencha todos os campos.";
+      feedback.style.color = "red";
+      return;
     }
 
-    // register
-    var registerForm = document.getElementById("register-form");
-    var registerFeedback = document.getElementById("register-feedback");
-    if (registerForm) {
-      registerForm.addEventListener("submit", function (ev) {
-        ev.preventDefault();
-        setFeedback(registerFeedback, "");
-
-        var email = textOf(document.getElementById("regEmail"));
-        var password = textOf(document.getElementById("regPassword"));
-        var phone = textOf(document.getElementById("regPhone"));
-        if (!email || !password || !phone) {
-          setFeedback(registerFeedback, "preencha todos os campos.");
-          return;
-        }
-
-        var modal = window.modalHelper.create(
-          "auth-modal",
-          "registration successful",
-          "account created. redirecting to login."
-        );
-        modal.show();
-
-        setTimeout(function () {
-          try {
-            modal.hide();
-          } catch (e) {}
-          window.location.href = "login.html";
-        }, 900);
+    try {
+      const response = await fetch("http://localhost:8080/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
       });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        feedback.textContent = `Erro: ${data.message || "erro desconhecido"}`;
+        feedback.style.color = "red";
+        return;
+      }
+
+      // Token no body
+      if (data.token) {
+        document.cookie = `auth_token=${data.token}; path=/; secure; samesite=strict`;
+        localStorage.setItem("auth_token", data.token);
+        console.log("Token salvo no localStorage:", data.token);
+      }
+
+      feedback.textContent = "Login bem-sucedido!";
+      feedback.style.color = "green";
+
+      redirectToHomePage("Login bem-sucedido!", "Redirecionando para a página home");
+
+    } catch (err) {
+      console.error("Erro ao conectar:", err);
+      feedback.textContent = "Erro ao se conectar com o servidor.";
+      feedback.style.color = "red";
     }
   });
-})(document, window);
+});
+
+// REGISTRO
+document.addEventListener("DOMContentLoaded", function () {
+  const registerForm = document.getElementById("register-form");
+  if (!registerForm) return;
+
+  registerForm.addEventListener("submit", async function (ev) {
+    ev.preventDefault();
+
+    const email = document.getElementById("regEmail").value;
+    const password = document.getElementById("regPassword").value;
+    const phone = document.getElementById("regPhone").value;
+    const feedback = document.getElementById("register-feedback");
+
+    if (!email || !password || !phone) {
+      feedback.textContent = "Preencha todos os campos.";
+      feedback.style.color = "red";
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:8080/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, phone }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        feedback.textContent = `Erro: ${data.message || "erro desconhecido"}`;
+        feedback.style.color = "red";
+        return;
+      }
+
+      if (data.token) {
+        document.cookie = `auth_token=${data.token}; path=/; secure; samesite=strict`;
+        localStorage.setItem("auth_token", data.token);
+        console.log("Token salvo no localStorage:", data.token);
+      }
+
+      feedback.textContent = "Registro bem-sucedido!";
+      feedback.style.color = "green";
+      redirectToHomePage("Registro bem-sucedido!", "Redirecionando para a página home")
+
+    } catch (err) {
+      console.error("Erro ao conectar:", err);
+      feedback.textContent = "Erro ao se conectar com o servidor.";
+      feedback.style.color = "red";
+    }
+  });
+});
+
+function redirectToHomePage(title, message) {
+  var modal = window.modalHelper.create(
+    "auth-modal",
+    title,
+    message
+  );
+  modal.show();
+
+  setTimeout(function () {
+    try { modal.hide(); } catch (e) { }
+    window.location.href = "index.html";
+  }, popupModalDelay);
+}

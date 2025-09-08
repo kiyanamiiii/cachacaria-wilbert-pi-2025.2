@@ -2,7 +2,7 @@
 
 /* Carrossel */
 .carousel-inner img {
-  object-fit: cover; /* cover normalmente melhor para banners */
+  object-fit: cover;
   width: 100%;
   height: 500px;
 }
@@ -72,20 +72,10 @@
   transition: background-color 0.15s ease-in-out, transform 0.08s;
   text-decoration: none;
 }
+
 .product-button:hover {
   background-color: var(--color-accent-dark);
 }
 .product-button:active {
   transform: translateY(1px);
-}
-
-/* Ajuste responsive rápido */
-@media (max-width: 768px) {
-  .product-card {
-    width: 100%;
-    max-width: 360px;
-  }
-  .carousel-inner img {
-    height: 280px;
-  }
 }
