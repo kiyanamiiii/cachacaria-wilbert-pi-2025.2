@@ -1,14 +1,22 @@
 /* header.css - estilos escopados para o header + offcanvas */
+* {
+}
+
+div.container-sidebar {
+  margin: 0;
+  max-width: 100vw;
+  background-color: gray;
+}
 
 :root {
-  --color-text: #2d1e12;
+  --color-text: white;
   --color-accent: #c2a675;
 }
 
 /* Header */
 .site-header {
   width: 100%;
-  background: gray;
+  background: #4e2e1b;
   border-bottom: 0;
 }
 
@@ -38,6 +46,16 @@
 }
 .header-menu-button .menu-button:hover {
   background: rgba(0, 0, 0, 0.04);
+}
+
+div.container {
+  margin: 0;
+  max-width: 100vw;
+  background-color: rgb(33, 37, 41);
+}
+
+div.mb-3 {
+  margin-bottom: 0 !important;
 }
 
 /* hamburger icon */
@@ -103,7 +121,8 @@
   margin-left: auto;
 }
 
-/* responsive tweaks (se precisar) */
-@media (min-width: 992px) {
-  /* customizações para desktop aqui */
+/*Navbar */
+
+.navbar-brand {
+  color: var(--color-text) !important;
 }
