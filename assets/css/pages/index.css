@@ -2,8 +2,8 @@
 
 /* Carrossel */
 .carousel-inner img {
-  object-fit: cover;
-  width: 100%;
+  object-fit: fill;
+  width: 1920px;
   height: 500px;
 }
 
