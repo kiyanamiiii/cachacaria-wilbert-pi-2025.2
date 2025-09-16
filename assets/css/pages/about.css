@@ -1,0 +1,17 @@
+/* Estilos específicos da página "Sobre" */
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+section {
+  background-color: #f8f9fa;
+  /* tom mais suave que o cinza original */
+}
+
+/* Ajuste extra para mobile */
+@media (max-width: 768px) {
+  section {
+    text-align: center;
+  }
+}
