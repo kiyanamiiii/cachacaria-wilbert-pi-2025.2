@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho</title>
+
+    <link rel="stylesheet" href="/assets/css/components/footer.css" />
+    <link rel="stylesheet" href="/assets/css/components/header.css" />
+    <link rel="stylesheet" href="/assets/css/components/common.css" />
+
+    <style>
+        /* Contêiner principal que usa flexbox */
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        /* Seção do carrinho com fundo claro e espaçamento */
+        section.carrinho {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #F6F6F6;
+            border: 1px solid #E0E0E0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Seção de produtos */
+        section.produtos {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            border: 1px solid #E0E0E0;
+            border-radius: 10px;
+            padding: 30px;
+        }
+
+        /* Botões de interação */
+        section.produtos button {
+            margin: 10px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: none;
+            background-color: #4e2e1b;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        section.produtos button:hover {
+            background-color: #3b2314;
+        }
+
+        /* Resumo e preço */
+        section.preco {
+            display: flex;
+            justify-content: space-between;
+            background-color: #F6F6F6;
+            border: 1px solid #E0E0E0;
+            border-radius: 10px;
+            padding: 20px;
+            align-items: center;
+        }
+
+        section.preco h2 {
+            margin: 0;
+        }
+
+        section.preco p {
+            margin: 0;
+        }
+
+        section.preco button {
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: none;
+            background-color: #047c04;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        section.preco button:hover {
+            background-color: #034b03;
+        }
+
+        /* Configurações gerais */
+        .container div {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* Para a seção de título */
+        section.carrinho h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        section.produtos p {
+            font-size: 18px;
+            color: #757575;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header-container"></div>
+    <div class="container">
+        <!-- Seção do carrinho -->
+        <section class="carrinho">
+            <h2>Carrinho</h2>
+            <p>Semana do Cliente - Termina 15 set, 10:45 (BRT)</p>
+        </section>
+
+        <!-- Seção de produtos -->
+        <section class="produtos">
+            <p>Carrinho vazio? Continue explorando</p>
+            <button>Acessar</button>
+            <button>Continue Explorando</button>
+        </section>
+
+        <!-- Resumo e preço -->
+        <section class="preco">
+            <div>
+                <h2>Resumo</h2>
+                <p>Estimativa total: R$ 0,00</p>
+            </div>
+            <button>Continuar (0)</button>
+        </section>
+    </div>
+    <div id="footer-container"></div>
+
+    <script src="/assets/js/load-component.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

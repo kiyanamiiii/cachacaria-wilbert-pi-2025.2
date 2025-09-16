@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Produto - Cachaça Safadeza</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous" />
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+
+    <!-- CSS externo (opcional) -->
+    <link rel="stylesheet" href="/assets/css/components/footer.css" />
+    <link rel="stylesheet" href="/assets/css/components/header.css" />
+    <link rel="stylesheet" href="/assets/css/components/common.css" />
+
+    <style>
+        .thumb-img {
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border 0.3s;
+        }
+
+        .thumb-img:hover {
+            border: 2px solid #198754;
+        }
+
+        .zoom-container {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-img {
+            max-height: 450px;
+            object-fit: contain;
+            transition: transform 0.4s ease;
+            cursor: zoom-in;
+        }
+
+        .product-img:hover {
+            transform: scale(1.2);
+            cursor: zoom-out;
+        }
+
+        .botao-compra {
+            background-color: gray !important;
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .botao-compra:hover {
+            background-color: #047c04 !important;
+        }
+
+        #cart-alert {
+            transition: opacity 0.5s ease;
+        }
+
+        .star-rating {
+            color: #ffc107;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+    <div id="header-container"></div>
+
+    <div class="container py-5">
+        <div class="row g-4">
+            <!-- Miniaturas -->
+            <div class="col-2 d-flex flex-column gap-3">
+                <img src="assets/img/CAPUEIRA-Freijo.png" class="img-fluid rounded thumb-img" alt="Thumb 1">
+                <img src="assets/img/CAPUEIRA-Freijo.png" class="img-fluid rounded thumb-img" alt="Thumb 2">
+                <img src="assets/img/OOOOO cachaça boa.png" class="img-fluid rounded thumb-img" alt="Thumb 3">
+                <img src="assets/img/CAPUEIRA-Freijo.png" class="img-fluid rounded thumb-img" alt="Thumb 4">
+            </div>
+
+            <!-- Imagem principal -->
+            <div class="col-6">
+                <div class="zoom-container">
+                    <img src="assets/img/CAPUEIRA-Freijo.png" class="img-fluid rounded product-img w-100 border"
+                        alt="Imagem principal">
+                </div>
+            </div>
+
+            <!-- Detalhes -->
+            <div class="col-4">
+                <h3 class="fw-bold">Cachaça Safadeza</h3>
+                <p class="text-muted">Disponibilidade: <span class="text-success">Imediata</span></p>
+
+                <div class="mb-2">
+                    <span class="badge bg-warning text-dark">Destaque</span>
+                    <span class="badge bg-success">Lançamento</span>
+                </div>
+
+                <div class="mb-3">
+                    <span class="text-muted text-decoration-line-through">R$ 300,00</span>
+                    <span class="fs-3 fw-bold text-success"> R$ 0,50</span>
+                    <p class="text-muted mb-0">ou R$ 0,30 no Pix</p>
+                </div>
+
+                <!-- Quantidade -->
+                <div class="d-flex align-items-center mb-3">
+                    <label for="qty" class="me-2 fw-semibold">Quantidade:</label>
+                    <div class="input-group" style="width: 140px;">
+                        <button class="btn btn-outline-secondary" type="button" id="decrease-qty">-</button>
+                        <input type="text" id="qty" class="form-control text-center" value="1" />
+                        <button class="btn btn-outline-secondary" type="button" id="increase-qty">+</button>
+                    </div>
+                </div>
+
+                <!-- Botão de compra -->
+                <div class="d-grid gap-2 mb-3">
+                    <button class="btn btn-success btn-lg botao-compra" id="add-to-cart-btn">
+                        <i class="bi bi-cart"></i> Adicione ao carrinho
+                    </button>
+                </div>
+
+                <!-- ALERTA de sucesso -->
+                <div id="cart-alert" class="alert alert-success alert-dismissible fade d-none" role="alert">
+                    Produto adicionado ao carrinho com sucesso!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                </div>
+
+                <!-- Frete -->
+                <div class="border-top pt-3">
+                    <label for="cep" class="fw-semibold mb-2">Calcular frete:</label>
+                    <div class="input-group" style="max-width: 280px;">
+                        <input type="text" id="cep" class="form-control" placeholder="00000-000">
+                        <button class="btn btn-dark" type="button">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Avaliações -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <h4 class="fw-bold mb-3">Principais avaliações do Brasil</h4>
+
+                <!-- Avaliação 1 -->
+                <div class="d-flex mb-3">
+                    <div class="me-3">
+                        <img src="https://www.gravatar.com/avatar/1234567890abcdef" class="rounded-circle" alt="User 1"
+                            width="50" height="50">
+                    </div>
+                    <div>
+                        <div class="d-flex align-items-center">
+                            <div class="star-rating">
+                                ★★★★★
+                            </div>
+                            <span class="ms-2 text-muted">Marcelo</span>
+                        </div>
+                        <p class="text-muted small">Avaliado no Brasil em 2 de setembro de 2025 | Cachaça Safadeza
+                            | <span class="text-success">Compra verificada</span></p>
+                        <p class="mt-2">Tomar uma de manhã ooo trem bão</p>
+                        <div>
+                            <button class="btn btn-link text-muted btn-sm">Útil</button> | <button
+                                class="btn btn-link text-muted btn-sm">Denunciar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avaliação 2 -->
+                <div class="d-flex mb-3">
+                    <div class="me-3">
+                        <img src="https://www.gravatar.com/avatar/0987654321fedcba" class="rounded-circle" alt="User 2"
+                            width="50" height="50">
+                    </div>
+                    <div>
+                        <div class="d-flex align-items-center">
+                            <div class="star-rating">
+                                ★★★★★
+                            </div>
+                            <span class="ms-2 text-muted">Ricardo</span>
+                        </div>
+                        <p class="text-muted small">Avaliado no Brasil em 26 de agosto de 2025 | Cachaça Safadeza
+                            | <span class="text-success">Compra verificada</span></p>
+                        <p class="mt-2"> Eu e os guri aproveitamos</p>
+                        <div>
+                            <button class="btn btn-link text-muted btn-sm">Útil</button> | <button
+                                class="btn btn-link text-muted btn-sm">Denunciar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+
+    <!-- Componente loader -->
+    <script src="/assets/js/load-component.js" defer></script>
+
+    <!-- JS personalizado -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Trocar imagem principal ao clicar em miniaturas
+            const thumbnails = document.querySelectorAll('.thumb-img');
+            const mainImage = document.querySelector('.product-img');
+
+            thumbnails.forEach(thumb => {
+                thumb.addEventListener('click', () => {
+                    mainImage.src = thumb.src;
+                });
+            });
+
+            // Controle de quantidade
+            const qtyInput = document.getElementById('qty');
+            const increaseBtn = document.getElementById('increase-qty');
+            const decreaseBtn = document.getElementById('decrease-qty');
+
+            increaseBtn.addEventListener('click', () => {
+                let currentQty = parseInt(qtyInput.value) || 1;
+                qtyInput.value = currentQty + 1;
+            });
+
+            decreaseBtn.addEventListener('click', () => {
+                let currentQty = parseInt(qtyInput.value) || 1;
+                if (currentQty > 1) {
+                    qtyInput.value = currentQty - 1;
+                }
+            });
+
+            qtyInput.addEventListener('input', () => {
+                qtyInput.value = qtyInput.value.replace(/[^0-9]/g, '');
+                if (qtyInput.value === '' || parseInt(qtyInput.value) < 1) {
+                    qtyInput.value = 1;
+                }
+            });
+
+            // Alerta ao adicionar ao carrinho
+            const addToCartBtn = document.getElementById('add-to-cart-btn');
+            const cartAlert = document.getElementById('cart-alert');
+
+            addToCartBtn.addEventListener('click', () => {
+                cartAlert.classList.remove('d-none', 'fade');
+                cartAlert.classList.add('show');
+
+                // Esconde após 3 segundos
+                setTimeout(() => {
+                    cartAlert.classList.remove('show');
+                    cartAlert.classList.add('fade');
+                    setTimeout(() => {
+                        cartAlert.classList.add('d-none');
+                    }, 300); // tempo da transição Bootstrap
+                }, 3000);
+            });
+        });
+    </script>
+</body>
+
+</html>
