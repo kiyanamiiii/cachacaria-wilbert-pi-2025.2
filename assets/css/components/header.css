@@ -27,8 +27,18 @@
 }
 
 .navbar-nav .nav-link {
-  color: var(--color-text) !important;
   font-weight: 500;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.nav-link {
+  padding-left: 22px !important;
+  padding-right: 22px !important;
+}
+
+.nav-link:hover {
+  transform: scale(1.2);
 }
 
 .navbar-nav .nav-link:hover,
