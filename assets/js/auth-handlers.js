@@ -34,6 +34,7 @@ function handleForm(formId, feedbackId, successText) {
   const form = document.getElementById(formId);
   const fb = document.getElementById(feedbackId);
   if (!form) return;
+
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
     if (!form.checkValidity()) {
@@ -45,7 +46,7 @@ function handleForm(formId, feedbackId, successText) {
   });
 }
 
-const popupModalDelay = 1500 // ms
+const popupModalDelay = 1500; // ms
 
 // LOGIN
 document.addEventListener("DOMContentLoaded", function () {
@@ -80,24 +81,27 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      // Token no body
+      // Armazenar token no cookie com HttpOnly
       if (data.token) {
-        document.cookie = `auth_token=${data.token}; path=/; secure; samesite=strict`;
-        localStorage.setItem("auth_token", data.token);
-        console.log("Token salvo no localStorage:", data.token);
+        document.cookie = `auth_token=${data.token}; path=/; secure; samesite=strict; HttpOnly`;
       }
 
       feedback.textContent = "Login bem-sucedido!";
       feedback.style.color = "green";
 
-      redirectToHomePage("Login bem-sucedido!", "Redirecionando para a página home");
-
+      redirectToHomePage(
+        "Login bem-sucedido!",
+        "Redirecionando para a página home"
+      );
     } catch (err) {
       console.error("Erro ao conectar:", err);
       feedback.textContent = "Erro ao se conectar com o servidor.";
       feedback.style.color = "red";
     }
   });
+
+  // Verificar se o usuário já está logado ao carregar a página
+  checkLoginStatus();
 });
 
 // REGISTRO
@@ -135,15 +139,15 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       if (data.token) {
-        document.cookie = `auth_token=${data.token}; path=/; secure; samesite=strict`;
-        localStorage.setItem("auth_token", data.token);
-        console.log("Token salvo no localStorage:", data.token);
+        document.cookie = `auth_token=${data.token}; path=/; secure; samesite=strict; HttpOnly`;
       }
 
       feedback.textContent = "Registro bem-sucedido!";
       feedback.style.color = "green";
-      redirectToHomePage("Registro bem-sucedido!", "Redirecionando para a página home")
-
+      redirectToHomePage(
+        "Registro bem-sucedido!",
+        "Redirecionando para a página home"
+      );
     } catch (err) {
       console.error("Erro ao conectar:", err);
       feedback.textContent = "Erro ao se conectar com o servidor.";
@@ -152,16 +156,35 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+// Função para verificar se o usuário está logado (token no cookie)
+function checkLoginStatus() {
+  const token = getCookie("auth_token");
+
+  if (token) {
+    // Esconder as opções de login e registro se já estiver logado
+    document.getElementById("login-button").style.display = "none";
+    document.getElementById("register-button").style.display = "none";
+  } else {
+    document.getElementById("login-button").style.display = "block";
+    document.getElementById("register-button").style.display = "block";
+  }
+}
+
+// Função para pegar o valor de um cookie pelo nome
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(";").shift();
+}
+
 function redirectToHomePage(title, message) {
-  var modal = window.modalHelper.create(
-    "auth-modal",
-    title,
-    message
-  );
+  var modal = window.modalHelper.create("auth-modal", title, message);
   modal.show();
 
   setTimeout(function () {
-    try { modal.hide(); } catch (e) { }
+    try {
+      modal.hide();
+    } catch (e) {}
     window.location.href = "index.html";
   }, popupModalDelay);
 }

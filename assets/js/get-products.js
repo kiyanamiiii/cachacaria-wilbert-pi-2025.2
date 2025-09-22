@@ -1,0 +1,43 @@
+class Product {
+  id;
+  name;
+  description;
+  price;
+  stock;
+  photos;
+}
+
+async function fetchProducts() {
+  const prods = [];
+
+  try {
+    const response = await fetch("http://localhost:8080/products");
+    if (!response.ok) {
+      throw new Error(`Erro ao buscar produtos: ${response.statusText}`);
+    }
+    const products = await response.json();
+
+    for (const productData of products) {
+      const product = new Product();
+      product.id = productData.id;
+      product.name = productData.name;
+      product.description = productData.description;
+      product.price = productData.price;
+      product.stock = productData.stock;
+      product.photos = productData.photos;
+      prods.push(product);
+    }
+  } catch (error) {
+    console.error("Erro na requisição:", error);
+    return [];
+  }
+
+  return prods;
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  console.log("get-products.js carregado");
+  const products = await fetchProducts();
+  console.log("Produtos recebidos:", products);
+  // Aqui você pode adicionar código para exibir os produtos na página
+});
