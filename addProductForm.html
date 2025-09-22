@@ -28,7 +28,6 @@
   <body>
     <div id="header-container"></div>
 
-    <!-- ...existing code... -->
     <div class="container mt-5">
       <h2>Adicionar Produto</h2>
       <form id="addProductForm" enctype="multipart/form-data">
@@ -53,6 +52,17 @@
           ></textarea>
         </div>
         <div class="mb-3">
+          <label for="productStock" class="form-label">Estoque</label>
+          <input
+            type="number"
+            class="form-control"
+            id="productPrice"
+            name="price"
+            step="0.01"
+            required
+          />
+        </div>
+        <div class="mb-3">
           <label for="productPrice" class="form-label">Preço</label>
           <input
             type="number"
@@ -74,7 +84,9 @@
             required
           />
         </div>
-        <button type="submit" class="btn btn-primary">Adicionar</button>
+        <button id="submit-btn" type="submit" class="btn btn-primary">
+          Adicionar
+        </button>
       </form>
       <div id="formResult" class="mt-3"></div>
     </div>
