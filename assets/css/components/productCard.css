@@ -1,0 +1,30 @@
+.col-md-8 {
+  position: relative;
+}
+
+.buy-container {
+  position: absolute;
+  right: 10px;
+  bottom: 4px;
+}
+
+.buy-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 22.5px;
+  border: none;
+  background-image: url(../../img/cart-plus.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 23px;
+  transition: 0.1s;
+}
+
+.buy-btn:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.buy-btn:active {
+  transform: scale(1.01);
+}

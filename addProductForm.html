@@ -20,10 +20,9 @@
     />
 
     <!-- Css -->
-    <link rel="stylesheet" href="assets/css/pages/index.css" />
-    <link rel="stylesheet" href="/assets/css/components/footer.css" />
-    <link rel="stylesheet" href="/assets/css/components/header.css" />
     <link rel="stylesheet" href="/assets/css/components/common.css" />
+    <link rel="stylesheet" href="/assets/css/pages/addProductForm.css" />
+    <link rel="stylesheet" href="/assets/css/components/productCard.css" />
   </head>
   <body>
     <div id="header-container"></div>
@@ -89,6 +88,41 @@
         </button>
       </form>
       <div id="formResult" class="mt-3"></div>
+    </div>
+
+    <div class="mt-5 container-preview">
+      <h4 class="text-center">Pré-visualização do Produto</h4>
+      <div
+        class="d-flex flex-column align-items-center"
+        style="gap: 2rem; margin-bottom: 4rem"
+      >
+        <div class="card mb-3 img-transition" style="max-width: 540px">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img
+                id="previewImage"
+                src="/assets/img/coqueiro.png"
+                class="img-fluid rounded-start"
+                alt="Pré-visualização"
+              />
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title" id="previewName">Nome do Produto</h5>
+                <p class="card-text" id="previewDescription">
+                  Descrição do produto...
+                </p>
+                <p class="card-text">
+                  <small class="text-muted" id="previewPrice">R$0.00</small>
+                </p>
+              </div>
+              <div class="buy-container">
+                <button class="buy-btn"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div id="footer-container"></div>
