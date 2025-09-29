@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Modal Logoff Simples</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: #f4f6f8;
+        }
+
+        button {
+            padding: 10px 14px;
+            border: 0;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-logout {
+            background: #e11d48;
+            color: #fff;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 300px;
+        }
+
+        .modal button {
+            margin: 6px;
+        }
+
+        .btn-content{
+            display: flex;
+            flex-direction: row;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="btn-logout" id="btnAbrir">
+        <i class="bi bi-box-arrow-in-right"></i> Sair
+    </button>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <p>Deseja realmente sair?</p>
+            <div class="btn-content">
+                <button id="btnConfirmar" class="btn-logout">
+                    <i class="bi bi-box-arrow-in-right"></i> Sair
+                </button>
+                <button id="btnCancelar">Cancelar
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const btnAbrir = document.getElementById('btnAbrir');
+        const btnCancelar = document.getElementById('btnCancelar');
+        const btnConfirmar = document.getElementById('btnConfirmar');
+        const modal = document.getElementById('modal');
+
+        btnAbrir.onclick = () => modal.style.display = 'flex';
+        btnCancelar.onclick = () => modal.style.display = 'none';
+        btnConfirmar.onclick = () => {
+            alert('Você saiu da sessão.');
+            modal.style.display = 'none';
+            // Exemplo de redirecionamento para página de login
+            window.location.href = 'login.html';
+        };
+    </script>
+</body>
+
+</html>
