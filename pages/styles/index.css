@@ -1,16 +1,10 @@
 /* Carrossel */
-img {
-  max-width: 1920px;
-  max-height: 500px;
-}
-
 .carousel-inner img {
-  object-fit: fill;
+  object-fit: cover;
   min-width: 1920px;
   min-height: 500px;
-}
-
-.d-block w-100 {
+  max-width: max-content;
+  max-height: max-content;
 }
 
 .carousel-control-next-icon {
