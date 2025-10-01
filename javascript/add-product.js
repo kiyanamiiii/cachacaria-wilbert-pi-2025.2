@@ -81,13 +81,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Form submit -> API
+  // Form submit -> API (merged changes: use localhost and feedback element)
   if (form) {
     console.log("Formulário encontrado");
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      setFeedback("", "");
 
       const formData = new FormData(form);
 
@@ -98,7 +97,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (response.ok) {
-          setFeedback("Produto adicionado com sucesso!", "green");
+          if (feedback) {
+            feedback.textContent = "Produto adicionado com sucesso!";
+            feedback.style.color = "green";
+          }
           form.reset();
 
           // Reset preview to defaults
@@ -118,11 +120,17 @@ document.addEventListener("DOMContentLoaded", () => {
           } catch {
             // ignore parse error
           }
-          setFeedback(errorText, "red");
+          if (feedback) {
+            feedback.textContent = errorText;
+            feedback.style.color = "red";
+          }
         }
       } catch (err) {
         console.error("Erro ao conectar:", err);
-        setFeedback("Erro ao se conectar com o servidor.", "red");
+        if (feedback) {
+          feedback.textContent = "Erro ao se conectar com o servidor.";
+          feedback.style.color = "red";
+        }
       }
     });
   }

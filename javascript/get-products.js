@@ -11,7 +11,7 @@ async function fetchProducts() {
   const prods = [];
 
   try {
-    const response = await fetch("http://localhost:8080/products");
+    const response = await fetch("http://192.168.0.120:8080/products");
     if (!response.ok) {
       throw new Error(`Erro ao buscar produtos: ${response.statusText}`);
     }
