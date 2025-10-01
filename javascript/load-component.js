@@ -13,6 +13,6 @@ async function loadComponent(id, file) {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-  loadComponent("header-container", "/assets/components/header.html");
-  loadComponent("footer-container", "/assets/components/footer.html");
+  loadComponent("header-container", "/models/header.html");
+  loadComponent("footer-container", "/models/footer.html");
 });

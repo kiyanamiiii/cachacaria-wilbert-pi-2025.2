@@ -20,9 +20,9 @@
     />
 
     <!-- Css -->
-    <link rel="stylesheet" href="/assets/css/components/common.css" />
-    <link rel="stylesheet" href="/assets/css/pages/addProductForm.css" />
-    <link rel="stylesheet" href="/assets/css/components/productCard.css" />
+    <link rel="stylesheet" href="/models/styles/common.css" />
+    <link rel="stylesheet" href="/pages/styles/addProductForm.css" />
+    <link rel="stylesheet" href="/models/styles/productCard.css" />
   </head>
   <body>
     <div id="header-container"></div>
@@ -101,19 +101,22 @@
             <div class="col-md-4">
               <img
                 id="previewImage"
-                src="/assets/img/coqueiro.png"
+                src="https://placehold.co/1000x1000"
                 class="img-fluid rounded-start"
                 alt="Pré-visualização"
               />
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <h5 class="card-title" id="previewName">Nome do Produto</h5>
-                <p class="card-text" id="previewDescription">
-                  Descrição do produto...
-                </p>
+                <h5 class="card-title" id="previewName">[Name]</h5>
+                <p class="card-text" id="previewDescription">[Desc...]</p>
                 <p class="card-text">
                   <small class="text-muted" id="previewPrice">R$0.00</small>
+                </p>
+                <p class="card-text">
+                  <small class="text-muted"
+                    >Estoque: <span id="previewStock">0</span></small
+                  >
                 </p>
               </div>
               <div class="buy-container">
@@ -127,8 +130,8 @@
 
     <div id="footer-container"></div>
 
-    <script src="/assets/js/load-component.js" defer></script>
-    <script src="assets/js/add-product.js"></script>
+    <script src="/javascript/load-component.js" defer></script>
+    <script src="/javascript/add-product.js" defer></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"

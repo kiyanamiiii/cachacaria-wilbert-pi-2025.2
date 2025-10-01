@@ -13,7 +13,7 @@
   height: 45px;
   border-radius: 22.5px;
   border: none;
-  background-image: url(../../img/cart-plus.svg);
+  background-image: url(/assets/icons/cart-plus.svg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 23px;

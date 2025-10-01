@@ -4,89 +4,125 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("addProductForm");
   const feedback = document.getElementById("formResult");
 
-  // Pré-visualização dinâmica do produto
+  // Inputs
   const nameInput = document.getElementById("productName");
   const descInput = document.getElementById("productDescription");
   const priceInput = document.getElementById("productPrice");
   const imageInput = document.getElementById("productImage");
+  const stockInput = document.getElementById("productStock");
 
+  // Preview elements
   const previewName = document.getElementById("previewName");
   const previewDescription = document.getElementById("previewDescription");
   const previewPrice = document.getElementById("previewPrice");
   const previewImage = document.getElementById("previewImage");
+  const previewStock = document.getElementById("previewStock");
 
+  const DEFAULTS = {
+    name: "[NAME]",
+    description: "[DESC...]",
+    price: "R$0.00",
+    image: "https://placehold.co/1000x1000",
+    stock: "0",
+  };
+
+  function formatPriceValue(value) {
+    const n = parseFloat(value);
+    return Number.isFinite(n) ? `R$${n.toFixed(2)}` : DEFAULTS.price;
+  }
+
+  function formatStockValue(value) {
+    const n = parseFloat(value);
+    return Number.isFinite(n)
+      ? Number.isInteger(n)
+        ? String(n)
+        : String(n)
+      : DEFAULTS.stock;
+  }
+
+  // Preview updates
   if (nameInput && previewName) {
-    nameInput.addEventListener("input", function (e) {
-      previewName.textContent = e.target.value || "Nome do Produto";
+    nameInput.addEventListener("input", (e) => {
+      previewName.textContent = e.target.value.trim() || DEFAULTS.name;
     });
   }
 
   if (descInput && previewDescription) {
-    descInput.addEventListener("input", function (e) {
+    descInput.addEventListener("input", (e) => {
       previewDescription.textContent =
-        e.target.value || "Descrição do produto...";
+        e.target.value.trim() || DEFAULTS.description;
     });
   }
 
   if (priceInput && previewPrice) {
-    priceInput.addEventListener("input", function (e) {
-      const value = e.target.value;
-      previewPrice.textContent = value
-        ? `R$${parseFloat(value).toFixed(2)}`
-        : "R$0.00";
+    priceInput.addEventListener("input", (e) => {
+      previewPrice.textContent = formatPriceValue(e.target.value);
+    });
+  }
+
+  if (stockInput && previewStock) {
+    stockInput.addEventListener("input", (e) => {
+      previewStock.textContent = formatStockValue(e.target.value);
     });
   }
 
   if (imageInput && previewImage) {
-    imageInput.addEventListener("change", function (e) {
-      const file = e.target.files[0];
+    imageInput.addEventListener("change", (e) => {
+      const file = e.target.files && e.target.files[0];
       if (file) {
         const reader = new FileReader();
-        reader.onload = function (evt) {
-          previewImage.src = evt.target.result;
+        reader.onload = (evt) => {
+          previewImage.src = evt.target.result || DEFAULTS.image;
         };
         reader.readAsDataURL(file);
       } else {
-        previewImage.src = "";
+        previewImage.src = DEFAULTS.image;
       }
     });
   }
 
-  // Envio do formulário
+  // Form submit -> API
   if (form) {
     console.log("Formulário encontrado");
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      setFeedback("", "");
 
       const formData = new FormData(form);
 
       try {
-        const response = await fetch("http://localhost:8080/products/add", {
+        const response = await fetch("http://192.168.0.120:8080/products/add", {
           method: "POST",
           body: formData,
         });
 
         if (response.ok) {
-          feedback.textContent = "Produto adicionado com sucesso!";
-          feedback.style.color = "green";
+          setFeedback("Produto adicionado com sucesso!", "green");
           form.reset();
 
-          // Reset preview
-          previewName.textContent = "Nome do Produto";
-          previewDescription.textContent = "Descrição do produto...";
-          previewPrice.textContent = "R$0.00";
-          previewImage.src = "/assets/img/coqueiro.png";
+          // Reset preview to defaults
+          if (previewName) previewName.textContent = DEFAULTS.name;
+          if (previewDescription)
+            previewDescription.textContent = DEFAULTS.description;
+          if (previewPrice) previewPrice.textContent = DEFAULTS.price;
+          if (previewStock) previewStock.textContent = DEFAULTS.stock;
+          if (previewImage) previewImage.src = DEFAULTS.image;
         } else {
-          const errorData = await response.json();
-          feedback.textContent =
-            errorData.message || "Erro ao adicionar produto.";
-          feedback.style.color = "red";
+          // Try to parse JSON error, fallback to generic message
+          let errorText = "Erro ao adicionar produto.";
+          try {
+            const errorData = await response.json();
+            errorText =
+              errorData && errorData.message ? errorData.message : errorText;
+          } catch {
+            // ignore parse error
+          }
+          setFeedback(errorText, "red");
         }
       } catch (err) {
         console.error("Erro ao conectar:", err);
-        feedback.textContent = "Erro ao se conectar com o servidor.";
-        feedback.style.color = "red";
+        setFeedback("Erro ao se conectar com o servidor.", "red");
       }
     });
   }
