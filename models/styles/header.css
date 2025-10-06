@@ -38,7 +38,7 @@
 }
 
 .nav-link:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 .navbar-nav .nav-link:hover,

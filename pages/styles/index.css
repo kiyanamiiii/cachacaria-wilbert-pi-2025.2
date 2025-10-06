@@ -1,10 +1,10 @@
 /* Carrossel */
 .carousel-inner img {
-  object-fit: cover;
-  min-width: 1920px;
-  min-height: 500px;
-  max-width: max-content;
-  max-height: max-content;
+  object-fit: contain;
+  max-width: 1920px;
+  max-height: 500px;
+  min-width: max-content;
+  min-height: max-content;
 }
 
 .carousel-control-next-icon {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,8 +9,6 @@
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
-      crossorigin="anonymous"
     />
 
     <!-- Bootstrap Icons -->
@@ -19,15 +17,15 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
     />
 
-    <!-- Css -->
-    <link rel="stylesheet" href="/pages/styles/index.css" />
-    <link rel="stylesheet" href="/models/styles/common.css" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="/pages/styles/index.css">
+    <link rel="stylesheet" href="/models/styles/common.css">
   </head>
 
   <body>
     <div id="page-container">
       <div id="content-wrap">
-        <!-- Header (carregado via js) -->
+        <!-- Header -->
         <div id="header-container"></div>
 
         <!-- Carrossel -->
@@ -59,21 +57,21 @@
             ></button>
           </div>
           <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="5000">
+            <div class="carousel-item active" data-bs-interval="3000">
               <img
                 src="https://placehold.co/1920x500"
                 class="d-block w-100"
                 alt="banner1"
               />
             </div>
-            <div class="carousel-item" data-bs-interval="4500">
+            <div class="carousel-item" data-bs-interval="3000">
               <img
                 src="https://placehold.co/1920x500"
                 class="d-block w-100"
                 alt="banner2"
               />
             </div>
-            <div class="carousel-item" data-bs-interval="4000">
+            <div class="carousel-item" data-bs-interval="3000">
               <img
                 src="https://placehold.co/1920x500"
                 class="d-block w-100"
@@ -88,7 +86,7 @@
             data-bs-slide="prev"
           >
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
+            <span class="visually-hidden">Anterior</span>
           </button>
           <button
             class="carousel-control-next"
@@ -97,17 +95,27 @@
             data-bs-slide="next"
           >
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
+            <span class="visually-hidden">Próximo</span>
           </button>
         </div>
-  
-  <!-- Footer (carregado via js) -->
-  <div id="footer-container"></div>
-</div>
 
-<!-- JS -->
+        <!-- Produtos -->
+        <section class="container my-5">
+          <h2 class="text-center mb-4">Nossos Produtos</h2>
+          <div class="row" id="product-list">
+            <!-- Produtos da API aparecerão aqui -->
+          </div>
+        </section>
+
+        <!-- Footer -->
+        <div id="footer-container"></div>
+      </div>
+    </div>
+
+    <!-- JS -->
     <script src="/javascript/load-component.js" defer></script>
     <script src="/javascript/get-products.js" defer></script>
+    <script src="/javascript/home-products.js" defer></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
