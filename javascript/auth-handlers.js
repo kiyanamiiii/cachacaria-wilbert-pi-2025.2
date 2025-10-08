@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
           feedback.style.color = "green";
         }
 
-        setTimeout(() => (window.location.href = "index.html"), 800);
+        setTimeout(() => (window.location.href = "/index.html"), 800);
       } catch (err) {
         console.error("Erro ao conectar:", err);
         if (feedback) {
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
           feedback.style.color = "green";
         }
 
-        setTimeout(() => (window.location.href = "index.html"), 800);
+        setTimeout(() => (window.location.href = "/index.html"), 800);
       } catch (err) {
         console.error("Erro ao conectar:", err);
         if (feedback) {

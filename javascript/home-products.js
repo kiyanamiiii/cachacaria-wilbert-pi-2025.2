@@ -15,9 +15,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     products.forEach((product) => {
       const imgSrc =
         product.photos && product.photos.length > 0
-          ? `http://192.168.0.120:8080/images/${product.photos[0]}`
+          ? `${product.photos[0]}`
           : "/assets/images/default.png";
-
       const card = document.createElement("div");
       card.classList.add("col-md-6", "col-lg-4", "mb-4");
 

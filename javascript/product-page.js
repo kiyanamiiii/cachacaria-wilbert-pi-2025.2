@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     const res = await fetch(`http://192.168.0.120:8080/products/${productId}`);
     if (!res.ok) throw new Error("Erro ao carregar produto");
+
     const product = await res.json();
 
     // Dados do produto
@@ -23,6 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("product-name").innerText = product.name;
     document.getElementById("product-description").innerText =
       product.description || "";
+    1;
     document.getElementById("product-price").innerText =
       "R$ " + product.price.toFixed(2);
     document.getElementById("product-stock").innerText =
@@ -31,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const mainImage = document.getElementById("main-image");
     if (product.photos && product.photos.length > 0) {
       mainImage.src = await fetchImageBlob(
-        `http://192.168.0.120:8080/products/photos/${product.id}/${product.photos[0]}`
+        `http://192.168.0.120:8080/images/${product.photos[0]}`
       );
     } else {
       mainImage.src = "/assets/img/default.png";
@@ -44,7 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       for (let photo of product.photos) {
         const img = document.createElement("img");
         img.src = await fetchImageBlob(
-          `http://192.168.0.120:8080/products/image/${product.id}/${photo}`
+          `http://192.168.0.120:8080/images/${photo}`
         );
         img.classList.add("img-fluid", "rounded", "thumb-img");
         img.alt = product.name;
@@ -59,12 +61,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     addToCartBtn.addEventListener("click", () => {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const imageUrl = `http://192.168.0.120:8080/images/${product.photos[0]}`; // Direct URL
       cart.push({
         id: product.id,
         name: product.name,
         price: product.price,
+        description: product.description,
         qty: 1,
-        image: mainImage.src,
+        image: imageUrl, // Store the direct URL
       });
       localStorage.setItem("cart", JSON.stringify(cart));
 

@@ -1,0 +1,98 @@
+/* Contêiner principal que usa flexbox */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Seção do carrinho com fundo claro e espaçamento */
+section.carrinho {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f6f6f6;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Seção de produtos */
+section.produtos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 30px;
+}
+
+/* Botões de interação */
+section.produtos button {
+  margin: 10px;
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: none;
+  background-color: #4e2e1b;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+section.produtos button:hover {
+  background-color: #3b2314;
+}
+
+/* Resumo e preço */
+section.preco {
+  display: flex;
+  justify-content: space-between;
+  background-color: #f6f6f6;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  align-items: center;
+}
+
+section.preco h2 {
+  margin: 0;
+}
+
+section.preco p {
+  margin: 0;
+}
+
+section.preco button {
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: none;
+  background-color: #047c04;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+section.preco button:hover {
+  background-color: #034b03;
+}
+
+/* Configurações gerais */
+.container div {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Para a seção de título */
+section.carrinho h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+section.produtos p {
+  font-size: 18px;
+  color: #757575;
+}
