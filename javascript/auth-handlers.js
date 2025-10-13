@@ -1,3 +1,5 @@
+import { API_URL } from './constants.js';
+
 document.addEventListener("DOMContentLoaded", function () {
   // LOGIN
   const loginForm = document.getElementById("login-form");
@@ -18,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       try {
-        const response = await fetch("http://192.168.0.120:8080/auth/login", {
+        const response = await fetch(`${API_URL}/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password }),
@@ -78,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       try {
         const response = await fetch(
-          "http://192.168.0.120:8080/auth/register",
+          `${API_URL}/auth/register`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },

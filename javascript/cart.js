@@ -1,3 +1,5 @@
+import { API_URL } from './constants.js';
+
 function renderCart() {
   const container = document.getElementById("cart-products");
   const cart = JSON.parse(localStorage.getItem("cart")) || [];

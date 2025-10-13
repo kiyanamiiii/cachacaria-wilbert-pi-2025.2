@@ -1,8 +1,10 @@
+import { API_URL } from './constants.js';
+
 document.addEventListener("DOMContentLoaded", async () => {
   const productList = document.getElementById("product-list");
 
   try {
-    const response = await fetch("http://192.168.0.120:8080/products");
+    const response = await fetch(`${API_URL}/product`);
     if (!response.ok) throw new Error("Erro ao buscar produtos");
 
     const products = await response.json();

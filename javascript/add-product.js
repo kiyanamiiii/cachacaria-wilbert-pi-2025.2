@@ -1,3 +1,5 @@
+import { API_URL } from './constants.js';
+
 document.addEventListener("DOMContentLoaded", () => {
   console.log("add-product.js carregado");
 
@@ -91,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const formData = new FormData(form);
 
       try {
-        const response = await fetch("http://192.168.0.120:8080/products/add", {
+        const response = await fetch(`${API_URL}/product`, {
           method: "POST",
           body: formData,
         });

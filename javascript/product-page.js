@@ -1,3 +1,5 @@
+import { API_URL } from './constants.js';
+
 document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams(window.location.search);
   const productId = params.get("id") || 1;
@@ -14,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    const res = await fetch(`http://192.168.0.120:8080/products/${productId}`);
+    const res = await fetch(`${API_URL}/product/${productId}`);
     if (!res.ok) throw new Error("Erro ao carregar produto");
 
     const product = await res.json();
@@ -32,9 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const mainImage = document.getElementById("main-image");
     if (product.photos && product.photos.length > 0) {
-      mainImage.src = await fetchImageBlob(
-        `http://192.168.0.120:8080/images/${product.photos[0]}`
-      );
+      mainImage.src = await fetchImageBlob(product.photos[0]);
     } else {
       mainImage.src = "/assets/img/default.png";
     }
@@ -45,9 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (product.photos && product.photos.length > 0) {
       for (let photo of product.photos) {
         const img = document.createElement("img");
-        img.src = await fetchImageBlob(
-          `http://192.168.0.120:8080/images/${photo}`
-        );
+        img.src = await fetchImageBlob(photo);
         img.classList.add("img-fluid", "rounded", "thumb-img");
         img.alt = product.name;
         img.addEventListener("click", () => (mainImage.src = img.src));
@@ -61,7 +59,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     addToCartBtn.addEventListener("click", () => {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const imageUrl = `http://192.168.0.120:8080/images/${product.photos[0]}`; // Direct URL
+      const imageUrl = product.photos[0];
       cart.push({
         id: product.id,
         name: product.name,
