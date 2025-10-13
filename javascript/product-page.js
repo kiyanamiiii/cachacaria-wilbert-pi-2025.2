@@ -4,17 +4,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams(window.location.search);
   const productId = params.get("id") || 1;
 
-  async function fetchImageBlob(url) {
-    try {
-      const res = await fetch(url);
-      if (!res.ok) throw new Error("Não foi possível carregar a imagem");
-      const blob = await res.blob();
-      return URL.createObjectURL(blob);
-    } catch {
-      return "/assets/img/default.png"; // fallback
-    }
-  }
-
   try {
     const res = await fetch(`${API_URL}/product/${productId}`);
     if (!res.ok) throw new Error("Erro ao carregar produto");
@@ -26,7 +15,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("product-name").innerText = product.name;
     document.getElementById("product-description").innerText =
       product.description || "";
-    1;
     document.getElementById("product-price").innerText =
       "R$ " + product.price.toFixed(2);
     document.getElementById("product-stock").innerText =
@@ -34,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const mainImage = document.getElementById("main-image");
     if (product.photos && product.photos.length > 0) {
-      mainImage.src = await fetchImageBlob(product.photos[0]);
+      mainImage.src = product.photos[0];
     } else {
       mainImage.src = "/assets/img/default.png";
     }
@@ -45,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (product.photos && product.photos.length > 0) {
       for (let photo of product.photos) {
         const img = document.createElement("img");
-        img.src = await fetchImageBlob(photo);
+        img.src = photo;
         img.classList.add("img-fluid", "rounded", "thumb-img");
         img.alt = product.name;
         img.addEventListener("click", () => (mainImage.src = img.src));
