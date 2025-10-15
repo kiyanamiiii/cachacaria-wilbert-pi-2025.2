@@ -1,4 +1,4 @@
-import { API_URL } from './constants.js';
+import { API_URL } from "./constants.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const productList = document.getElementById("product-list");
