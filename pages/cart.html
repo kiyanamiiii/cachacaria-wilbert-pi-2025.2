@@ -27,53 +27,55 @@
     <div id="header-container"></div>
 
     <div class="container">
-      <!-- Seção do carrinho -->
+      <!-- Seção do título -->
       <section class="carrinho text-center my-4">
         <h2>Carrinho</h2>
       </section>
 
-      <!-- Produtos no carrinho -->
-      <section class="produtos" id="cart-products">
-        <!-- Exemplo de produto no carrinho -->
-        <div
-          class="card mb-3 shadow-sm p-3 d-flex flex-row justify-content-between align-items-center"
-        >
-          <div>
-            <h5 class="mb-1">Produto Exemplo</h5>
-            <p class="mb-0 text-muted">R$ 59,90</p>
+      <!-- 🔹 Layout lado a lado: produtos e resumo -->
+      <div class="d-flex flex-wrap justify-content-between align-items-start gap-4">
+        <!-- Produtos no carrinho -->
+        <section class="produtos flex-grow-1" id="cart-products">
+          <!-- Exemplo de produto -->
+          <div
+            class="card mb-3 shadow-sm p-3 d-flex flex-row justify-content-between align-items-center"
+          >
+            <div>
+              <h5 class="mb-1">Produto Exemplo</h5>
+              <p class="mb-0 text-muted">R$ 59,90</p>
+            </div>
+
+            <button class="btn btn-outline-danger btn-sm">
+              <i class="bi bi-trash"></i> Excluir
+            </button>
           </div>
 
-          <button class="btn btn-outline-danger btn-sm">
-            <i class="bi bi-trash"></i> Excluir
-          </button>
-        </div>
+          <!-- Quando o carrinho estiver vazio -->
+          <p class="text-center text-muted mt-3">
+            Carrinho vazio? Continue explorando
+          </p>
+          <div class="text-center">
+            <button
+              class="btn btn-primary"
+              onclick="window.location.href='/index.html'"
+            >
+              Acessar
+            </button>
+          </div>
+        </section>
 
-        <!-- Quando o carrinho estiver vazio -->
-        <p class="text-center text-muted mt-3">
-          Carrinho vazio? Continue explorando
-        </p>
-        <div class="text-center">
-          <button
-            class="btn btn-primary"
-            onclick="window.location.href='/index.html'"
-          >
-            Acessar
-          </button>
-        </div>
-      </section>
-
-      <!-- Resumo e preço -->
-      <section
-        class="preco border-top pt-3 mt-4 d-flex flex-column align-items-center"
-      >
-        <div class="text-center mb-3">
-          <h2>Resumo</h2>
-          <p>Estimativa total: R$ 59,90</p>
-        </div>
-        <button class="btn btn-success w-50">
-          Continuar (1)
-        </button>
-      </section>
+        <!-- Resumo e preço -->
+        <section
+          class="preco border pt-3 px-4 pb-4 rounded bg-light d-flex flex-column align-items-center"
+          style="min-width: 280px;"
+        >
+          <div class="text-center mb-3">
+            <h2>Resumo</h2>
+            <p>Estimativa total: R$ 59,90</p>
+          </div>
+          <button class="btn btn-success w-100">Continuar (1)</button>
+        </section>
+      </div>
     </div>
 
     <div id="footer-container"></div>

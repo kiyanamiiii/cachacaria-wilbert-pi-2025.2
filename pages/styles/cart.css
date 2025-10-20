@@ -1,12 +1,12 @@
-/* Contêiner principal que usa flexbox */
+/* Contêiner principal */
 .container {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-top: 20px;
+  margin-top: 50px;
 }
 
-/* Seção do carrinho com fundo claro e espaçamento */
+/* Seção do título do carrinho */
 section.carrinho {
   display: flex;
   flex-direction: column;
@@ -18,8 +18,18 @@ section.carrinho {
   text-align: center;
 }
 
+/* 🔹 Novo contêiner horizontal (produtos + resumo lado a lado) */
+.cart-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap; /* Responsivo */
+}
+
 /* Seção de produtos */
 section.produtos {
+  flex: 3; /* Ocupa mais espaço que o resumo */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,7 +39,7 @@ section.produtos {
   padding: 30px;
 }
 
-/* Botões de interação */
+/* Botões dentro dos produtos */
 section.produtos button {
   margin: 10px;
   padding: 10px 20px;
@@ -45,17 +55,22 @@ section.produtos button:hover {
   background-color: #3b2314;
 }
 
-/* Resumo e preço */
+/* Seção de resumo e preço */
 section.preco {
-  display: flex;
-  justify-content: space-between;
+  flex: 1; /* Menor largura */
   background-color: #f6f6f6;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
   padding: 20px;
   align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 250px;
+  max-height: 250px;
 }
 
+/* Texto do resumo */
 section.preco h2 {
   margin: 0;
 }
@@ -64,6 +79,7 @@ section.preco p {
   margin: 0;
 }
 
+/* Botão de continuar */
 section.preco button {
   padding: 10px 20px;
   border-radius: 50px;
@@ -72,6 +88,7 @@ section.preco button {
   color: white;
   cursor: pointer;
   transition: background-color 0.3s;
+  margin-top: 15px;
 }
 
 section.preco button:hover {
@@ -81,11 +98,11 @@ section.preco button:hover {
 /* Configurações gerais */
 .container div {
   width: 100%;
-  max-width: 1200px;
+  max-width: 2000px;
   margin: auto;
 }
 
-/* Para a seção de título */
+/* Estilos de texto */
 section.carrinho h2 {
   font-size: 24px;
   font-weight: bold;
