@@ -1,0 +1,33 @@
+.general-container {
+  height: 80vh;
+  width: 100vw;
+}
+
+.container-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+#search-input {
+  width: 25vw;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+}
+
+#search-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
