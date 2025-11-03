@@ -1,0 +1,153 @@
+.checkout-container {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  max-width: 1100px;
+  width: 100%;
+  margin: 40px auto; /* center the container horizontally */
+  justify-content: center; /* keep child boxes centered inside the container */
+  align-items: flex-start;
+}
+
+.payment-box {
+  background: #fff;
+  padding: 30px;
+  width: 420px;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.payment-box h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+.methods {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.methods label {
+  flex: 1;
+  background: #f2f2f2;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+  margin: 0 5px;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.methods label i {
+  font-size: 22px;
+  color: #555;
+}
+
+.methods input[type="radio"] {
+  display: none;
+}
+
+.methods input[type="radio"]:checked + label {
+  background: #e8f5e9;
+  border-color: #4caf50;
+  font-weight: bold;
+}
+
+.form-section {
+  display: none;
+}
+
+input[type="radio"][id="cartao"]:checked ~ #form-cartao,
+input[type="radio"][id="boleto"]:checked ~ #form-boleto,
+input[type="radio"][id="pix"]:checked ~ #form-pix {
+  display: block;
+}
+
+.form-section input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-section button {
+  width: 100%;
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.form-section button:hover {
+  background: #45a049;
+}
+
+.summary-box {
+  background: #fff;
+  padding: 30px;
+  flex: 1;
+  min-width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.summary-box h3 {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  color: #333;
+}
+
+.summary-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.summary-box li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.summary-box .total {
+  font-weight: bold;
+  font-size: 18px;
+  color: #2e7d32;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+}
+
+svg {
+  width: 24px;
+  height: 24px;
+  fill: #555;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 20px;
+  }
+  .checkout-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .payment-box,
+  .summary-box {
+    width: 100%;
+  }
+}
