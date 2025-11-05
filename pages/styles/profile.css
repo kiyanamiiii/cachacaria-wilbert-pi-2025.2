@@ -1,0 +1,27 @@
+.profile-container {
+  display: grid;
+  grid-template-areas:
+    "profile"
+    "line"
+    "details";
+  gap: 20px;
+  grid-template-columns: 30vw;
+  grid-template-rows: auto auto auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile {
+  display: flex;
+  grid-area: profile;
+  justify-content: center;
+  margin-top: 70px;
+}
+
+.profile img {
+  border-radius: 100px;
+}
+
+.details {
+  grid-area: details;
+}
