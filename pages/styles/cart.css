@@ -113,3 +113,50 @@ section.produtos p {
   font-size: 18px;
   color: #757575;
 }
+
+/* ===== Controle de quantidade estilo minimalista ===== */
+.quantity-group {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.quantity-group button {
+  width: 5px;
+  height: 32px;
+  border: none;
+  background-color: #f8f8f8;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.quantity-group button:hover {
+  background-color: #4e2e1b;
+  color: #fff;
+}
+
+.quantity-group input {
+  width: 50px;
+  height: 32px;
+  text-align: center;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  background-color: #fff;
+}
+
+.quantity-group input:focus {
+  outline: none;
+  background-color: #fff;
+}
