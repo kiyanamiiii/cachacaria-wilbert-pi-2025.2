@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     cart.map(async (item) => {
       if (!item.id) return item;
       try {
-        const res = await fetch(`${API_URL}/product/${item.id}`);
         if (!res.ok) return item;
         const prod = await res.json();
         return {
