@@ -92,11 +92,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const formData = new FormData(form);
 
+      const token = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('auth_token='))
+        ?.split('=')[1];
+
+    if (!token) return;
+
       try {
         const response = await fetch(`${API_URL}/product`, {
           method: "POST",
           body: formData,
-        });
+          headers: {
+            Authorization: `Bearer ${token}`,
+        }});
 
         if (response.ok) {
           if (feedback) {
