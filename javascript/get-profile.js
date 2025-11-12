@@ -3,7 +3,7 @@ import { API_URL } from "./constants.js";
 // Função para carregar o perfil do usuário
 async function loadProfile() {
   try {
-    const response = await fetch(`${API_URL}/profile`);
+    const response = await fetch(`${API_URL}/auth/me`);
     if (!response.ok) {
       throw new Error("Erro ao carregar perfil");
     }

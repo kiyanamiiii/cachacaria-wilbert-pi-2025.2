@@ -50,14 +50,17 @@ async function handleHeaderVisibility() {
   const header = document.getElementById('header-container');
   const registerLink = header?.querySelector('a[href="/pages/register.html"]');
   const addProductLink = header?.querySelector('#add-product-link');
+  const profileLink = header?.querySelector('#profile-link');
 
   if (registerLink) {
     registerLink.style.display = user ? 'none' : 'inline-block';
   }
 
-  console.log("Usuário autenticado:", user);
-
   if (addProductLink) {
+    addProductLink.style.display = user?.is_adm ? 'inline-block' : 'none';
+  }
+
+  if (profileLink) {
     addProductLink.style.display = user?.is_adm ? 'inline-block' : 'none';
   }
 }
