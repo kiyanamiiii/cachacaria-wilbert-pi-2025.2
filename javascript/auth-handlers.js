@@ -36,7 +36,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     return;
                 }
 
-                if (response['status'] !== 0) {
+                console.log(data);
+
+                if (data['status'] !== 0) {
                     if (feedback) {
                         feedback.textContent = data.message
                         feedback.style.color = "red";
