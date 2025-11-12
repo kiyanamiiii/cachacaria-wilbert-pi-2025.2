@@ -31,6 +31,20 @@
 
 }
 
+#photo img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+#hr{
+  width: 100vh;
+  margin: 0 auto;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
