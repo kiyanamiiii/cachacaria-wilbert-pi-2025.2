@@ -1,8 +1,6 @@
 import { API_URL } from './constants.js';
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("add-product.js carregado");
-
   const form = document.getElementById("addProductForm");
   const feedback = document.getElementById("formResult");
 
@@ -85,8 +83,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Form submit -> API (merged changes: use localhost and feedback element)
   if (form) {
-    console.log("Formulário encontrado");
-
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 

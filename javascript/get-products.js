@@ -37,8 +37,5 @@ async function fetchProducts() {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  console.log("get-products.js carregado");
   const products = await fetchProducts();
-  console.log("Produtos recebidos:", products);
-  // Aqui você pode adicionar código para exibir os produtos na página
 });
