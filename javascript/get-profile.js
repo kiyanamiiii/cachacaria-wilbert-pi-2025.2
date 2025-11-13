@@ -3,7 +3,17 @@ import { API_URL } from "./constants.js";
 // Função para carregar o perfil do usuário
 async function loadProfile() {
   try {
-    const response = await fetch(`${API_URL}/auth/me`);
+    const response = await fetch(`${API_URL}/auth/me`, {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${
+          document.cookie
+            .split("; ")
+            .find((row) => row.startsWith("auth_token="))
+            ?.split("=")[1]
+        }`,
+      },
+    });
     if (!response.ok) {
       throw new Error("Erro ao carregar perfil");
     }
@@ -11,10 +21,8 @@ async function loadProfile() {
 
     // Preencher os campos do formulário com os dados recebidos
     document.getElementById("email").value = data.email || "";
-    document.getElementById("cpf").value = data.cpf || "";
-    document.getElementById("telefone").value = data.telefone || "";
-    document.getElementById("senha").value = data.senha || "";
-
+    document.getElementById("phone").value = data.phone || "";
+    document.getElementById("password").value = data.password || "";
   } catch (error) {
     console.error("Erro ao carregar perfil:", error);
     alert("Não foi possível carregar as informações do perfil.");
@@ -27,18 +35,22 @@ async function saveProfile(event) {
 
   const updatedData = {
     email: document.getElementById("email").value,
-    cpf: document.getElementById("cpf").value,
-    telefone: document.getElementById("telefone").value,
-    senha: document.getElementById("senha").value
+    phone: document.getElementById("phone").value,
+    password: document.getElementById("password").value,
   };
 
   try {
-    const response = await fetch(`${API_URL}/profile`, {
+    const response = await fetch(`${API_URL}/user/`, {
       method: "PUT", // Método HTTP para atualizar
       headers: {
-        "Content-Type": "application/json"
+        authorization: `Bearer ${
+          document.cookie
+            .split("; ")
+            .find((row) => row.startsWith("auth_token="))
+            ?.split("=")[1]
+        }`,
       },
-      body: JSON.stringify(updatedData) // Envia os dados atualizados
+      body: JSON.stringify(updatedData), // Envia os dados atualizados
     });
 
     if (!response.ok) {

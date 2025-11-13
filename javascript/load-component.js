@@ -47,23 +47,40 @@ async function checkUserAuth() {
 
 async function handleHeaderVisibility() {
   const user = await checkUserAuth();
-  const header = document.getElementById('header-container');
-  const registerLink = header?.querySelector('a[href="/pages/register.html"]');
-  const addProductLink = header?.querySelector('#add-product-link');
-  const profileLink = header?.querySelector('#profile-link');
 
+  const registerLink = document.querySelector('a[href="/pages/register.html"]');
+  const addProductLink = document.getElementById('add-product-link');
+  const logoutLink = document.getElementById('logout-link');
+
+  // Oculta o link de registro se estiver logado
   if (registerLink) {
     registerLink.style.display = user ? 'none' : 'inline-block';
   }
 
+  // Exibe o botão "Sair" se o usuário estiver logado
+  if (logoutLink) {
+    logoutLink.style.display = user ? 'inline-block' : 'none';
+    logoutLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      logout();
+    });
+  }
+
+  // Exibe "Adicionar Produto" apenas se for admin
   if (addProductLink) {
     addProductLink.style.display = user?.is_adm ? 'inline-block' : 'none';
   }
-
-  if (profileLink) {
-    addProductLink.style.display = user?.is_adm ? 'inline-block' : 'none';
-  }
 }
+
+function logout() {
+  // Remove o token
+  document.cookie = "auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+  console.log("Usuário deslogado. Redirecionando...");
+
+  // Redireciona para a página principal
+  window.location.href = "/index.html";
+}
+
 
 window.addEventListener("DOMContentLoaded", () => {
   loadComponent("header-container", "/models/header.html");
