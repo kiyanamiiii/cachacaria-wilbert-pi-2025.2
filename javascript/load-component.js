@@ -52,6 +52,8 @@ async function handleHeaderVisibility() {
   const registerLink = document.querySelector('a[href="/pages/register.html"]');
   const addProductLink = document.getElementById("add-product-link");
   const logoutLink = document.getElementById("logout-link");
+  const cartLink = document.getElementById("cart-link");
+  const profileLink = document.getElementById("profile-link");
 
   // Oculta o link de registro se estiver logado
   if (registerLink) {
@@ -66,6 +68,14 @@ async function handleHeaderVisibility() {
   // Exibe "Adicionar Produto" apenas se for admin
   if (addProductLink) {
     addProductLink.style.display = user?.is_adm ? "inline-block" : "none";
+  }
+
+  if (cartLink) {
+    cartLink.style.display = !user.is_adm ? "inline-block" : "none";
+  }
+
+  if (profileLink) {
+    profileLink.style.display = user ? "inline-block" : "none";
   }
 }
 
