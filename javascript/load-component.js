@@ -30,7 +30,7 @@ async function checkUserAuth() {
     if (!token) return false;
 
     const response = await fetch(`${API_URL}/auth/me`, {
-      method: "POST",
+      method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
       },

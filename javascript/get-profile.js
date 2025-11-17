@@ -1,61 +1,52 @@
 import { API_URL } from "./constants.js";
 
-// Função para carregar o perfil do usuário
+function getToken() {
+  return document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("auth_token="))
+    ?.split("=")[1];
+}
+
 async function loadProfile() {
   try {
     const response = await fetch(`${API_URL}/auth/me`, {
-      method: "POST",
+      method: "GET",
       headers: {
-        authorization: `Bearer ${
-          document.cookie
-            .split("; ")
-            .find((row) => row.startsWith("auth_token="))
-            ?.split("=")[1]
-        }`,
+        authorization: `Bearer ${getToken()}`,
       },
     });
-    if (!response.ok) {
-      throw new Error("Erro ao carregar perfil");
-    }
+
+    if (!response.ok) throw new Error("Erro ao carregar perfil");
+
     const data = await response.json();
 
-    // Preencher os campos do formulário com os dados recebidos
     document.getElementById("email").value = data.email || "";
     document.getElementById("phone").value = data.phone || "";
-    document.getElementById("password").value = data.password || "";
   } catch (error) {
     console.error("Erro ao carregar perfil:", error);
     alert("Não foi possível carregar as informações do perfil.");
   }
 }
 
-// Função para salvar as mudanças do perfil
 async function saveProfile(event) {
-  event.preventDefault(); // Impede o envio do formulário
+  event.preventDefault();
 
   const updatedData = {
     email: document.getElementById("email").value,
     phone: document.getElementById("phone").value,
-    password: document.getElementById("password").value,
   };
 
   try {
     const response = await fetch(`${API_URL}/user/`, {
-      method: "PUT", // Método HTTP para atualizar
+      method: "PUT",
       headers: {
-        authorization: `Bearer ${
-          document.cookie
-            .split("; ")
-            .find((row) => row.startsWith("auth_token="))
-            ?.split("=")[1]
-        }`,
+        "Content-Type": "application/json",
+        authorization: `Bearer ${getToken()}`,
       },
-      body: JSON.stringify(updatedData), // Envia os dados atualizados
+      body: JSON.stringify(updatedData),
     });
 
-    if (!response.ok) {
-      throw new Error("Erro ao salvar as mudanças");
-    }
+    if (!response.ok) throw new Error("Erro ao salvar");
 
     alert("Perfil atualizado com sucesso!");
   } catch (error) {
@@ -64,11 +55,45 @@ async function saveProfile(event) {
   }
 }
 
-// Função para configurar o comportamento do botão "Salvar mudanças"
-document.addEventListener("DOMContentLoaded", () => {
-  loadProfile(); // Carrega o perfil quando a página for carregada
+// ==============================
+// Atualizar senha
+// ==============================
+async function updatePassword(event) {
+  event.preventDefault();
 
-  // Event listener para o botão "Salvar mudanças"
-  const form = document.querySelector("form");
-  form.addEventListener("submit", saveProfile);
+  const passwordData = {
+    current_password: document.getElementById("current-password").value,
+    new_password: document.getElementById("new-password").value,
+    confirm_password: document.getElementById("confirm-password").value,
+  };
+
+  try {
+    const response = await fetch(`${API_URL}/user/password`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify(passwordData),
+    });
+
+    if (!response.ok) throw new Error("Erro ao atualizar senha");
+
+    alert("Senha atualizada com sucesso!");
+  } catch (error) {
+    console.error("Erro ao atualizar senha:", error);
+    alert("Não foi possível atualizar a senha.");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadProfile();
+
+  // Form de dados do perfil
+  document.getElementById("profile-form")
+    ?.addEventListener("submit", saveProfile);
+
+  // Form de atualizar senha
+  document.getElementById("password-form")
+    ?.addEventListener("submit", updatePassword);
 });
