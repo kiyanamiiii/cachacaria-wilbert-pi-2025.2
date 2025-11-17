@@ -28,9 +28,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // ===========================
-  // Consultar carrinho na API
-  // ===========================
   let cart = [];
 
   try {
@@ -56,9 +53,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // ======================
-  // Renderizar itens
-  // ======================
   let itemsTotal = 0;
 
   cart.forEach((item) => {
@@ -67,14 +61,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const li = document.createElement("li");
     li.innerHTML = `
-      <span>${item.product.name} ${item.quantity > 1 ? "×" + item.quantity : ""}</span>
+      <span>${item.product.name} ${
+      item.quantity > 1 ? "×" + item.quantity : ""
+    }</span>
       <span>R$ ${formatPriceBR(price)}</span>
     `;
 
     list.appendChild(li);
   });
 
-  // Frete fixo
   const shipping = 15.0;
   const liFrete = document.createElement("li");
   liFrete.innerHTML = `
@@ -83,7 +78,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   `;
   list.appendChild(liFrete);
 
-  // Total final
   const total = itemsTotal + shipping;
   totalEl.textContent = `Total: R$ ${formatPriceBR(total)}`;
 });

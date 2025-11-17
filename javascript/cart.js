@@ -12,7 +12,6 @@ async function renderCart() {
   const container = document.getElementById("cart-products");
   const token = await getAuthToken();
 
-  // Usuário não logado
   if (!token) {
     container.innerHTML = `
       <p class="text-center text-muted mt-3">Você precisa estar logado para ver seu carrinho.</p>
@@ -27,7 +26,6 @@ async function renderCart() {
 
   const cart = await fetchCart(token);
 
-  // Carrinho vazio
   if (!cart || cart.length === 0) {
     container.innerHTML = `
       <p class="text-center text-muted mt-3">Seu carrinho está vazio.</p>
@@ -40,7 +38,6 @@ async function renderCart() {
     return;
   }
 
-  // Carrinho com produtos
   container.innerHTML = "";
 
   cart.forEach((item) => {
@@ -53,26 +50,38 @@ async function renderCart() {
 
     div.innerHTML = `
       <div class="d-flex align-items-center gap-3">
-        <img src="${product.photos[0]}" alt="${product.name}" style="width: 100px; border-radius: 8px;">
+        <img src="${product.photos[0]}" alt="${
+      product.name
+    }" style="width: 100px; border-radius: 8px;">
 
         <div>
           <h5 class="mb-1">${product.name}</h5>
           <p class="mb-1 text-muted">${product.description || ""}</p>
-          <p class="fw-bold mb-0 text-success">R$ ${product.price.toFixed(2)}</p>
+          <p class="fw-bold mb-0 text-success">R$ ${product.price.toFixed(
+            2
+          )}</p>
 
           <div class="mt-2 d-flex align-items-center gap-2">
             <label class="fw-semibold mb-0">Quantidade</label>
 
             <div class="quantity-group" data-id="${product.id}">
-              <button class="decrease-btn" type="button" data-id="${product.id}">−</button>
-              <input type="text" class="quantity-input" value="${quantity}" data-id="${product.id}">
-              <button class="increase-btn" type="button" data-id="${product.id}">+</button>
+              <button class="decrease-btn" type="button" data-id="${
+                product.id
+              }">−</button>
+              <input type="text" class="quantity-input" value="${quantity}" data-id="${
+      product.id
+    }">
+              <button class="increase-btn" type="button" data-id="${
+                product.id
+              }">+</button>
             </div>
           </div>
         </div>
       </div>
 
-      <button class="btn btn-outline-danger btn-sm delete-btn" data-id="${product.id}">
+      <button class="btn btn-outline-danger btn-sm delete-btn" data-id="${
+        product.id
+      }">
         <i class="bi bi-trash"></i>
       </button>
     `;
@@ -138,8 +147,9 @@ function updateCartSummary(cart) {
     0
   );
 
-  document.querySelector(".preco p").textContent =
-    `Estimativa total: R$ ${total.toFixed(2)}`;
+  document.querySelector(
+    ".preco p"
+  ).textContent = `Estimativa total: R$ ${total.toFixed(2)}`;
 }
 
 function addQuantityEvents(cart, token) {

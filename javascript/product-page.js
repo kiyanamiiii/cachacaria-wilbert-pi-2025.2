@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const product = await res.json();
 
-    // ========== Preenche a página ==========
     document.getElementById("page-title").innerText = product.name;
     document.getElementById("product-name").innerText = product.name;
     document.getElementById("product-description").innerText =
@@ -35,7 +34,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       mainImage.src = "/assets/img/default.png";
     }
 
-    // Miniaturas
     const thumbsContainer = document.getElementById("thumbnails");
     thumbsContainer.innerHTML = "";
     if (product.photos?.length > 0) {
@@ -49,7 +47,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     }
 
-    // ========== Quantidade ==========
     const addToCartBtn = document.getElementById("add-to-cart-btn");
     const cartAlert = document.getElementById("cart-alert");
     const qtyInput = document.getElementById("qty-input");
@@ -82,7 +79,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     qtyInput.addEventListener("input", updateTotalFromQty);
     updateTotalFromQty();
 
-    // ========== Adicionar ao carrinho (via API) ==========
     addToCartBtn.addEventListener("click", async () => {
       const token = await getAuthToken();
       if (!token) {
@@ -111,7 +107,6 @@ document.addEventListener("DOMContentLoaded", async () => {
           throw new Error("Erro ao adicionar ao carrinho");
         }
 
-        // Sucesso — mostra o alerta bonito
         cartAlert.classList.remove("d-none", "fade");
         cartAlert.classList.add("show");
         setTimeout(() => {

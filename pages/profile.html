@@ -1,73 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cachaçaria Wilbert</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cachaçaria Wilbert</title>
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet" />
 
-  <!-- Bootstrap Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="/models/styles/common.css" />
-  <link rel="stylesheet" href="/pages/styles/profile.css" />
-</head>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/models/styles/common.css" />
+    <link rel="stylesheet" href="/pages/styles/profile.css" />
+  </head>
 
-<body>
-  <div id="header-container"></div>
+  <body>
+    <div id="header-container"></div>
 
-  <div class="main-content p-4">
-    <h2>Perfil</h2>
+    <div class="main-content p-4">
+      <h2>Perfil</h2>
 
-    <!-- FORM DE PERFIL -->
-    <form id="profile-form" class="mt-4">
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" placeholder="Ex: fulano@email.com" />
-      </div>
+      <form id="profile-form" class="mt-4">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email"
+            placeholder="Ex: fulano@email.com" />
+        </div>
 
-      <div class="mb-3">
-        <label for="phone" class="form-label">Telefone</label>
-        <input type="text" class="form-control" id="phone" placeholder="Ex: (47) 99999-9999" />
-      </div>
+        <div class="mb-3">
+          <label for="phone" class="form-label">Telefone</label>
+          <input type="text" class="form-control" id="phone"
+            placeholder="Ex: (47) 99999-9999" />
+        </div>
 
-      <button type="submit" class="btn btn-primary">Salvar mudanças</button>
-    </form>
+        <button type="submit" class="btn btn-primary">Salvar mudanças</button>
+      </form>
 
-    <hr class="my-4">
+      <hr class="my-4">
 
-    <!-- FORM DE SENHA -->
-    <form id="password-form">
-      <h4>Alterar senha</h4>
+      <form id="password-form">
+        <h4>Alterar senha</h4>
 
-      <div class="mb-3">
-        <label for="current-password" class="form-label">Senha atual</label>
-        <input type="password" class="form-control" id="current-password" />
-      </div>
+        <div class="mb-3">
+          <label for="current-password" class="form-label">Senha atual</label>
+          <input type="password" class="form-control" id="current-password" />
+        </div>
 
-      <div class="mb-3">
-        <label for="new-password" class="form-label">Nova senha</label>
-        <input type="password" class="form-control" id="new-password" />
-      </div>
+        <div class="mb-3">
+          <label for="new-password" class="form-label">Nova senha</label>
+          <input type="password" class="form-control" id="new-password" />
+        </div>
 
-      <div class="mb-3">
-        <label for="confirm-password" class="form-label">Confirmar nova senha</label>
-        <input type="password" class="form-control" id="confirm-password" />
-      </div>
+        <div class="mb-3">
+          <label for="confirm-password" class="form-label">Confirmar nova
+            senha</label>
+          <input type="password" class="form-control" id="confirm-password" />
+        </div>
 
-      <button type="submit" class="btn btn-primary">Atualizar senha</button>
-    </form>
-  </div>
+        <button type="submit" class="btn btn-primary">Atualizar senha</button>
+      </form>
+    </div>
 
-  <div id="footer-container"></div>
+    <div id="footer-container"></div>
 
-  <!-- JS -->
-  <script type="module" src="/javascript/load-component.js" defer></script> 
-  <script type="module" src="/javascript/get-profile.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <!-- JS -->
+    <script type="module" src="/javascript/load-component.js" defer></script>
+    <script type="module" src="/javascript/get-profile.js" defer></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

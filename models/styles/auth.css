@@ -1,5 +1,3 @@
-/* auth.css - (escopado) */
-
 .card-body,
 .mb-3 {
   padding: 1vh 1rem !important;
@@ -46,7 +44,6 @@ h2.h5 {
   color: rgba(0, 0, 0, 0.35);
 }
 
-/* feedback area */
 #login-feedback,
 #register-feedback {
   min-height: 1.6rem;
@@ -71,7 +68,6 @@ h2.h5 {
   margin-right: 0;
 }
 
-/* responsividade */
 @media (max-width: 576px) {
   .input-group .toggle-password {
     width: 42px;

@@ -1,12 +1,8 @@
-/* Container principal */
 #container {
   display: flex;
   min-height: 100vh;
 }
 
-
-
-/* Main Content */
 .main-content {
   flex-grow: 1;
   padding: 20px;
@@ -28,7 +24,6 @@
 .btn-danger {
   margin-top: 20px;
   margin: 10px;
-
 }
 
 #photo img {
@@ -41,12 +36,11 @@
   margin-bottom: 20px;
 }
 
-#hr{
+#hr {
   width: 100vh;
   margin: 0 auto;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   #container {
     flex-direction: column;

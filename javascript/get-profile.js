@@ -61,7 +61,8 @@ async function updatePassword(event) {
   const passwordData = {
     password: document.getElementById("current-password").value,
     new_password: document.getElementById("new-password").value,
-    new_password_confirmation: document.getElementById("confirm-password").value,
+    new_password_confirmation:
+      document.getElementById("confirm-password").value,
   };
 
   try {
@@ -93,12 +94,10 @@ async function updatePassword(event) {
 document.addEventListener("DOMContentLoaded", () => {
   loadProfile();
 
-  // Form de dados do perfil
   document
     .getElementById("profile-form")
     ?.addEventListener("submit", saveProfile);
 
-  // Form de atualizar senha
   document
     .getElementById("password-form")
     ?.addEventListener("submit", updatePassword);

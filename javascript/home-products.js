@@ -14,17 +14,25 @@ function createProductCard(product) {
         <div class="card shadow-sm h-100 img-transition" style="max-width: 540px;">
           <div class="row g-0">
             <div class="col-md-4 d-flex align-items-center">
-              <img src="${imgSrc}" class="img-fluid rounded-start" alt="${product.name}">
+              <img src="${imgSrc}" class="img-fluid rounded-start" alt="${
+    product.name
+  }">
             </div>
             <div class="col-md-8">
               <div class="card-body">
                 <h5 class="card-title">${product.name}</h5>
-                <p class="card-text text-truncate">${product.description || "Sem descrição disponível."}</p>
+                <p class="card-text text-truncate">${
+                  product.description || "Sem descrição disponível."
+                }</p>
                 <p class="card-text">
-                  <small class="text-muted">R$ ${product.price.toFixed(2)}</small>
+                  <small class="text-muted">R$ ${product.price.toFixed(
+                    2
+                  )}</small>
                 </p>
                 <div class="buy-container text-center">
-                  <a href="/pages/productPage.html?id=${product.id}" class="btn btn-success">Comprar</a>
+                  <a href="/pages/productPage.html?id=${
+                    product.id
+                  }" class="btn btn-success">Comprar</a>
                 </div>
               </div>
             </div>
@@ -55,7 +63,9 @@ function renderPagination(products, pageSize, paginationEl, onPageChange) {
 
   const createPageItem = (label, page, disabled = false, active = false) => {
     const li = document.createElement("li");
-    li.className = `page-item ${disabled ? "disabled" : ""} ${active ? "active" : ""}`.trim();
+    li.className = `page-item ${disabled ? "disabled" : ""} ${
+      active ? "active" : ""
+    }`.trim();
     const a = document.createElement("a");
     a.className = "page-link";
     a.href = "#";
@@ -68,10 +78,10 @@ function renderPagination(products, pageSize, paginationEl, onPageChange) {
     return li;
   };
 
-  // Prev
-  paginationEl.appendChild(createPageItem("Anterior", 1, products.length === 0));
+  paginationEl.appendChild(
+    createPageItem("Anterior", 1, products.length === 0)
+  );
 
-  // Page numbers (limit visible pages to 7 with ellipsis)
   const maxVisible = 7;
   let startPage = 1;
   let endPage = total;
@@ -85,8 +95,9 @@ function renderPagination(products, pageSize, paginationEl, onPageChange) {
     paginationEl.appendChild(li);
   }
 
-  // Next
-  paginationEl.appendChild(createPageItem("Próximo", total, products.length === 0));
+  paginationEl.appendChild(
+    createPageItem("Próximo", total, products.length === 0)
+  );
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -101,11 +112,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     let products = await response.json();
 
     if (!products || products.length === 0) {
-      if (productList) productList.innerHTML = `<p class="text-center text-muted">Nenhum produto encontrado.</p>`;
+      if (productList)
+        productList.innerHTML = `<p class="text-center text-muted">Nenhum produto encontrado.</p>`;
       return;
     }
 
-    // If pagination controls are present on the page, enable client-side pagination
     if (paginationEl && productList) {
       let pageSize = DEFAULT_PAGE_SIZE;
       let currentPage = 1;
@@ -114,7 +125,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         let filtered = products;
         const q = searchInput ? searchInput.value.trim().toLowerCase() : "";
         if (q) {
-          filtered = products.filter((p) => (p.name || "").toLowerCase().includes(q) || (p.description || "").toLowerCase().includes(q));
+          filtered = products.filter(
+            (p) =>
+              (p.name || "").toLowerCase().includes(q) ||
+              (p.description || "").toLowerCase().includes(q)
+          );
         }
 
         const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
@@ -122,12 +137,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         renderPage(filtered, currentPage, pageSize, productList);
 
-        // Build pagination numbers
         paginationEl.innerHTML = "";
 
         const createItem = (label, page, disabled = false, active = false) => {
           const li = document.createElement("li");
-          li.className = `page-item ${disabled ? "disabled" : ""} ${active ? "active" : ""}`.trim();
+          li.className = `page-item ${disabled ? "disabled" : ""} ${
+            active ? "active" : ""
+          }`.trim();
           const a = document.createElement("a");
           a.className = "page-link";
           a.href = "#";
@@ -143,17 +159,23 @@ document.addEventListener("DOMContentLoaded", async () => {
           return li;
         };
 
-        // Prev
-        paginationEl.appendChild(createItem("Anterior", Math.max(1, currentPage - 1), currentPage === 1));
+        paginationEl.appendChild(
+          createItem(
+            "Anterior",
+            Math.max(1, currentPage - 1),
+            currentPage === 1
+          )
+        );
 
         const total = Math.max(1, Math.ceil(filtered.length / pageSize));
-        // Determine page window
         const maxVisible = 7;
         let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
         let end = Math.min(total, start + maxVisible - 1);
-        if (end - start < maxVisible - 1) start = Math.max(1, end - maxVisible + 1);
+        if (end - start < maxVisible - 1)
+          start = Math.max(1, end - maxVisible + 1);
 
-        if (start > 1) paginationEl.appendChild(createItem("1", 1, false, false));
+        if (start > 1)
+          paginationEl.appendChild(createItem("1", 1, false, false));
         if (start > 2) {
           const li = document.createElement("li");
           li.className = "page-item disabled";
@@ -171,13 +193,18 @@ document.addEventListener("DOMContentLoaded", async () => {
           li.innerHTML = `<span class="page-link">&hellip;</span>`;
           paginationEl.appendChild(li);
         }
-        if (end < total) paginationEl.appendChild(createItem(total, total, false, false));
+        if (end < total)
+          paginationEl.appendChild(createItem(total, total, false, false));
 
-        // Next
-        paginationEl.appendChild(createItem("Próximo", Math.min(total, currentPage + 1), currentPage === total));
+        paginationEl.appendChild(
+          createItem(
+            "Próximo",
+            Math.min(total, currentPage + 1),
+            currentPage === total
+          )
+        );
       };
 
-      // Bind search
       if (searchInput) {
         let timeout = null;
         searchInput.addEventListener("input", () => {
@@ -191,11 +218,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       applyFiltersAndRender();
     } else if (productList) {
-      // Fallback: render all (original behavior)
-      products.forEach((product) => productList.appendChild(createProductCard(product)));
+      products.forEach((product) =>
+        productList.appendChild(createProductCard(product))
+      );
     }
   } catch (error) {
     console.error("Erro ao carregar produtos:", error);
-    if (productList) productList.innerHTML = `<p class="text-center text-danger">Erro ao carregar produtos. Tente novamente mais tarde.</p>`;
+    if (productList)
+      productList.innerHTML = `<p class="text-center text-danger">Erro ao carregar produtos. Tente novamente mais tarde.</p>`;
   }
 });

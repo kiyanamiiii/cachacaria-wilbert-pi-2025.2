@@ -45,7 +45,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 if (data.token) {
-                    // store token in a cookie (no HttpOnly from client-side)
                     document.cookie = `auth_token=${data.token}; path=/; secure; samesite=strict`;
                 }
 
@@ -110,7 +109,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 if (data.token) {
-                    // store token in a cookie (no HttpOnly from client-side)
                     document.cookie = `auth_token=${data.token}; path=/; secure; samesite=strict`;
                 }
 

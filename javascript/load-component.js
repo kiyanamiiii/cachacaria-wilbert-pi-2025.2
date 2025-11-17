@@ -10,10 +10,9 @@ async function loadComponent(id, file) {
     const html = await resp.text();
     el.innerHTML = html;
 
-    // Executa lógica de autenticação apenas quando o header for carregado
     if (id === "header-container") {
       await handleHeaderVisibility();
-      setupLogoutButton(); // inicializa o botão de logout aqui
+      setupLogoutButton();
     }
   } catch (err) {
     console.error(err);
@@ -70,29 +69,28 @@ async function handleHeaderVisibility() {
     addProductLink.style.display = user?.is_adm ? "inline-block" : "none";
   }
 
+  // Exibe o link do carrinho apenas para usuários não administradores
   if (cartLink) {
     cartLink.style.display = !user.is_adm ? "inline-block" : "none";
   }
 
+  // Exibe o link do perfil se estiver logado
   if (profileLink) {
     profileLink.style.display = user ? "inline-block" : "none";
   }
 }
 
-// 🔹 Configura o botão de logout apenas se ele existir
 function setupLogoutButton() {
   const logoutLink = document.getElementById("logout-link");
   if (!logoutLink) return;
 
   logoutLink.addEventListener("click", () => {
-    // Remove o token
-    document.cookie = "auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-    // Redireciona para a página principal
+    document.cookie =
+      "auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     window.location.href = "/index.html";
   });
 }
 
-// 🔹 Carrega os componentes em qualquer página
 window.addEventListener("DOMContentLoaded", () => {
   loadComponent("header-container", "/models/header.html");
   loadComponent("footer-container", "/models/footer.html");
