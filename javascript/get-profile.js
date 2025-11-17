@@ -37,8 +37,8 @@ async function saveProfile(event) {
   };
 
   try {
-    const response = await fetch(`${API_URL}/user/`, {
-      method: "PUT",
+    const response = await fetch(`${API_URL}/user/update`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${getToken()}`,
@@ -55,21 +55,18 @@ async function saveProfile(event) {
   }
 }
 
-// ==============================
-// Atualizar senha
-// ==============================
 async function updatePassword(event) {
   event.preventDefault();
 
   const passwordData = {
-    current_password: document.getElementById("current-password").value,
+    password: document.getElementById("current-password").value,
     new_password: document.getElementById("new-password").value,
-    confirm_password: document.getElementById("confirm-password").value,
+    new_password_confirmation: document.getElementById("confirm-password").value,
   };
 
   try {
-    const response = await fetch(`${API_URL}/user/password`, {
-      method: "PUT",
+    const response = await fetch(`${API_URL}/auth/changePassword`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${getToken()}`,
@@ -78,6 +75,13 @@ async function updatePassword(event) {
     });
 
     if (!response.ok) throw new Error("Erro ao atualizar senha");
+
+    const data = await response.json();
+
+    if (data["status"] != 0) {
+      alert(data["message"] || "Erro ao atualizar senha.");
+      return;
+    }
 
     alert("Senha atualizada com sucesso!");
   } catch (error) {
@@ -90,10 +94,12 @@ document.addEventListener("DOMContentLoaded", () => {
   loadProfile();
 
   // Form de dados do perfil
-  document.getElementById("profile-form")
+  document
+    .getElementById("profile-form")
     ?.addEventListener("submit", saveProfile);
 
   // Form de atualizar senha
-  document.getElementById("password-form")
+  document
+    .getElementById("password-form")
     ?.addEventListener("submit", updatePassword);
 });
