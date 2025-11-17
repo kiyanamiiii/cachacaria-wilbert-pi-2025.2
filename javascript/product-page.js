@@ -24,8 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       product.description || "";
     document.getElementById("product-price").innerText =
       "R$ " + product.price.toFixed(2);
-    document.getElementById("product-stock").innerText =
-      product.stock > 0 ? "Em estoque" : "Indisponível";
+    document.getElementById("product-stock").innerText = product.stock;
 
     const mainImage = document.getElementById("main-image");
     if (product.photos?.length > 0) {
