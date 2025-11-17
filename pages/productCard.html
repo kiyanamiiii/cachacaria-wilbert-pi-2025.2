@@ -3,56 +3,52 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Cachaçaria Wilbert</title>
+    <title>Produto — Card</title>
 
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
-      crossorigin="anonymous"
-    />
-
-    <!-- Css -->
     <link rel="stylesheet" href="/models/styles/common.css" />
     <link rel="stylesheet" href="/models/styles/productCard.css" />
   </head>
   <body>
-    <div class="card mb-3 img-transition" style="max-width: 540px">
-      <div class="row g-0">
-        <div class="col-md-4">
-          <img
-            src="https://placehold.co/1000x1000"
-            class="img-fluid rounded-start"
-            alt="..."
-          />
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">Cachaça Teste</h5>
-            <p class="card-text">Teste teste</p>
-            <p class="card-text">
-              <small class="text-muted">R$20</small>
-            </p>
-            <p class="card-text">
-              <small class="text-muted"
-                >Estoque: <span class="product-stock">10</span></small
-              >
-            </p>
+    <div id="page-container">
+      <div id="content-wrap">
+        <div id="header-container"></div>
+
+        <main class="page-container py-4 d-flex justify-content-center">
+          <div class="card mb-3 img-transition" style="max-width: 540px">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img
+                  src="https://placehold.co/1000x1000"
+                  class="img-fluid rounded-start"
+                  alt="..."
+                />
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Cachaça Teste</h5>
+                  <p class="card-text">Teste teste</p>
+                  <p class="card-text">
+                    <small class="text-muted">R$20</small>
+                  </p>
+                  <p class="card-text">
+                    <small class="text-muted"
+                      >Estoque: <span class="product-stock">10</span></small
+                    >
+                  </p>
+                </div>
+                <div class="buy-container">
+                  <button class="buy-btn"></button>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="buy-container">
-            <button class="buy-btn"></button>
-          </div>
-        </div>
+        </main>
       </div>
+
+      <div id="footer-container"></div>
     </div>
 
-    <!-- JS -->
     <script type="module" src="/javascript/load-component.js" defer></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

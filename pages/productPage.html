@@ -5,114 +5,126 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title id="page-title">Produto</title>
 
-    <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
-      rel="stylesheet" />
-
-    <!-- Bootstrap Icons -->
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
 
-    <!-- CSS -->
     <link rel="stylesheet" href="/models/styles/common.css" />
     <link rel="stylesheet" href="/pages/styles/productPage.css" />
   </head>
 
   <body class="bg-white">
-    <div id="header-container"></div>
+    <div id="page-container">
+      <div id="content-wrap">
+        <div id="header-container"></div>
 
-    <div class="container py-5">
-      <div class="row g-4">
-        <div class="col-2 d-flex flex-column gap-3" id="thumbnails"></div>
+        <main class="container py-5">
+          <div class="row g-4">
+            <div class="col-2 d-flex flex-column gap-3" id="thumbnails"></div>
 
-        <div class="col-6">
-          <div class="zoom-container">
-            <img
-              id="main-image"
-              class="img-fluid rounded product-img w-100 border"
-              alt="Imagem principal" />
-          </div>
-        </div>
-
-        <div class="col-4">
-          <h3 class="fw-bold" id="product-name"></h3>
-          <p id="product-description" class="text-muted"></p>
-          <p class="text-muted">
-            Disponibilidade:
-            <span class="text-success" id="product-stock"></span>
-          </p>
-
-          <div class="mb-3">
-            <div class="d-flex align-items-end justify-content-between">
-              <div>
-                <div class="fs-4 fw-bold text-success" id="product-price"></div>
-                <div class="text-muted small">Preço unitário</div>
-              </div>
-              <div class="text-end">
-                <p class="mb-1 small text-muted">Total</p>
-                <div class="fs-5 fw-bold" id="total-price">R$ 0,00</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="d-flex align-items-center gap-3 mb-3">
-            <div class="qty-control">
-              <label for="qty-input" class="form-label mb-0">Quantidade</label>
-              <div class="d-flex align-items-center">
-                <button
-                  class="btn btn-outline-secondary btn-sm"
-                  id="qty-decrease"
-                  type="button">
-                  −
-                </button>
-                <input
-                  id="qty-input"
-                  type="number"
-                  class="form-control mx-2"
-                  value="1"
-                  min="1"
-                  style="width: 80px" />
-                <button
-                  class="btn btn-outline-secondary btn-sm"
-                  id="qty-increase"
-                  type="button">
-                  +
-                </button>
+            <div class="col-6">
+              <div class="zoom-container">
+                <img
+                  id="main-image"
+                  class="img-fluid rounded product-img w-100 border"
+                  alt="Imagem principal"
+                />
               </div>
             </div>
 
-            <div class="flex-grow-1">
-              <div class="d-grid">
+            <div class="col-4">
+              <h3 class="fw-bold" id="product-name"></h3>
+              <p id="product-description" class="text-muted"></p>
+              <p class="text-muted">
+                Disponibilidade:
+                <span class="text-success" id="product-stock"></span>
+              </p>
+
+              <div class="mb-3">
+                <div class="d-flex align-items-end justify-content-between">
+                  <div>
+                    <div
+                      class="fs-4 fw-bold text-success"
+                      id="product-price"
+                    ></div>
+                    <div class="text-muted small">Preço unitário</div>
+                  </div>
+                  <div class="text-end">
+                    <p class="mb-1 small text-muted">Total</p>
+                    <div class="fs-5 fw-bold" id="total-price">R$ 0,00</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="qty-control">
+                  <label for="qty-input" class="form-label mb-0"
+                    >Quantidade</label
+                  >
+                  <div class="d-flex align-items-center">
+                    <button
+                      class="btn btn-outline-secondary btn-sm"
+                      id="qty-decrease"
+                      type="button"
+                    >
+                      −
+                    </button>
+                    <input
+                      id="qty-input"
+                      type="number"
+                      class="form-control mx-2"
+                      value="1"
+                      min="1"
+                      style="width: 80px"
+                    />
+                    <button
+                      class="btn btn-outline-secondary btn-sm"
+                      id="qty-increase"
+                      type="button"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="flex-grow-1">
+                  <div class="d-grid">
+                    <button
+                      class="btn btn-success btn-lg botao-compra"
+                      id="add-to-cart-btn"
+                    >
+                      <i class="bi bi-cart-plus-fill"></i> Adicionar ao carrinho
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                id="cart-alert"
+                class="alert alert-success alert-dismissible fade d-none"
+                role="alert"
+              >
+                Produto adicionado ao carrinho com sucesso!
                 <button
-                  class="btn btn-success btn-lg botao-compra"
-                  id="add-to-cart-btn">
-                  <i class="bi bi-cart-plus-fill"></i> Adicionar ao carrinho
-                </button>
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Fechar"
+                ></button>
               </div>
             </div>
           </div>
-
-          <div
-            id="cart-alert"
-            class="alert alert-success alert-dismissible fade d-none"
-            role="alert">
-            Produto adicionado ao carrinho com sucesso!
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="alert"
-              aria-label="Fechar"></button>
-          </div>
-        </div>
+        </main>
       </div>
-    </div>
-    <div id="footer-container"></div>
 
-    <!-- Bootstrap JS -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+      <div id="footer-container"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="/javascript/load-component.js" defer></script>
     <script type="module" src="/javascript/product-page.js"></script>
   </body>

@@ -1,75 +1,158 @@
-.card-body,
-.mb-3 {
-  padding: 1vh 1rem !important;
+/* auth.css — centralização manual mantendo Bootstrap para o resto */
+
+/* Variáveis */
+:root {
+  --auth-maxw: 420px;
+  --auth-vertical-gap: 48px;
+  --card-radius: 10px;
+  --accent: #c2a675;
+  --accent-dark: #a67c52;
+  --text-color: #2d1e12;
 }
 
-button.btn-primary {
+/* Wrapper: fazemos o trabalho de centralizar aqui */
+.auth-center-wrapper {
+  min-height: calc(100vh - 160px); /* ajuste se header/footer maior */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--auth-vertical-gap) 16px;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+/* Ajuste leve da row usada no HTML — apenas dentro do wrapper */
+.auth-center-wrapper .row {
+  width: 100%;
+  margin: 0; /* evita margens laterais inesperadas */
+  justify-content: center; /* garante centralização horizontal */
+}
+
+/* Forçamos as colunas internas a terem largura fixa máxima (override do Bootstrap) */
+.auth-center-wrapper .col-12,
+.auth-center-wrapper .col-sm-10,
+.auth-center-wrapper .col-md-5,
+.auth-center-wrapper .col-lg-4 {
+  flex: 0 0 auto !important;
+  max-width: var(--auth-maxw);
+  width: 100%;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Card visual — não remove estilos do Bootstrap, apenas melhora */
+.auth-center-wrapper .card {
+  width: 100%;
+  max-width: var(--auth-maxw);
+  border-radius: var(--card-radius);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
   border: 0;
-  transition: background-color 0.4s, transform 0.1s ease-in-out;
-  padding: 1.5%;
-  width: 6vw;
+  background: #fff;
 }
 
-button.btn-primary:hover {
-  background-color: rgb(0, 179, 0);
-}
-
-.card {
-  border-radius: 8px;
-  width: auto;
-}
-.card-body {
+/* Card body */
+.auth-center-wrapper .card-body {
   padding: 1.25rem;
 }
 
-h2.h5 {
-  letter-spacing: 0.2px;
+.card-body {
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.input-group .toggle-password {
+/* Heading */
+.auth-center-wrapper h2.h5 {
+  margin: 0 0 12px;
+  font-weight: 600;
+  color: var(--text-color);
+  text-align: center;
+}
+
+/* Inputs e grupo de input (mantém classes do Bootstrap, só ajusta visual) */
+.auth-center-wrapper .form-control {
+  width: 100%;
+  box-shadow: none;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 10px 12px;
+}
+
+/* Input-group button (mostrar senha) */
+.auth-center-wrapper .input-group {
+  display: flex;
+  align-items: center;
+}
+
+.auth-center-wrapper .toggle-password {
   border-left: 0;
-  border-radius: 0 0.375rem 0.375rem 0;
+  border-radius: 0 8px 8px 0;
+  width: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  gap: 6px;
+  padding: 0;
+  background: transparent;
 }
 
-.toggle-password i {
-  font-size: 1.05rem;
+/* Labels e placeholders */
+.auth-center-wrapper .form-label {
+  font-size: 0.95rem;
+  color: rgba(0, 0, 0, 0.7);
+  margin-bottom: 6px;
 }
 
-.form-control::placeholder {
+.auth-center-wrapper .form-control::placeholder {
   color: rgba(0, 0, 0, 0.35);
 }
 
+/* Feedback area (erro) */
 #login-feedback,
 #register-feedback {
   min-height: 1.6rem;
   font-size: 0.9rem;
-  color: #2d1e12;
-  margin: 0;
-  padding: 1.2% 5% 3% 5% !important;
+  color: #b00020;
+  margin: 0 0 8px 0;
 }
 
-.card-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Botão primário — visual consistente */
+.auth-center-wrapper .btn-primary {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: var(--accent);
+  border: none;
+  min-width: 140px;
+  transition: background 0.18s ease, transform 0.06s ease;
 }
 
-.page-container {
-  max-width: 920px;
+.auth-center-wrapper .btn-primary:hover {
+  background: var(--accent-dark);
+  transform: translateY(-1px);
 }
 
-.row {
-  margin-left: 0;
-  margin-right: 0;
+/* Texto auxiliar */
+.auth-center-wrapper .text-center small,
+.auth-center-wrapper p.small {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 0.92rem;
 }
 
-@media (max-width: 576px) {
-  .input-group .toggle-password {
-    width: 42px;
+/* Responsividade */
+@media (max-width: 480px) {
+  :root {
+    --auth-maxw: 360px;
+    --auth-vertical-gap: 28px;
+  }
+  .auth-center-wrapper {
+    padding: 28px 12px;
+    min-height: calc(100vh - 120px);
+  }
+  .auth-center-wrapper .toggle-password {
+    width: 40px;
+  }
+  .auth-center-wrapper .btn-primary {
+    min-width: 110px;
+    padding: 10px 14px;
   }
 }

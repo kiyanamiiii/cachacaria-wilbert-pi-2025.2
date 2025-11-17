@@ -5,103 +5,97 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Registro - Cachaçaria Wilbert</title>
 
-    <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      crossorigin="anonymous" />
-
-    <!-- Bootstrap Icons -->
+      crossorigin="anonymous"
+    />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
 
-    <!-- Project CSS -->
     <link rel="stylesheet" href="/models/styles/common.css" />
     <link rel="stylesheet" href="/models/styles/auth.css" />
   </head>
   <body>
-    <div id="header-container"></div>
+    <div id="page-container">
+      <div id="content-wrap">
+        <div id="header-container"></div>
 
-    <main class="page-container my-5">
-      <div class="row justify-content-center">
-        <div class="col-12 col-sm-10 col-md-6 col-lg-6">
-          <div class="card shadow-sm">
-            <div class="card-body p-4">
-              <h2 class="h5 mb-3 text-center">Criar conta</h2>
+        <main class="auth-center-wrapper">
+          <div class="row justify-content-center w-100 m-0">
+            <div class="col-12 col-sm-10 col-md-5 col-lg-4">
+              <div class="card shadow-sm">
+                <div class="card-body p-4">
+                  <h2 class="h5 mb-3 text-center">Criar conta</h2>
 
-              <form id="register-form">
-                <div class="mb-3">
-                  <label for="regEmail" class="form-label">E-mail</label>
-                  <input
-                    id="regEmail"
-                    name="email"
-                    type="email"
-                    class="form-control"
-                    placeholder="seu@exemplo.com" />
+                  <form id="register-form">
+                    <div class="mb-3">
+                      <label for="regEmail" class="form-label">E-mail</label>
+                      <input
+                        id="regEmail"
+                        name="email"
+                        type="email"
+                        class="form-control"
+                        placeholder="seu@exemplo.com"
+                      />
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="regPassword" class="form-label">Senha</label>
+                      <div class="input-group">
+                        <input
+                          id="regPassword"
+                          name="password"
+                          type="password"
+                          class="form-control"
+                          placeholder="Mínimo 8 caracteres"
+                          minlength="8"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="regPhone" class="form-label">Telefone</label>
+                      <input
+                        id="regPhone"
+                        name="phone"
+                        type="tel"
+                        class="form-control"
+                        placeholder="(11) 91234-5678"
+                        pattern="\$?\d{2}\$?\s?\d{4,5}-?\d{4}"
+                      />
+                    </div>
+
+                    <div
+                      id="register-feedback"
+                      class="form-text text-danger mb-3"
+                    ></div>
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">
+                        Registrar
+                      </button>
+                    </div>
+
+                    <p class="text-center mt-3 mb-0 small">
+                      Já tem conta? <a href="login.html">Entrar</a>
+                    </p>
+                  </form>
                 </div>
-
-                <div class="mb-3">
-                  <label for="regPassword" class="form-label">Senha</label>
-                  <div class="input-group">
-                    <input
-                      id="regPassword"
-                      name="password"
-                      type="password"
-                      class="form-control"
-                      placeholder="Mínimo 8 caracteres"
-                      minlength="8" />
-                    <button
-                      class="btn btn-outline-secondary toggle-password"
-                      type="button"
-                      data-target="#regPassword"
-                      aria-label="Mostrar senha">
-                      <i class="bi bi-eye"></i>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="mb-3">
-                  <label for="regPhone" class="form-label">Telefone</label>
-                  <input
-                    id="regPhone"
-                    name="phone"
-                    type="tel"
-                    class="form-control"
-                    placeholder="(11) 91234-5678"
-                    pattern="\(?\d{2}\)?\s?\d{4,5}-?\d{4}" />
-                </div>
-
-                <div
-                  id="register-feedback"
-                  class="form-text text-danger mb-3"></div>
-
-                <div class="text-center">
-                  <button type="submit" class="btn btn-primary">
-                    Registrar
-                  </button>
-                </div>
-
-                <p class="text-center mt-3 mb-0 small">
-                  Já tem conta? <a href="login.html">Entrar</a>
-                </p>
-              </form>
+              </div>
             </div>
           </div>
-        </div>
+        </main>
       </div>
-    </main>
 
-    <!-- Footer -->
-    <div id="footer-container"></div>
+      <div id="footer-container"></div>
+    </div>
 
-    <!-- Scripts -->
     <script type="module" src="/javascript/load-component.js" defer></script>
     <script src="/javascript/show-password.js" defer></script>
     <script type="module" src="/javascript/auth-handlers.js" defer></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-      crossorigin="anonymous"></script>
+    <script src="/javascript/header-auth-check.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

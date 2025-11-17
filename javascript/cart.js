@@ -1,13 +1,5 @@
 import { API_URL } from "./constants.js";
 
-async function getAuthToken() {
-  const token = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("auth_token="))
-    ?.split("=")[1];
-  return token;
-}
-
 async function renderCart() {
   const container = document.getElementById("cart-products");
   const token = await getAuthToken();
@@ -26,15 +18,29 @@ async function renderCart() {
 
   const cart = await fetchCart(token);
 
-  if (!cart || cart.length === 0) {
+  const summaryItemsEl = document.getElementById("summary-items");
+  const summarySubtotalEl = document.getElementById("summary-subtotal");
+  const summaryTotalEl = document.getElementById("summary-total");
+  const checkoutBtn = document.getElementById("checkout-btn");
+
+  if (cart.length === 0) {
     container.innerHTML = `
       <p class="text-center text-muted mt-3">Seu carrinho está vazio.</p>
       <div class="text-center">
         <button class="btn btn-primary" onclick="window.location.href='/index.html'">
-          Explorar produtos
+          Ver produtos
         </button>
-      </div>`;
-    updateCartSummary([]);
+      </div>
+    `;
+
+    if (summaryItemsEl) summaryItemsEl.textContent = "0";
+    if (summarySubtotalEl) summarySubtotalEl.textContent = "R$ 0.00";
+    if (summaryTotalEl) summaryTotalEl.textContent = "R$ 0.00";
+    if (checkoutBtn) {
+      checkoutBtn.textContent = "Continuar (0)";
+      checkoutBtn.disabled = true;
+    }
+
     return;
   }
 
@@ -44,46 +50,41 @@ async function renderCart() {
     const quantity = item.quantity;
     const product = item.product;
 
-    const div = document.createElement("div");
-    div.className =
+    const item = document.createElement("div");
+    item.className =
       "card mb-3 shadow-sm p-3 d-flex flex-row justify-content-between align-items-center";
 
     div.innerHTML = `
       <div class="d-flex align-items-center gap-3">
-        <img src="${product.photos[0]}" alt="${
+        <img src="${product.image}" alt="${
       product.name
-    }" style="width: 100px; border-radius: 8px;">
-
-        <div>
+    }" style="width: 100px; border-radius: 8px; object-fit: cover;">
+        <div class="flex-grow-1">
           <h5 class="mb-1">${product.name}</h5>
           <p class="mb-1 text-muted">${product.description || ""}</p>
           <p class="fw-bold mb-0 text-success">R$ ${product.price.toFixed(
             2
           )}</p>
-
+          <small class="text-muted">Preço unitário</small>
           <div class="mt-2 d-flex align-items-center gap-2">
             <label class="fw-semibold mb-0">Quantidade</label>
-
-            <div class="quantity-group" data-id="${product.id}">
-              <button class="decrease-btn" type="button" data-id="${
-                product.id
-              }">−</button>
-              <input type="text" class="quantity-input" value="${quantity}" data-id="${
-      product.id
-    }">
-              <button class="increase-btn" type="button" data-id="${
-                product.id
-              }">+</button>
+            <div class="quantity-group" data-index="${index}">
+              <button class="decrease-btn btn btn-outline-secondary btn-sm" type="button" data-index="${index}">−</button>
+              <input type="number" class="quantity-input form-control" value="${quantity}" min="1" data-index="${index}" style="width:80px; text-align:center; display:inline-block;">
+              <button class="increase-btn btn btn-outline-secondary btn-sm" type="button" data-index="${index}">+</button>
             </div>
           </div>
         </div>
       </div>
 
-      <button class="btn btn-outline-danger btn-sm delete-btn" data-id="${
-        product.id
-      }">
-        <i class="bi bi-trash"></i>
-      </button>
+      <div class="ms-3 text-end">
+        <div class="fw-semibold mb-2">R$ ${(product.price * quantity).toFixed(
+          2
+        )}</div>
+        <button class="btn btn-outline-danger btn-sm delete-btn" data-index="${index}">
+          <i class="bi bi-trash"></i> Remover
+        </button>
+      </div>
     `;
 
     container.appendChild(div);
@@ -102,24 +103,13 @@ async function fetchCart(token) {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    if (!res.ok) throw new Error("Erro ao buscar carrinho");
-
-    return await res.json();
-  } catch (err) {
-    console.error(err);
-    return [];
-  }
-}
-
-async function updateQuantity(productId, quantity, token) {
-  try {
-    await fetch(`${API_URL}/cart/${productId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ quantity }),
+  // Alterar manualmente o campo
+  document.querySelectorAll(".quantity-input").forEach((input) => {
+    input.addEventListener("change", (e) => {
+      const index = e.target.getAttribute("data-index");
+      const value = parseInt(e.target.value);
+      if (!isNaN(value) && value > 0) updateQuantity(index, value);
+      else if (e.target) e.target.value = 1;
     });
 
     renderCart();
@@ -135,48 +125,35 @@ async function removeFromCart(productId, token) {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    renderCart();
-  } catch (err) {
-    console.error(err);
+  // Botão continuar → página de pagamento
+  if (checkoutBtn) {
+    checkoutBtn.textContent = `Continuar (${cart.length})`;
+    checkoutBtn.disabled = false;
+    checkoutBtn.addEventListener("click", () => {
+      window.location.href = "/pages/paymentPage.html";
+    });
   }
 }
 
-function updateCartSummary(cart) {
-  const total = cart.reduce(
-    (sum, item) => sum + item.product.price * item.quantity,
-    0
-  );
-
-  document.querySelector(
-    ".preco p"
-  ).textContent = `Estimativa total: R$ ${total.toFixed(2)}`;
+// Altera quantidade via +/−
+function changeQuantity(index, delta) {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const product = cart[index];
+  if (!product) return;
+  const newQuantity = (product.qty || 1) + delta;
+  if (newQuantity < 1) return;
+  product.qty = newQuantity;
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
 }
 
-function addQuantityEvents(cart, token) {
-  document.querySelectorAll(".decrease-btn").forEach((btn) =>
-    btn.addEventListener("click", () => {
-      const id = btn.dataset.id;
-      const item = cart.find((i) => i.product.id == id);
-      const newQty = Math.max(1, item.quantity - 1);
-      updateQuantity(id, newQty, token);
-    })
-  );
-
-  document.querySelectorAll(".increase-btn").forEach((btn) =>
-    btn.addEventListener("click", () => {
-      const id = btn.dataset.id;
-      const item = cart.find((i) => i.product.id == id);
-      updateQuantity(id, item.quantity + 1, token);
-    })
-  );
-
-  document.querySelectorAll(".quantity-input").forEach((input) =>
-    input.addEventListener("change", (e) => {
-      const id = e.target.dataset.id;
-      const value = parseInt(e.target.value);
-      if (!isNaN(value) && value > 0) updateQuantity(id, value, token);
-    })
-  );
+// Atualiza quantidade manualmente
+function updateQuantity(index, newQuantity) {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  if (!cart[index]) return;
+  cart[index].qty = newQuantity;
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
 }
 
 function addDeleteEvents(token) {
@@ -187,16 +164,19 @@ function addDeleteEvents(token) {
   );
 }
 
-function updateContinueButton(cart) {
-  const btn = document.querySelector(".preco button");
-  btn.textContent = `Continuar (${cart.length})`;
-  btn.disabled = cart.length === 0;
+// Atualiza total
+function updateCartSummary(cart) {
+  const total = cart.reduce((sum, p) => sum + p.price * (p.qty || 1), 0);
+  const itemsCount = cart.reduce((s, p) => s + (p.qty || 1), 0);
 
-  if (cart.length > 0) {
-    btn.addEventListener("click", () => {
-      window.location.href = "/pages/paymentPage.html";
-    });
-  }
+  const summaryItemsEl = document.getElementById("summary-items");
+  const summarySubtotalEl = document.getElementById("summary-subtotal");
+  const summaryTotalEl = document.getElementById("summary-total");
+
+  if (summaryItemsEl) summaryItemsEl.textContent = itemsCount;
+  if (summarySubtotalEl)
+    summarySubtotalEl.textContent = `R$ ${total.toFixed(2)}`;
+  if (summaryTotalEl) summaryTotalEl.textContent = `R$ ${total.toFixed(2)}`;
 }
 
 document.addEventListener("DOMContentLoaded", renderCart);

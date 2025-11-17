@@ -78,6 +78,7 @@ function renderPagination(products, pageSize, paginationEl, onPageChange) {
     return li;
   };
 
+  // Prev
   paginationEl.appendChild(
     createPageItem("Anterior", 1, products.length === 0)
   );
@@ -95,6 +96,7 @@ function renderPagination(products, pageSize, paginationEl, onPageChange) {
     paginationEl.appendChild(li);
   }
 
+  // Next
   paginationEl.appendChild(
     createPageItem("Próximo", total, products.length === 0)
   );
@@ -159,6 +161,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           return li;
         };
 
+        // Prev
         paginationEl.appendChild(
           createItem(
             "Anterior",
@@ -196,6 +199,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (end < total)
           paginationEl.appendChild(createItem(total, total, false, false));
 
+        // Next
         paginationEl.appendChild(
           createItem(
             "Próximo",
@@ -218,6 +222,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       applyFiltersAndRender();
     } else if (productList) {
+      // Fallback: render all (original behavior)
       products.forEach((product) =>
         productList.appendChild(createProductCard(product))
       );
