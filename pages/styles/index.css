@@ -1,19 +1,19 @@
-/* Carrossel */
 .carousel-inner {
   width: 100%;
   max-width: 1920px;
   height: 500px;
   margin: 0 auto;
   overflow: hidden;
+  position: relative;
 }
 
 .carousel-inner img {
   width: 100%;
   height: 100%;
-  object-fit: cover; 
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
-
-/* Botões do carrossel */
 .carousel-control-next-icon {
   transition: transform 0.2s ease;
 }
