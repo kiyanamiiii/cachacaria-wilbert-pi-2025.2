@@ -1,10 +1,22 @@
 import { API_URL } from "./constants.js";
 
-function renderCart() {
+async function renderCart() {
   const container = document.getElementById("cart-products");
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const token = await getAuthToken();
 
-  container.innerHTML = "";
+  if (!token) {
+    container.innerHTML = `
+      <p class="text-center text-muted mt-3">Você precisa estar logado para ver seu carrinho.</p>
+      <div class="text-center">
+        <button class="btn btn-primary" onclick="window.location.href='/pages/login.html'">
+          Fazer login
+        </button>
+      </div>`;
+    updateCartSummary([]);
+    return;
+  }
+
+  const cart = await fetchCart(token);
 
   const summaryItemsEl = document.getElementById("summary-items");
   const summarySubtotalEl = document.getElementById("summary-subtotal");
@@ -13,9 +25,7 @@ function renderCart() {
 
   if (cart.length === 0) {
     container.innerHTML = `
-      <p class="text-center text-muted mt-3">
-        Carrinho vazio? Continue explorando
-      </p>
+      <p class="text-center text-muted mt-3">Seu carrinho está vazio.</p>
       <div class="text-center">
         <button class="btn btn-primary" onclick="window.location.href='/index.html'">
           Ver produtos
@@ -34,15 +44,17 @@ function renderCart() {
     return;
   }
 
-  // Renderiza os produtos
-  cart.forEach((product, index) => {
-    const quantity = product.qty || 1;
+  container.innerHTML = "";
+
+  cart.forEach((item) => {
+    const quantity = item.quantity;
+    const product = item.product;
 
     const item = document.createElement("div");
     item.className =
       "card mb-3 shadow-sm p-3 d-flex flex-row justify-content-between align-items-center";
 
-    item.innerHTML = `
+    div.innerHTML = `
       <div class="d-flex align-items-center gap-3">
         <img src="${product.image}" alt="${
       product.name
@@ -75,26 +87,21 @@ function renderCart() {
       </div>
     `;
 
-    container.appendChild(item);
+    container.appendChild(div);
   });
 
-  // Atualiza total e contador
   updateCartSummary(cart);
 
-  // Eventos dos botões de quantidade
-  document.querySelectorAll(".decrease-btn").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      const index = e.target.getAttribute("data-index");
-      changeQuantity(index, -1);
-    });
-  });
+  addQuantityEvents(cart, token);
+  addDeleteEvents(token);
+  updateContinueButton(cart);
+}
 
-  document.querySelectorAll(".increase-btn").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      const index = e.target.getAttribute("data-index");
-      changeQuantity(index, 1);
+async function fetchCart(token) {
+  try {
+    const res = await fetch(`${API_URL}/cart`, {
+      headers: { Authorization: `Bearer ${token}` },
     });
-  });
 
   // Alterar manualmente o campo
   document.querySelectorAll(".quantity-input").forEach((input) => {
@@ -104,15 +111,19 @@ function renderCart() {
       if (!isNaN(value) && value > 0) updateQuantity(index, value);
       else if (e.target) e.target.value = 1;
     });
-  });
 
-  // Excluir item
-  document.querySelectorAll(".delete-btn").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      const index = e.currentTarget.getAttribute("data-index");
-      removeFromCart(index);
+    renderCart();
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+async function removeFromCart(productId, token) {
+  try {
+    await fetch(`${API_URL}/cart/${productId}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
     });
-  });
 
   // Botão continuar → página de pagamento
   if (checkoutBtn) {
@@ -145,12 +156,12 @@ function updateQuantity(index, newQuantity) {
   renderCart();
 }
 
-// Remove produto
-function removeFromCart(index) {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.splice(index, 1);
-  localStorage.setItem("cart", JSON.stringify(cart));
-  renderCart();
+function addDeleteEvents(token) {
+  document.querySelectorAll(".delete-btn").forEach((btn) =>
+    btn.addEventListener("click", () => {
+      removeFromCart(btn.dataset.id, token);
+    })
+  );
 }
 
 // Atualiza total

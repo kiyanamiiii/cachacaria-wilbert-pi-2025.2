@@ -83,7 +83,6 @@ function renderPagination(products, pageSize, paginationEl, onPageChange) {
     createPageItem("Anterior", 1, products.length === 0)
   );
 
-  // Page numbers (limit visible pages to 7 with ellipsis)
   const maxVisible = 7;
   let startPage = 1;
   let endPage = total;
@@ -120,7 +119,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    // If pagination controls are present on the page, enable client-side pagination
     if (paginationEl && productList) {
       let pageSize = DEFAULT_PAGE_SIZE;
       let currentPage = 1;
@@ -141,7 +139,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         renderPage(filtered, currentPage, pageSize, productList);
 
-        // Build pagination numbers
         paginationEl.innerHTML = "";
 
         const createItem = (label, page, disabled = false, active = false) => {
@@ -174,7 +171,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         );
 
         const total = Math.max(1, Math.ceil(filtered.length / pageSize));
-        // Determine page window
         const maxVisible = 7;
         let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
         let end = Math.min(total, start + maxVisible - 1);
@@ -213,7 +209,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         );
       };
 
-      // Bind search
       if (searchInput) {
         let timeout = null;
         searchInput.addEventListener("input", () => {

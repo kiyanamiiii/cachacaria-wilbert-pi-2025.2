@@ -1,0 +1,57 @@
+#container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.main-content h2 {
+  margin-bottom: 20px;
+}
+
+.form-control {
+  margin-bottom: 10px;
+}
+
+.btn-primary {
+  margin-top: 20px;
+  margin: 10px;
+}
+
+.btn-danger {
+  margin-top: 20px;
+  margin: 10px;
+}
+
+#photo img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+#hr {
+  width: 100vh;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  #container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+  }
+
+  .main-content {
+    padding: 10px;
+  }
+}

@@ -1,19 +1,15 @@
 import { API_URL } from "./constants.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("add-product.js carregado");
-
   const form = document.getElementById("addProductForm");
   const feedback = document.getElementById("formResult");
 
-  // Inputs
   const nameInput = document.getElementById("productName");
   const descInput = document.getElementById("productDescription");
   const priceInput = document.getElementById("productPrice");
   const imageInput = document.getElementById("productImage");
   const stockInput = document.getElementById("productStock");
 
-  // Preview elements
   const previewName = document.getElementById("previewName");
   const previewDescription = document.getElementById("previewDescription");
   const previewPrice = document.getElementById("previewPrice");
@@ -83,10 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Form submit -> API (merged changes: use localhost and feedback element)
   if (form) {
-    console.log("Formulário encontrado");
-
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
@@ -115,7 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
           }
           form.reset();
 
-          // Reset preview to defaults
           if (previewName) previewName.textContent = DEFAULTS.name;
           if (previewDescription)
             previewDescription.textContent = DEFAULTS.description;
@@ -123,15 +115,12 @@ document.addEventListener("DOMContentLoaded", () => {
           if (previewStock) previewStock.textContent = DEFAULTS.stock;
           if (previewImage) previewImage.src = DEFAULTS.image;
         } else {
-          // Try to parse JSON error, fallback to generic message
           let errorText = "Erro ao adicionar produto.";
           try {
             const errorData = await response.json();
             errorText =
               errorData && errorData.message ? errorData.message : errorText;
-          } catch {
-            // ignore parse error
-          }
+          } catch {}
           if (feedback) {
             feedback.textContent = errorText;
             feedback.style.color = "red";

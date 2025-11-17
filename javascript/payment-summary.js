@@ -1,75 +1,83 @@
 import { API_URL } from "./constants.js";
 
+async function getAuthToken() {
+  const token = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("auth_token="))
+    ?.split("=")[1];
+  return token;
+}
+
 function formatPriceBR(value) {
   return value.toFixed(2).replace(".", ",");
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const summaryBox = document.querySelector(".summary-box");
-  if (!summaryBox) return;
+  const list = document.querySelector(".summary-box ul");
+  const totalEl = document.querySelector(".summary-box .total");
 
-  const list = summaryBox.querySelector("ul");
-  const totalEl = summaryBox.querySelector(".total");
+  if (!list) return;
 
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-  // Clear existing list
   list.innerHTML = "";
 
-  if (cart.length === 0) {
-    list.innerHTML = `<li class="text-center text-muted">Carrinho vazio</li>`;
-    if (totalEl) totalEl.textContent = "Total: R$ 0,00";
+  const token = await getAuthToken();
+
+  if (!token) {
+    list.innerHTML = `<li class="text-center text-muted">É necessário estar logado.</li>`;
+    totalEl.textContent = "Total: R$ 0,00";
     return;
   }
 
-  // Try to refresh product data from API; fall back to local cart data
-  const refreshed = await Promise.all(
-    cart.map(async (item) => {
-      if (!item.id) return item;
-      try {
-        if (!res.ok) return item;
-        const prod = await res.json();
-        return {
-          id: prod.id || item.id,
-          name: prod.name || item.name,
-          price: typeof prod.price === "number" ? prod.price : item.price,
-          description: prod.description || item.description,
-          qty: item.qty || 1,
-          image: (prod.photos && prod.photos[0]) || item.image,
-        };
-      } catch (err) {
-        return item;
-      }
-    })
-  );
+  let cart = [];
 
-  // Render items
+  try {
+    const res = await fetch(`${API_URL}/cart`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!res.ok) throw new Error("Erro ao buscar carrinho");
+
+    cart = await res.json();
+  } catch (err) {
+    console.error(err);
+    list.innerHTML = `<li class="text-center text-muted">Erro ao carregar o carrinho.</li>`;
+    totalEl.textContent = "Total: R$ 0,00";
+    return;
+  }
+
+  if (!cart || cart.length === 0) {
+    list.innerHTML = `<li class="text-center text-muted">Carrinho vazio.</li>`;
+    totalEl.textContent = "Total: R$ 0,00";
+    return;
+  }
+
   let itemsTotal = 0;
-  refreshed.forEach((p) => {
-    const li = document.createElement("li");
-    li.style.display = "flex";
-    li.style.justifyContent = "space-between";
-    li.style.marginBottom = "10px";
-    const price = (p.price || 0) * (p.qty || 1);
+
+  cart.forEach((item) => {
+    const price = item.product.price * item.quantity;
     itemsTotal += price;
 
-    li.innerHTML = `<span>${p.name} ${
-      p.qty && p.qty > 1 ? "×" + p.qty : ""
-    }</span> <span>R$ ${formatPriceBR(price)}</span>`;
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <span>${item.product.name} ${
+      item.quantity > 1 ? "×" + item.quantity : ""
+    }</span>
+      <span>R$ ${formatPriceBR(price)}</span>
+    `;
+
     list.appendChild(li);
   });
 
-  // Fixed shipping (if you have shipping calculation later, replace this)
   const shipping = 15.0;
-  const shippingLi = document.createElement("li");
-  shippingLi.style.display = "flex";
-  shippingLi.style.justifyContent = "space-between";
-  shippingLi.style.marginBottom = "10px";
-  shippingLi.innerHTML = `<span>Frete</span> <span>R$ ${formatPriceBR(
-    shipping
-  )}</span>`;
-  list.appendChild(shippingLi);
+  const liFrete = document.createElement("li");
+  liFrete.innerHTML = `
+      <span>Frete</span>
+      <span>R$ ${formatPriceBR(shipping)}</span>
+  `;
+  list.appendChild(liFrete);
 
-  const grandTotal = itemsTotal + shipping;
-  if (totalEl) totalEl.textContent = `Total: R$ ${formatPriceBR(grandTotal)}`;
+  const total = itemsTotal + shipping;
+  totalEl.textContent = `Total: R$ ${formatPriceBR(total)}`;
 });

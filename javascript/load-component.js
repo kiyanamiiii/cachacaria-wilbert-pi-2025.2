@@ -10,9 +10,9 @@ async function loadComponent(id, file) {
     const html = await resp.text();
     el.innerHTML = html;
 
-    // Run auth check after the header loads
     if (id === "header-container") {
       await handleHeaderVisibility();
+      setupLogoutButton();
     }
   } catch (err) {
     console.error(err);
@@ -29,7 +29,7 @@ async function checkUserAuth() {
     if (!token) return false;
 
     const response = await fetch(`${API_URL}/auth/me`, {
-      method: "POST",
+      method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -70,7 +70,6 @@ async function handleHeaderVisibility() {
   if (addProductLink) {
     addProductLink.style.display = user?.is_adm ? "inline-block" : "none";
   }
-}
 
 function logout() {
   // Remove o token
@@ -78,8 +77,21 @@ function logout() {
     "auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
   console.log("Usuário deslogado. Redirecionando...");
 
-  // Redireciona para a página principal
-  window.location.href = "/index.html";
+  // Exibe o link do perfil se estiver logado
+  if (profileLink) {
+    profileLink.style.display = user ? "inline-block" : "none";
+  }
+}
+
+function setupLogoutButton() {
+  const logoutLink = document.getElementById("logout-link");
+  if (!logoutLink) return;
+
+  logoutLink.addEventListener("click", () => {
+    document.cookie =
+      "auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    window.location.href = "/index.html";
+  });
 }
 
 window.addEventListener("DOMContentLoaded", () => {

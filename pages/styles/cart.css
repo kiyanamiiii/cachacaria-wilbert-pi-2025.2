@@ -18,7 +18,6 @@ section.carrinho {
   text-align: center;
 }
 
-/* 🔹 Novo contêiner horizontal (produtos + resumo lado a lado) */
 .cart-layout {
   display: flex;
   justify-content: space-between;
@@ -29,7 +28,7 @@ section.carrinho {
 
 /* Seção de produtos */
 section.produtos {
-  flex: 3; /* Ocupa mais espaço que o resumo */
+  flex: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,7 +56,7 @@ section.produtos button:hover {
 
 /* Seção de resumo e preço */
 section.preco {
-  flex: 1; /* Menor largura */
+  flex: 1;
   background-color: #f6f6f6;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
@@ -114,7 +113,6 @@ section.produtos p {
   color: #757575;
 }
 
-/* ===== Controle de quantidade estilo minimalista ===== */
 .quantity-group {
   display: inline-flex;
   align-items: center;
