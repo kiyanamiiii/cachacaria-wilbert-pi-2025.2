@@ -56,14 +56,14 @@
                     </div>
 
                     <div class="mb-3">
-                      <label for="regPhone" class="form-label">Telefone</label>
+                      <label for="phone" class="form-label">Telefone</label>
                       <input
-                        id="regPhone"
+                        id="phone"
                         name="phone"
                         type="tel"
                         class="form-control"
                         placeholder="(11) 91234-5678"
-                        pattern="\$?\d{2}\$?\s?\d{4,5}-?\d{4}"
+                        pattern="^\(\d{2}\)\s?\d{4,5}-\d{4}$"
                       />
                     </div>
 
@@ -92,6 +92,7 @@
       <div id="footer-container"></div>
     </div>
 
+    <script src="/javascript/mask-phone.js"></script> 
     <script type="module" src="/javascript/load-component.js" defer></script>
     <script src="/javascript/show-password.js" defer></script>
     <script type="module" src="/javascript/auth-handlers.js" defer></script>
