@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const email = document.getElementById("regEmail")?.value || "";
       const password = document.getElementById("regPassword")?.value || "";
-      const phone = document.getElementById("regPhone")?.value || "";
+      const phone = document.getElementById("phone")?.value || "";
       const feedback = document.getElementById("register-feedback");
 
       if (!email || !password || !phone) {
