@@ -4,135 +4,75 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Perfil — Cachaçaria Wilbert</title>
+    <title>Cachaçaria Wilbert</title>
 
+    <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-    />
+      rel="stylesheet" />
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+
+    <!-- CSS -->
     <link rel="stylesheet" href="/models/styles/common.css" />
     <link rel="stylesheet" href="/pages/styles/profile.css" />
-    <style>
-      /* ajustes locais mínimos para garantir centralização limpa */
-      .profile-wrap {
-        display: flex;
-        justify-content: center;
-        padding: 48px 16px;
-      }
-      .profile-card {
-        max-width: 520px;
-        width: 100%;
-        text-align: center;
-      }
-      .profile-avatar {
-        width: 140px;
-        height: 140px;
-        border-radius: 50%;
-        object-fit: cover;
-        display: block;
-        margin: 0 auto 16px;
-      }
-      .profile-list {
-        list-style: none;
-        padding: 0;
-        margin: 0 0 16px;
-        display: flex;
-        justify-content: center;
-        gap: 12px;
-      }
-      .profile-list li {
-        padding: 6px 12px;
-        border-radius: 8px;
-        background: #f8f9fa;
-        font-size: 0.95rem;
-      }
-      .profile-form .form-control {
-        max-width: 420px;
-        margin: 6px auto;
-      }
-    </style>
   </head>
 
   <body>
-    <div id="page-container">
-      <div id="content-wrap">
-        <div id="header-container"></div>
+    <div id="header-container"></div>
 
-        <main class="page-container">
-          <div class="profile-wrap">
-            <div class="profile-card card shadow-sm p-4">
-              <img
-                src="https://placehold.co/200x200"
-                alt="avatar"
-                class="profile-avatar"
-                id="profile-avatar"
-              />
+    <div class="main-content p-4">
+      <h2>Perfil</h2>
 
-              <hr />
+      <form id="profile-form" class="mt-4">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email"
+            placeholder="Ex: fulano@email.com" />
+        </div>
 
-              <div class="profile-details mb-3">
-                <!-- Campos editáveis para o usuário -->
-                <form id="profile-form" class="profile-form text-center">
-                  <div class="mb-2">
-                    <label for="name" class="form-label visually-hidden"
-                      >Nome</label
-                    >
-                    <input
-                      id="name"
-                      name="name"
-                      type="text"
-                      class="form-control"
-                      placeholder="Nome"
-                    />
-                  </div>
+        <div class="mb-3">
+          <label for="phone" class="form-label">Telefone</label>
+          <input type="text" class="form-control" id="phone"
+            placeholder="Ex: (47) 99999-9999" />
+        </div>
 
-                  <div class="mb-2">
-                    <label for="email" class="form-label visually-hidden"
-                      >E-mail</label
-                    >
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      class="form-control"
-                      placeholder="E-mail"
-                    />
-                  </div>
+        <button type="submit" class="btn btn-primary">Salvar mudanças</button>
+      </form>
 
-                  <div class="mb-2">
-                    <label for="phone" class="form-label visually-hidden"
-                      >Telefone</label
-                    >
-                    <input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      class="form-control"
-                      placeholder="Telefone"
-                    />
-                  </div>
+      <hr class="my-4">
 
-                  <div class="d-grid mt-3">
-                    <button type="submit" class="btn btn-primary">
-                      Salvar alterações
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </main>
-      </div>
+      <form id="password-form">
+        <h4>Alterar senha</h4>
 
-      <div id="footer-container"></div>
+        <div class="mb-3">
+          <label for="current-password" class="form-label">Senha atual</label>
+          <input type="password" class="form-control" id="current-password" />
+        </div>
+
+        <div class="mb-3">
+          <label for="new-password" class="form-label">Nova senha</label>
+          <input type="password" class="form-control" id="new-password" />
+        </div>
+
+        <div class="mb-3">
+          <label for="confirm-password" class="form-label">Confirmar nova
+            senha</label>
+          <input type="password" class="form-control" id="confirm-password" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Atualizar senha</button>
+      </form>
     </div>
 
+    <div id="footer-container"></div>
+
+    <!-- JS -->
     <script type="module" src="/javascript/load-component.js" defer></script>
-    <script type="module" src="/javascript/header-auth-check.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="/javascript/get-profile.js" defer></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

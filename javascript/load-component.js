@@ -18,7 +18,7 @@ async function loadComponent(id, file) {
     console.error(err);
   }
 }
-
+''
 async function checkUserAuth() {
   try {
     const token = document.cookie
@@ -51,6 +51,8 @@ async function handleHeaderVisibility() {
   const registerLink = document.querySelector('a[href="/pages/register.html"]');
   const addProductLink = document.getElementById("add-product-link");
   const logoutLink = document.getElementById("logout-link");
+  const cartLink = document.getElementById("cart-link");
+  const profileLink = document.getElementById("profile-link");
 
   // Oculta o link de registro se estiver logado
   if (registerLink) {
@@ -60,10 +62,6 @@ async function handleHeaderVisibility() {
   // Exibe o botão "Sair" se o usuário estiver logado
   if (logoutLink) {
     logoutLink.style.display = user ? "inline-block" : "none";
-    logoutLink.addEventListener("click", (e) => {
-      e.preventDefault();
-      logout();
-    });
   }
 
   // Exibe "Adicionar Produto" apenas se for admin
@@ -71,11 +69,10 @@ async function handleHeaderVisibility() {
     addProductLink.style.display = user?.is_adm ? "inline-block" : "none";
   }
 
-function logout() {
-  // Remove o token
-  document.cookie =
-    "auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-  console.log("Usuário deslogado. Redirecionando...");
+  // Exibe o link do carrinho apenas para usuários não administradores
+  if (cartLink) {
+    cartLink.style.display = !user.is_adm ? "inline-block" : "none";
+  }
 
   // Exibe o link do perfil se estiver logado
   if (profileLink) {
