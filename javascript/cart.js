@@ -1,10 +1,15 @@
-import { API_URL } from './constants.js';
+import { API_URL } from "./constants.js";
 
 function renderCart() {
   const container = document.getElementById("cart-products");
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
   container.innerHTML = "";
+
+  const summaryItemsEl = document.getElementById("summary-items");
+  const summarySubtotalEl = document.getElementById("summary-subtotal");
+  const summaryTotalEl = document.getElementById("summary-total");
+  const checkoutBtn = document.getElementById("checkout-btn");
 
   if (cart.length === 0) {
     container.innerHTML = `
@@ -13,12 +18,19 @@ function renderCart() {
       </p>
       <div class="text-center">
         <button class="btn btn-primary" onclick="window.location.href='/index.html'">
-          Acessar
+          Ver produtos
         </button>
       </div>
     `;
-    document.querySelector(".preco p").textContent = "Estimativa total: R$ 0,00";
-    document.querySelector(".preco button").textContent = "Continuar (0)";
+
+    if (summaryItemsEl) summaryItemsEl.textContent = "0";
+    if (summarySubtotalEl) summarySubtotalEl.textContent = "R$ 0.00";
+    if (summaryTotalEl) summaryTotalEl.textContent = "R$ 0.00";
+    if (checkoutBtn) {
+      checkoutBtn.textContent = "Continuar (0)";
+      checkoutBtn.disabled = true;
+    }
+
     return;
   }
 
@@ -27,30 +39,40 @@ function renderCart() {
     const quantity = product.qty || 1;
 
     const item = document.createElement("div");
-    item.className = "card mb-3 shadow-sm p-3 d-flex flex-row justify-content-between align-items-center";
+    item.className =
+      "card mb-3 shadow-sm p-3 d-flex flex-row justify-content-between align-items-center";
 
     item.innerHTML = `
       <div class="d-flex align-items-center gap-3">
-        <img src="${product.image}" alt="${product.name}" style="width: 100px; border-radius: 8px;">
-        <div>
+        <img src="${product.image}" alt="${
+      product.name
+    }" style="width: 100px; border-radius: 8px; object-fit: cover;">
+        <div class="flex-grow-1">
           <h5 class="mb-1">${product.name}</h5>
           <p class="mb-1 text-muted">${product.description || ""}</p>
-          <p class="fw-bold mb-0 text-success">R$ ${product.price.toFixed(2)}</p>
+          <p class="fw-bold mb-0 text-success">R$ ${product.price.toFixed(
+            2
+          )}</p>
           <small class="text-muted">Preço unitário</small>
           <div class="mt-2 d-flex align-items-center gap-2">
             <label class="fw-semibold mb-0">Quantidade</label>
             <div class="quantity-group" data-index="${index}">
-  <button class="decrease-btn" type="button" data-index="${index}">−</button>
-  <input type="text" class="quantity-input" value="${quantity}" data-index="${index}">
-  <button class="increase-btn" type="button" data-index="${index}">+</button>
-</div>
+              <button class="decrease-btn btn btn-outline-secondary btn-sm" type="button" data-index="${index}">−</button>
+              <input type="number" class="quantity-input form-control" value="${quantity}" min="1" data-index="${index}" style="width:80px; text-align:center; display:inline-block;">
+              <button class="increase-btn btn btn-outline-secondary btn-sm" type="button" data-index="${index}">+</button>
+            </div>
           </div>
         </div>
       </div>
 
-      <button class="btn btn-outline-danger btn-sm delete-btn" data-index="${index}">
-        <i class="bi bi-trash"></i>
-      </button>
+      <div class="ms-3 text-end">
+        <div class="fw-semibold mb-2">R$ ${(product.price * quantity).toFixed(
+          2
+        )}</div>
+        <button class="btn btn-outline-danger btn-sm delete-btn" data-index="${index}">
+          <i class="bi bi-trash"></i> Remover
+        </button>
+      </div>
     `;
 
     container.appendChild(item);
@@ -80,6 +102,7 @@ function renderCart() {
       const index = e.target.getAttribute("data-index");
       const value = parseInt(e.target.value);
       if (!isNaN(value) && value > 0) updateQuantity(index, value);
+      else if (e.target) e.target.value = 1;
     });
   });
 
@@ -92,17 +115,20 @@ function renderCart() {
   });
 
   // Botão continuar → página de pagamento
-  const continueBtn = document.querySelector(".preco button");
-  continueBtn.textContent = `Continuar (${cart.length})`;
-  continueBtn.addEventListener("click", () => {
-    window.location.href = "/pages/paymentPage.html";
-  });
+  if (checkoutBtn) {
+    checkoutBtn.textContent = `Continuar (${cart.length})`;
+    checkoutBtn.disabled = false;
+    checkoutBtn.addEventListener("click", () => {
+      window.location.href = "/pages/paymentPage.html";
+    });
+  }
 }
 
 // Altera quantidade via +/−
 function changeQuantity(index, delta) {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   const product = cart[index];
+  if (!product) return;
   const newQuantity = (product.qty || 1) + delta;
   if (newQuantity < 1) return;
   product.qty = newQuantity;
@@ -113,6 +139,7 @@ function changeQuantity(index, delta) {
 // Atualiza quantidade manualmente
 function updateQuantity(index, newQuantity) {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  if (!cart[index]) return;
   cart[index].qty = newQuantity;
   localStorage.setItem("cart", JSON.stringify(cart));
   renderCart();
@@ -129,7 +156,16 @@ function removeFromCart(index) {
 // Atualiza total
 function updateCartSummary(cart) {
   const total = cart.reduce((sum, p) => sum + p.price * (p.qty || 1), 0);
-  document.querySelector(".preco p").textContent = `Estimativa total: R$ ${total.toFixed(2)}`;
+  const itemsCount = cart.reduce((s, p) => s + (p.qty || 1), 0);
+
+  const summaryItemsEl = document.getElementById("summary-items");
+  const summarySubtotalEl = document.getElementById("summary-subtotal");
+  const summaryTotalEl = document.getElementById("summary-total");
+
+  if (summaryItemsEl) summaryItemsEl.textContent = itemsCount;
+  if (summarySubtotalEl)
+    summarySubtotalEl.textContent = `R$ ${total.toFixed(2)}`;
+  if (summaryTotalEl) summaryTotalEl.textContent = `R$ ${total.toFixed(2)}`;
 }
 
 document.addEventListener("DOMContentLoaded", renderCart);

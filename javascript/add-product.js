@@ -1,4 +1,4 @@
-import { API_URL } from './constants.js';
+import { API_URL } from "./constants.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("add-product.js carregado");
@@ -93,11 +93,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const formData = new FormData(form);
 
       const token = document.cookie
-        .split('; ')
-        .find(row => row.startsWith('auth_token='))
-        ?.split('=')[1];
+        .split("; ")
+        .find((row) => row.startsWith("auth_token="))
+        ?.split("=")[1];
 
-    if (!token) return;
+      if (!token) return;
 
       try {
         const response = await fetch(`${API_URL}/product`, {
@@ -105,7 +105,8 @@ document.addEventListener("DOMContentLoaded", () => {
           body: formData,
           headers: {
             Authorization: `Bearer ${token}`,
-        }});
+          },
+        });
 
         if (response.ok) {
           if (feedback) {

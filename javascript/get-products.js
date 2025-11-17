@@ -1,4 +1,4 @@
-import { API_URL } from './constants.js';
+import { API_URL } from "./constants.js";
 class Product {
   id;
   name;
