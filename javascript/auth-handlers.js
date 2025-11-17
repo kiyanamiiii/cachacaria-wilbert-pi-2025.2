@@ -38,8 +38,6 @@ document.addEventListener("DOMContentLoaded", function () {
           return;
         }
 
-        console.log(data);
-
         if (data["status"] !== 0) {
           if (feedback) {
             feedback.textContent = data.message;
@@ -49,7 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (data.token) {
-          // store token in a cookie (no HttpOnly from client-side)
           document.cookie = `auth_token=${data.token}; path=/; secure; samesite=strict`;
         }
 
@@ -107,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
           return;
         }
 
-        if (response["status"] !== 0) {
+        if (data["status"] !== 0) {
           if (feedback) {
             feedback.textContent = data.message;
             feedback.style.color = "red";

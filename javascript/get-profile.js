@@ -48,6 +48,13 @@ async function saveProfile(event) {
 
     if (!response.ok) throw new Error("Erro ao salvar");
 
+    const data = await response.json();
+
+    if (data["status"] != 0) {
+      alert(data["message"] || "Erro ao salvar perfil.");
+      return;
+    }
+
     alert("Perfil atualizado com sucesso!");
   } catch (error) {
     console.error("Erro ao salvar perfil:", error);
