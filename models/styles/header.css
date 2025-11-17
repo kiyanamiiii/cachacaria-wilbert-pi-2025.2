@@ -23,38 +23,19 @@
 .header-title {
   font-size: 1.25rem;
   color: var(--color-text);
-  margin-left: 6px;
 }
 
 .navbar-nav .nav-link {
   font-weight: 500;
   text-decoration: none;
   transition: all 0.3s;
-}
-
-.nav-link {
   padding-left: 22px !important;
   padding-right: 22px !important;
-}
-
-.nav-link:hover {
-  transform: scale(1.1);
 }
 
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link:focus {
   color: var(--color-accent) !important;
   text-decoration: underline 2.5px;
+  transform: scale(1.1);
 }
-
-.site-header,
-.site-header .navbar,
-.site-header .w-100 {
-  padding-left: 0.3rem !important;
-  padding-right: 0.3rem !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-
-  
-}
-

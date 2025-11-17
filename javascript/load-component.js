@@ -4,6 +4,7 @@ async function loadComponent(id, file) {
   const el = document.getElementById(id);
   if (!el) return;
 
+  el.style.visibility = "hidden"; // evita flash
   try {
     const resp = await fetch(file);
     if (!resp.ok) throw new Error(`Erro ao carregar ${file}`);
@@ -16,68 +17,45 @@ async function loadComponent(id, file) {
     }
   } catch (err) {
     console.error(err);
+  } finally {
+    el.style.visibility = "visible"; // mostra só depois de carregar
   }
 }
-''
+
 async function checkUserAuth() {
   try {
     const token = document.cookie
       .split("; ")
-      .find((row) => row.startsWith("auth_token="))
+      .find((r) => r.startsWith("auth_token="))
       ?.split("=")[1];
+    if (!token) return null;
 
-    if (!token) return false;
-
-    const response = await fetch(`${API_URL}/auth/me`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    const res = await fetch(`${API_URL}/auth/me`, {
+      headers: { Authorization: `Bearer ${token}` },
     });
-
-    if (!response.ok) return false;
-
-    const user = await response.json();
-    return user;
-  } catch (err) {
-    console.error("Erro ao verificar autenticação:", err);
-    return false;
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
   }
 }
 
 async function handleHeaderVisibility() {
   const user = await checkUserAuth();
 
-  const registerLink = document.querySelector('a[href="/pages/register.html"]');
+  const registerLink = document.getElementById("register-link");
   const addProductLink = document.getElementById("add-product-link");
   const logoutLink = document.getElementById("logout-link");
   const cartLink = document.getElementById("cart-link");
   const profileLink = document.getElementById("profile-link");
 
-  // Oculta o link de registro se estiver logado
-  if (registerLink) {
-    registerLink.style.display = user ? "none" : "inline-block";
-  }
-
-  // Exibe o botão "Sair" se o usuário estiver logado
-  if (logoutLink) {
-    logoutLink.style.display = user ? "inline-block" : "none";
-  }
-
-  // Exibe "Adicionar Produto" apenas se for admin
-  if (addProductLink) {
+  if (registerLink) registerLink.style.display = user ? "none" : "inline-block";
+  if (logoutLink) logoutLink.style.display = user ? "inline-block" : "none";
+  if (addProductLink)
     addProductLink.style.display = user?.is_adm ? "inline-block" : "none";
-  }
-
-  // Exibe o link do carrinho apenas para usuários não administradores
-  if (cartLink) {
-    cartLink.style.display = !user.is_adm ? "inline-block" : "none";
-  }
-
-  // Exibe o link do perfil se estiver logado
-  if (profileLink) {
-    profileLink.style.display = user ? "inline-block" : "none";
-  }
+  if (cartLink)
+    cartLink.style.display = !user?.is_adm ? "inline-block" : "none";
+  if (profileLink) profileLink.style.display = user ? "inline-block" : "none";
 }
 
 function setupLogoutButton() {
@@ -91,6 +69,7 @@ function setupLogoutButton() {
   });
 }
 
+// inicialização automática
 window.addEventListener("DOMContentLoaded", () => {
   loadComponent("header-container", "/models/header.html");
   loadComponent("footer-container", "/models/footer.html");
