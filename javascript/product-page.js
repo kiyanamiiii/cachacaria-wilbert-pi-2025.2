@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       try {
         const res = await fetch(`${API_URL}/cart`, {
           method: "POST",
-          headers: {
+          headers: { 
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
@@ -104,6 +104,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (!res.ok) {
           console.error(await res.text());
           throw new Error("Erro ao adicionar ao carrinho");
+        }
+
+        const data = await res.json();
+
+        if (data['status'] !== 0) {
+          alert(data['message']);
+          return;
         }
 
         cartAlert.classList.remove("d-none", "fade");
