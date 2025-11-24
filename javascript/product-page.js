@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       try {
         const res = await fetch(`${API_URL}/cart`, {
           method: "POST",
-          headers: { 
+          headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
@@ -108,8 +108,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const data = await res.json();
 
-        if (data['status'] !== 0) {
-          alert(data['message']);
+        if (data["status"] !== 0) {
+          alert(data["message"]);
           return;
         }
 

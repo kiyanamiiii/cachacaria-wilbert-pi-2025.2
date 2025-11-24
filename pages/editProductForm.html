@@ -8,7 +8,7 @@
     />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Adicionar Produto</title>
+    <title>Editar Produto</title>
 
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
@@ -31,9 +31,11 @@
 
         <main>
           <div class="container mt-5">
-            <h2>Adicionar Produto</h2>
+            <h2>Editar Produto</h2>
 
-            <form id="addProductForm" enctype="multipart/form-data">
+            <form id="editProductForm" enctype="multipart/form-data">
+              <input type="hidden" id="productId" name="id" />
+
               <div class="mb-3">
                 <label for="productName" class="form-label"
                   >Nome do Produto</label
@@ -85,19 +87,20 @@
               </div>
 
               <div class="mb-3">
-                <label for="productImage" class="form-label">Imagem</label>
+                <label for="productImage" class="form-label"
+                  >Imagem (opcional)</label
+                >
                 <input
                   type="file"
                   class="form-control"
                   id="productImage"
                   name="photos"
                   accept="image/*"
-                  required
                 />
               </div>
 
               <button id="submit-btn" type="submit" class="btn btn-primary">
-                Adicionar
+                Salvar alterações
               </button>
             </form>
 
@@ -149,12 +152,11 @@
         </main>
       </div>
 
-      <!-- footer-container deve ficar FORA do content-wrap -->
       <div id="footer-container"></div>
     </div>
 
     <script type="module" src="/javascript/load-component.js" defer></script>
-    <script type="module" src="/javascript/add-product.js" defer></script>
+    <script type="module" src="/javascript/edit-product.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
