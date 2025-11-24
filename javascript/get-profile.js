@@ -7,6 +7,13 @@ function getToken() {
     ?.split("=")[1];
 }
 
+function showFeedback(id, message, isSuccess = false) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = message;
+  el.style.color = isSuccess ? "green" : "red";
+}
+
 async function loadProfile() {
   try {
     const response = await fetch(`${API_URL}/auth/me`, {
@@ -24,7 +31,11 @@ async function loadProfile() {
     document.getElementById("phone").value = data.phone || "";
   } catch (error) {
     console.error("Erro ao carregar perfil:", error);
-    alert("Não foi possível carregar as informações do perfil.");
+    showFeedback(
+      "profile-feedback",
+      "Não foi possível carregar as informações do perfil.",
+      false
+    );
   }
 }
 
@@ -46,19 +57,34 @@ async function saveProfile(event) {
       body: JSON.stringify(updatedData),
     });
 
-    if (!response.ok) throw new Error("Erro ao salvar");
+    const data = await response.json().catch(() => ({}));
 
-    const data = await response.json();
-
-    if (data["status"] != 0) {
-      alert(data["message"] || "Erro ao salvar perfil.");
+    if (!response.ok) {
+      showFeedback(
+        "profile-feedback",
+        `Erro: ${data.message || "erro desconhecido"}`,
+        false
+      );
       return;
     }
 
-    alert("Perfil atualizado com sucesso!");
+    if (data["status"] != 0) {
+      showFeedback(
+        "profile-feedback",
+        data.message || "Erro ao salvar perfil.",
+        false
+      );
+      return;
+    }
+
+    showFeedback("profile-feedback", "Perfil atualizado com sucesso!", true);
   } catch (error) {
     console.error("Erro ao salvar perfil:", error);
-    alert("Não foi possível salvar as mudanças.");
+    showFeedback(
+      "profile-feedback",
+      "Não foi possível salvar as mudanças.",
+      false
+    );
   }
 }
 
@@ -82,19 +108,34 @@ async function updatePassword(event) {
       body: JSON.stringify(passwordData),
     });
 
-    if (!response.ok) throw new Error("Erro ao atualizar senha");
+    const data = await response.json().catch(() => ({}));
 
-    const data = await response.json();
-
-    if (data["status"] != 0) {
-      alert(data["message"] || "Erro ao atualizar senha.");
+    if (!response.ok) {
+      showFeedback(
+        "password-feedback",
+        `Erro: ${data.message || "erro desconhecido"}`,
+        false
+      );
       return;
     }
 
-    alert("Senha atualizada com sucesso!");
+    if (data["status"] != 0) {
+      showFeedback(
+        "password-feedback",
+        data.message || "Erro ao atualizar senha.",
+        false
+      );
+      return;
+    }
+
+    showFeedback("password-feedback", "Senha atualizada com sucesso!", true);
   } catch (error) {
     console.error("Erro ao atualizar senha:", error);
-    alert("Não foi possível atualizar a senha.");
+    showFeedback(
+      "password-feedback",
+      "Não foi possível atualizar a senha.",
+      false
+    );
   }
 }
 
