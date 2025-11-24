@@ -1,3 +1,4 @@
+// ...existing code...
 import { API_URL } from "./constants.js";
 
 function getCookie(name) {
@@ -140,7 +141,7 @@ function injectEditButtonIfAdmin(user, productId) {
   // criar botão editar
   const editBtn = document.createElement("a");
   editBtn.className = "btn btn-outline-primary btn-lg";
-  editBtn.href = `/pages/editProductPage.html?id=${encodeURIComponent(
+  editBtn.href = `/pages/editProductForm.html?id=${encodeURIComponent(
     productId
   )}`;
   editBtn.innerHTML = '<i class="bi bi-pencil-square"></i> Editar';
@@ -160,16 +161,105 @@ function injectEditButtonIfAdmin(user, productId) {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
   if (!id) {
-    document.getElementById("product-name").textContent =
-      "Produto não especificado";
+    // se estiver em página de detalhe sem id
+    const productNameEl = document.getElementById("product-name");
+    if (productNameEl) productNameEl.textContent = "Produto não especificado";
     return;
   }
 
+  // detectar se estamos na página de edição (form presente)
+  const editForm = document.getElementById("editProductForm");
+  if (editForm) {
+    // página de edição: buscar produto e preencher formulário + preview em tempo real
+    const product = await fetchProduct(id);
+    if (!product) {
+      const result = document.getElementById("formResult");
+      if (result) result.textContent = "Produto não encontrado";
+      return;
+    }
+
+    // preencher campos do formulário
+    const productIdInput = document.getElementById("productId");
+    const nameInput = document.getElementById("productName");
+    const descInput = document.getElementById("productDescription");
+    const stockInput = document.getElementById("productStock");
+    const priceInput = document.getElementById("productPrice");
+    const imageInput = document.getElementById("productImage");
+
+    productIdInput.value = product.id ?? "";
+    nameInput.value = product.name ?? "";
+    descInput.value = product.description ?? "";
+    stockInput.value = product.stock ?? 0;
+    priceInput.value = product.price ?? "";
+
+    // preview elements
+    const previewImage = document.getElementById("previewImage");
+    const previewName = document.getElementById("previewName");
+    const previewDesc = document.getElementById("previewDescription");
+    const previewPrice = document.getElementById("previewPrice");
+    const previewStock = document.getElementById("previewStock");
+
+    // helper para obter imagem inicial (do produto)
+    const initialImg =
+      (product.photos && product.photos.length && product.photos[0]) ||
+      product.photo ||
+      "https://placehold.co/1000x1000";
+
+    previewImage.src = initialImg;
+    previewName.textContent = product.name ?? "[Name]";
+    previewDesc.textContent = product.description ?? "[Desc...]";
+    previewPrice.textContent = formatCurrencyBR(product.price);
+    previewStock.textContent = product.stock ?? 0;
+
+    // atualizar preview quando usuário edita os campos
+    nameInput.addEventListener("input", () => {
+      previewName.textContent = nameInput.value || "[Name]";
+    });
+    descInput.addEventListener("input", () => {
+      previewDesc.textContent = descInput.value || "[Desc...]";
+    });
+    priceInput.addEventListener("input", () => {
+      previewPrice.textContent = formatCurrencyBR(priceInput.value);
+    });
+    stockInput.addEventListener("input", () => {
+      const v = stockInput.value;
+      previewStock.textContent = v === "" ? "0" : v;
+    });
+
+    // imagem: ao selecionar arquivo, mostrar preview; se limpar, voltar à imagem inicial
+    let objectUrl = null;
+    imageInput.addEventListener("change", () => {
+      const file = imageInput.files && imageInput.files[0];
+      if (objectUrl) {
+        URL.revokeObjectURL(objectUrl);
+        objectUrl = null;
+      }
+      if (file) {
+        objectUrl = URL.createObjectURL(file);
+        previewImage.src = objectUrl;
+      } else {
+        previewImage.src = initialImg;
+      }
+    });
+
+    // (opcional) interceptar submissão do formulário para mostrar resultado - sem alterar API
+    editForm.addEventListener("submit", (ev) => {
+      ev.preventDefault();
+      // aqui você pode implementar a chamada para atualizar o produto via fetch/PUT com FormData
+      const result = document.getElementById("formResult");
+      if (result) {
+      }
+    });
+
+    return;
+  }
+
+  // se não for página de edição, comportamento original (detalhe do produto)
   const [user, product] = await Promise.all([tryGetUser(), fetchProduct(id)]);
 
   if (!product) {
-    document.getElementById("product-name").textContent =
-      "Produto não encontrado";
+    const productNameEl = document.getElementById("product-name");
+    if (productNameEl) productNameEl.textContent = "Produto não encontrado";
     return;
   }
 
