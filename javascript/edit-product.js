@@ -311,6 +311,16 @@ function injectEditButtonIfAdmin(user, productId) {
 
   injectEditButtonIfAdmin(user, id);
 
+  // se for admin, desabilitar compra completamente
+  if (user?.is_adm) {
+    const addToCartBtn = document.getElementById("add-to-cart-btn");
+    if (addToCartBtn) {
+      addToCartBtn.disabled = true;
+      addToCartBtn.hidden = true;
+    }
+    return; // impedir wireQtyAndTotal de ligar o listener de compra
+  }
+
   // após possivelmente alterar o DOM, ligar lógica de quantidade/total e listener de compra
   wireQtyAndTotal(product);
 })();

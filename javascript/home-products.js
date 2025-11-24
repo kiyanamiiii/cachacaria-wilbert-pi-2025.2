@@ -2,43 +2,59 @@ import { API_URL } from "./constants.js";
 
 const DEFAULT_PAGE_SIZE = 6;
 
-function createProductCard(product) {
+function getCookie(name) {
+  const v = `; ${document.cookie}`;
+  const parts = v.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(";").shift();
+  return null;
+}
+
+async function createProductCard(product) {
+
+  const user = await (
+    await fetch(`${API_URL}/auth/me`, {
+      headers: { Authorization: `Bearer ${getCookie("auth_token")}` },
+    })
+  ).json();
+
   const imgSrc =
     product.photos && product.photos.length > 0
       ? `${product.photos[0]}`
       : "/assets/images/default.png";
+
+  // decide o botão
+  const buttonHtml = user?.is_adm
+    ? `<a href="/pages/productPage.html?id=${product.id}" class="btn btn-primary">Editar</a>`
+    : `<a href="/pages/productPage.html?id=${product.id}" class="btn btn-success">Comprar</a>`;
+
   const card = document.createElement("div");
   card.classList.add("col-md-6", "col-lg-4", "mb-4");
 
   card.innerHTML = `
-        <div class="card shadow-sm h-100 img-transition" style="max-width: 540px;">
-          <div class="row g-0">
-            <div class="col-md-4 d-flex align-items-center">
-              <img src="${imgSrc}" class="img-fluid rounded-start" alt="${
+      <div class="card shadow-sm h-100 img-transition" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4 d-flex align-items-center">
+            <img src="${imgSrc}" class="img-fluid rounded-start" alt="${
     product.name
   }">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">${product.name}</h5>
-                <p class="card-text text-truncate">${
-                  product.description || "Sem descrição disponível."
-                }</p>
-                <p class="card-text">
-                  <small class="text-muted">R$ ${product.price.toFixed(
-                    2
-                  )}</small>
-                </p>
-                <div class="buy-container text-center">
-                  <a href="/pages/productPage.html?id=${
-                    product.id
-                  }" class="btn btn-success">Comprar</a>
-                </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">${product.name}</h5>
+              <p class="card-text text-truncate">${
+                product.description || "Sem descrição disponível."
+              }</p>
+              <p class="card-text">
+                <small class="text-muted">R$ ${product.price.toFixed(2)}</small>
+              </p>
+              <div class="buy-container text-center">
+                ${buttonHtml}
               </div>
             </div>
           </div>
         </div>
-      `;
+      </div>
+    `;
 
   return card;
 }
@@ -54,7 +70,9 @@ function renderPage(products, page, pageSize, container) {
     return;
   }
 
-  slice.forEach((product) => container.appendChild(createProductCard(product)));
+  slice.forEach(async (product) =>
+    container.appendChild(await createProductCard(product))
+  );
 }
 
 function renderPagination(products, pageSize, paginationEl, onPageChange) {
@@ -223,8 +241,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       applyFiltersAndRender();
     } else if (productList) {
       // Fallback: render all (original behavior)
-      products.forEach((product) =>
-        productList.appendChild(createProductCard(product))
+      products.forEach(async (product) =>
+        productList.appendChild(await createProductCard(product))
       );
     }
   } catch (error) {
