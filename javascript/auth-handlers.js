@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
             feedback.textContent = `Erro: ${
               data.message || "erro desconhecido"
             }`;
-            feedback.style.color = "red";
+            feedback.classList.add("text-danger");
           }
           return;
         }
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (data["status"] !== 0) {
           if (feedback) {
             feedback.textContent = data.message;
-            feedback.style.color = "red";
+            feedback.classList.add("text-danger");
           }
           return;
         }
@@ -51,8 +51,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (feedback) {
+          feedback.classList.remove("text-danger");
+          feedback.classList.remove("text-success");
           feedback.textContent = "Login bem-sucedido!";
-          feedback.style.color = "green";
+          feedback.classList.add("text-success");
         }
 
         setTimeout(() => (window.location.href = "/index.html"), 800);
@@ -60,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Erro ao conectar:", err);
         if (feedback) {
           feedback.textContent = "Erro ao se conectar com o servidor.";
-          feedback.style.color = "red";
+          feedback.classList.add("text-danger");
         }
       }
     });
@@ -117,8 +119,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (feedback) {
+          feedback.classList.remove("text-danger");
+          feedback.classList.remove("text-success");
           feedback.textContent = "Registro bem-sucedido!";
-          feedback.style.color = "green";
+          feedback.classList.add("text-success");
         }
 
         setTimeout(() => (window.location.href = "/index.html"), 800);
