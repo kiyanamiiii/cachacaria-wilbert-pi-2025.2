@@ -243,11 +243,41 @@ function injectEditButtonIfAdmin(user, productId) {
     });
 
     // (opcional) interceptar submissão do formulário para mostrar resultado - sem alterar API
-    editForm.addEventListener("submit", (ev) => {
+    editForm.addEventListener("submit", async (ev) => {
       ev.preventDefault();
       // aqui você pode implementar a chamada para atualizar o produto via fetch/PUT com FormData
       const result = document.getElementById("formResult");
       if (result) {
+        const cookie = getCookie("auth_token");
+
+        const response = await fetch(
+          `${API_URL}/product/${encodeURIComponent(id)}`,
+          {
+            method: "PUT",
+            body: new FormData(editForm),
+            headers: {
+              Authorization: `Bearer ${cookie}`,
+            },
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          result.textContent =
+            data?.message || `Erro ao atualizar produto: ${response.status}`;
+          result.classList.add("text-danger");
+          return;
+        }
+
+        if (data.status !== 0) {
+          result.textContent = data.message || "Erro ao atualizar o produto.";
+          result.classList.add("text-danger");
+          return;
+        }
+
+        result.textContent = "Produto atualizado com sucesso!";
+        result.classList.add("text-success");
       }
     });
 
