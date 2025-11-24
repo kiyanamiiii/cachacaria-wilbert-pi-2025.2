@@ -1,7 +1,4 @@
-// product-page.js
-// Renderiza a página de produto, controla quantidade, carrinho e - se o usuário for admin - mostra botão "Editar" ao lado do botão de compra.
-
-const apiRoot = "/api";
+import { API_URL } from "./constants.js";
 
 function getCookie(name) {
   const v = `; ${document.cookie}`;
@@ -15,7 +12,7 @@ async function tryGetUser() {
   if (!token) return null;
 
   try {
-    const res = await fetch(`${apiRoot}/users/me`, {
+    const res = await fetch(`${API_URL}/auth/me`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (!res.ok) return null;
@@ -37,7 +34,7 @@ function formatCurrencyBR(value) {
 
 async function fetchProduct(id) {
   try {
-    const res = await fetch(`${apiRoot}/products/${encodeURIComponent(id)}`);
+    const res = await fetch(`${API_URL}/product/${encodeURIComponent(id)}`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return await res.json();
   } catch (err) {
