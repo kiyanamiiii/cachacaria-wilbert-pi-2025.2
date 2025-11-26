@@ -96,7 +96,6 @@ function wireQtyAndTotal(product) {
 
   addToCartBtn.addEventListener("click", async () => {
     const qty = Number(qtyInput.value) || 1;
-    // implementação simples de carrinho local
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
     const existing = cart.find((c) => String(c.id) === String(product.id));
     if (existing) {
@@ -126,19 +125,15 @@ function wireQtyAndTotal(product) {
 function injectEditButtonIfAdmin(user, productId) {
   if (!user?.is_adm) return;
 
-  // localizar o container do botão de compra e transformar em flex para posicionar ao lado
   const buyContainer = document.querySelector(".flex-grow-1 > .d-grid");
   if (!buyContainer) return;
 
-  // criar wrapper flex
   const wrapper = document.createElement("div");
   wrapper.className = "d-flex gap-2";
 
-  // mover o botão de compra existente para o wrapper
   const buyBtn = buyContainer.querySelector("#add-to-cart-btn");
   if (!buyBtn) return;
 
-  // criar botão editar
   const editBtn = document.createElement("a");
   editBtn.className = "btn btn-outline-primary btn-lg";
   editBtn.href = `/pages/editProductForm.html?id=${encodeURIComponent(
@@ -146,14 +141,103 @@ function injectEditButtonIfAdmin(user, productId) {
   )}`;
   editBtn.innerHTML = '<i class="bi bi-pencil-square"></i> Editar';
 
-  // substituir o buyContainer's content pelo wrapper contendo edit + buy
   wrapper.appendChild(editBtn);
   wrapper.appendChild(buyBtn.cloneNode(true));
 
   buyContainer.replaceWith(wrapper);
+}
 
-  // reaplicar o listener do botão clonado: substituir com delegation ao invés de clonar listener
-  // remover original buyBtn (está agora clonado), rewire listener below in caller if needed
+function injectDeleteButtonIfAdmin(user, productId) {
+  if (!user?.is_adm) return;
+  const buyBtn = document.getElementById("add-to-cart-btn");
+  if (!buyBtn) return;
+
+  const deleteBtn = document.createElement("button");
+  deleteBtn.type = "button";
+  deleteBtn.className = "btn btn-danger btn-lg";
+  deleteBtn.innerHTML = '<i class="bi bi-trash"></i> Deletar';
+
+  deleteBtn.addEventListener("click", async () => {
+    const modalId = "confirmDeleteModal";
+    let modalEl = document.getElementById(modalId);
+    if (!modalEl) {
+      modalEl = document.createElement("div");
+      modalEl.id = modalId;
+      modalEl.className = "modal fade";
+      modalEl.tabIndex = -1;
+      modalEl.setAttribute("aria-hidden", "true");
+      modalEl.innerHTML = `
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Confirmar</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+              <p>Confirma exclusão deste produto? Esta ação não pode ser desfeita.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-danger" id="${modalId}-confirm">Deletar</button>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modalEl);
+    }
+
+    const bsModal = new bootstrap.Modal(modalEl);
+    const confirmBtn = modalEl.querySelector(`#${modalId}-confirm`);
+
+    const onConfirm = async () => {
+      const token = getCookie("auth_token");
+      try {
+        const res = await fetch(
+          `${API_URL}/product/${encodeURIComponent(productId)}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        let data = null;
+        try {
+          data = await res.json();
+        } catch (e) {}
+        if (!res.ok) {
+          bsModal.hide();
+          alert(data?.message || `Erro ao deletar produto: ${res.status}`);
+          return;
+        }
+        bsModal.hide();
+        alert("Produto deletado com sucesso.");
+        window.location.href = "/";
+      } catch (err) {
+        bsModal.hide();
+        console.warn("Erro ao apagar produto:", err);
+        alert("Erro");
+      }
+    };
+
+    confirmBtn.addEventListener("click", onConfirm, { once: true });
+    bsModal.show();
+  });
+
+  const parent = buyBtn.parentElement;
+  if (!parent) return;
+
+  if (parent.classList.contains("d-flex")) {
+    parent.appendChild(deleteBtn);
+  } else {
+    const wrapper = document.createElement("div");
+    wrapper.className = "d-flex gap-2";
+    while (parent.firstChild) {
+      wrapper.appendChild(parent.firstChild);
+    }
+    wrapper.appendChild(deleteBtn);
+    parent.replaceWith(wrapper);
+  }
 }
 
 // inicialização
@@ -161,16 +245,13 @@ function injectEditButtonIfAdmin(user, productId) {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
   if (!id) {
-    // se estiver em página de detalhe sem id
     const productNameEl = document.getElementById("product-name");
     if (productNameEl) productNameEl.textContent = "Produto não especificado";
     return;
   }
 
-  // detectar se estamos na página de edição (form presente)
   const editForm = document.getElementById("editProductForm");
   if (editForm) {
-    // página de edição: buscar produto e preencher formulário + preview em tempo real
     const product = await fetchProduct(id);
     if (!product) {
       const result = document.getElementById("formResult");
@@ -178,7 +259,6 @@ function injectEditButtonIfAdmin(user, productId) {
       return;
     }
 
-    // preencher campos do formulário
     const productIdInput = document.getElementById("productId");
     const nameInput = document.getElementById("productName");
     const descInput = document.getElementById("productDescription");
@@ -192,14 +272,12 @@ function injectEditButtonIfAdmin(user, productId) {
     stockInput.value = product.stock ?? 0;
     priceInput.value = product.price ?? "";
 
-    // preview elements
     const previewImage = document.getElementById("previewImage");
     const previewName = document.getElementById("previewName");
     const previewDesc = document.getElementById("previewDescription");
     const previewPrice = document.getElementById("previewPrice");
     const previewStock = document.getElementById("previewStock");
 
-    // helper para obter imagem inicial (do produto)
     const initialImg =
       (product.photos && product.photos.length && product.photos[0]) ||
       product.photo ||
@@ -211,7 +289,6 @@ function injectEditButtonIfAdmin(user, productId) {
     previewPrice.textContent = formatCurrencyBR(product.price);
     previewStock.textContent = product.stock ?? 0;
 
-    // atualizar preview quando usuário edita os campos
     nameInput.addEventListener("input", () => {
       previewName.textContent = nameInput.value || "[Name]";
     });
@@ -226,7 +303,6 @@ function injectEditButtonIfAdmin(user, productId) {
       previewStock.textContent = v === "" ? "0" : v;
     });
 
-    // imagem: ao selecionar arquivo, mostrar preview; se limpar, voltar à imagem inicial
     let objectUrl = null;
     imageInput.addEventListener("change", () => {
       const file = imageInput.files && imageInput.files[0];
@@ -242,10 +318,8 @@ function injectEditButtonIfAdmin(user, productId) {
       }
     });
 
-    // (opcional) interceptar submissão do formulário para mostrar resultado - sem alterar API
     editForm.addEventListener("submit", async (ev) => {
       ev.preventDefault();
-      // aqui você pode implementar a chamada para atualizar o produto via fetch/PUT com FormData
       const result = document.getElementById("formResult");
       if (result) {
         const cookie = getCookie("auth_token");
@@ -284,7 +358,6 @@ function injectEditButtonIfAdmin(user, productId) {
     return;
   }
 
-  // se não for página de edição, comportamento original (detalhe do produto)
   const [user, product] = await Promise.all([tryGetUser(), fetchProduct(id)]);
 
   if (!product) {
@@ -293,7 +366,6 @@ function injectEditButtonIfAdmin(user, productId) {
     return;
   }
 
-  // popular campos
   document.getElementById("product-name").textContent = product.name || "";
   document.getElementById("product-description").textContent =
     product.description || "";
@@ -305,22 +377,17 @@ function injectEditButtonIfAdmin(user, productId) {
 
   renderImages(product);
 
-  // primeiro cria o botão de compra padrão (o listener será ligado em wireQtyAndTotal).
-  // o HTML original já tem o botão; se injetarmos o botão de editar substituímos o container,
-  // por isso chamamos injectEditButtonIfAdmin antes de wired listeners para restaurar listeners corretamente.
-
   injectEditButtonIfAdmin(user, id);
+  injectDeleteButtonIfAdmin(user, id);
 
-  // se for admin, desabilitar compra completamente
   if (user?.is_adm) {
     const addToCartBtn = document.getElementById("add-to-cart-btn");
     if (addToCartBtn) {
       addToCartBtn.disabled = true;
       addToCartBtn.hidden = true;
     }
-    return; // impedir wireQtyAndTotal de ligar o listener de compra
+    return;
   }
 
-  // após possivelmente alterar o DOM, ligar lógica de quantidade/total e listener de compra
   wireQtyAndTotal(product);
 })();
