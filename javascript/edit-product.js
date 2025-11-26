@@ -191,6 +191,51 @@ function injectDeleteButtonIfAdmin(user, productId) {
 
     const onConfirm = async () => {
       const token = getCookie("auth_token");
+
+      function showResultModal(title, message, onOk) {
+        const modalId = "operationResultModal";
+        let modalEl = document.getElementById(modalId);
+        if (!modalEl) {
+          modalEl = document.createElement("div");
+          modalEl.id = modalId;
+          modalEl.className = "modal fade";
+          modalEl.tabIndex = -1;
+          modalEl.setAttribute("aria-hidden", "true");
+          modalEl.innerHTML = `
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body">
+            <p></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="${modalId}-ok">OK</button>
+          </div>
+          </div>
+        </div>
+        `;
+          document.body.appendChild(modalEl);
+        }
+
+        modalEl.querySelector(".modal-title").textContent = title;
+        modalEl.querySelector(".modal-body p").textContent = message;
+
+        const bsResult = new bootstrap.Modal(modalEl);
+        const okBtn = modalEl.querySelector(`#${modalId}-ok`);
+        okBtn.addEventListener(
+          "click",
+          () => {
+            bsResult.hide();
+            if (typeof onOk === "function") onOk();
+          },
+          { once: true }
+        );
+        bsResult.show();
+      }
+
       try {
         const res = await fetch(
           `${API_URL}/product/${encodeURIComponent(productId)}`,
@@ -205,18 +250,24 @@ function injectDeleteButtonIfAdmin(user, productId) {
         try {
           data = await res.json();
         } catch (e) {}
+
+        bsModal.hide();
+
         if (!res.ok) {
-          bsModal.hide();
-          alert(data?.message || `Erro ao deletar produto: ${res.status}`);
+          showResultModal(
+            "Erro",
+            data?.message || `Erro ao deletar produto: ${res.status}`
+          );
           return;
         }
-        bsModal.hide();
-        alert("Produto deletado com sucesso.");
-        window.location.href = "/";
+
+        showResultModal("Sucesso", "Produto deletado com sucesso.", () => {
+          window.location.href = "/";
+        });
       } catch (err) {
         bsModal.hide();
         console.warn("Erro ao apagar produto:", err);
-        alert("Erro");
+        showResultModal("Erro", "Erro ao apagar produto.");
       }
     };
 
