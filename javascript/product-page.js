@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       updateTotalFromQty();
     });
 
-    qtyInput.addEventListener("input", updateTotalFromQty);
+    qtyInput.addEventListener("change", updateTotalFromQty);
     updateTotalFromQty();
 
     addToCartBtn.addEventListener("click", async () => {
