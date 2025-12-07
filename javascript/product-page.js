@@ -62,12 +62,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       totalPriceEl.innerText = formatBR((product.price || 0) * clamped);
     }
 
-    qtyDec.addEventListener("click", () => {
+    qtyDec.addEventListener("click", (e) => {
+      e.preventDefault();
       qtyInput.value = Math.max(1, parseInt(qtyInput.value || "1", 10) - 1);
       updateTotalFromQty();
     });
 
-    qtyInc.addEventListener("click", () => {
+    qtyInc.addEventListener("click", (e) => {
+      e.preventDefault();
       qtyInput.value = Math.min(
         product.stock || 9999,
         parseInt(qtyInput.value || "1", 10) + 1
