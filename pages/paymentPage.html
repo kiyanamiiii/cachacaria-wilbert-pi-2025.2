@@ -191,6 +191,13 @@
             throw new Error(err.message || "Erro ao processar compra.");
           }
 
+          const data = await res.json();
+
+          if (data['status'] != 0) {
+            alert("Atenção: " + data['message']);
+            return;
+          }
+
           alert("Compra realizada com sucesso!");
           window.location.href = "/index.html";
         } catch (err) {

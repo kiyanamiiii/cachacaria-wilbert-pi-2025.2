@@ -10,7 +10,7 @@ function getCookie(name) {
 }
 
 async function createProductCard(product) {
-
+  
   const user = await (
     await fetch(`${API_URL}/auth/me`, {
       headers: { Authorization: `Bearer ${getCookie("auth_token")}` },
