@@ -9,6 +9,9 @@ async function getAuthToken() {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+  if (document.documentElement.dataset.productPageInit) return;
+  document.documentElement.dataset.productPageInit = "1";
+
   const params = new URLSearchParams(window.location.search);
   const productId = params.get("id") || 1;
 
@@ -23,8 +26,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("product-description").innerText =
       product.description || "";
     document.getElementById("product-price").innerText =
-      "R$ " + product.price.toFixed(2);
-    document.getElementById("product-stock").innerText = product.stock;
+      "R$ " + (product.price || 0).toFixed(2);
+    document.getElementById("product-stock").innerText = product.stock ?? 0;
 
     const mainImage = document.getElementById("main-image");
     if (product.photos?.length > 0) {
@@ -53,34 +56,64 @@ document.addEventListener("DOMContentLoaded", async () => {
     const qtyInc = document.getElementById("qty-increase");
     const totalPriceEl = document.getElementById("total-price");
 
-    const formatBR = (v) => "R$ " + v.toFixed(2).replace(".", ",");
+    const STEP = 1;
 
-    function updateTotalFromQty() {
-      const q = Math.max(1, parseInt(qtyInput.value || 1, 10));
-      const clamped = Math.min(q, product.stock || q);
-      qtyInput.value = clamped;
-      totalPriceEl.innerText = formatBR((product.price || 0) * clamped);
+    const formatBR = (v) =>
+      "R$ " +
+      Number(v || 0)
+        .toFixed(2)
+        .replace(".", ",");
+
+    function sanitizeQtyValue(raw) {
+      let n = Number(raw);
+      if (Number.isNaN(n)) n = 1;
+      n = Math.trunc(n);
+      n = Math.max(1, n);
+      if (typeof product.stock === "number") {
+        n = Math.min(n, product.stock);
+      }
+      return n;
     }
 
-    qtyDec.addEventListener("click", (e) => {
+    function updateTotalFromQty() {
+      const q = sanitizeQtyValue(qtyInput.value);
+      qtyInput.value = q;
+      totalPriceEl.innerText = formatBR((product.price || 0) * q);
+    }
+
+    function safeAddListener(el, ev, fn) {
+      const mark = `listener_${ev}`;
+      if (el.dataset[mark]) return;
+      el.addEventListener(ev, fn);
+      el.dataset[mark] = "1";
+    }
+
+    safeAddListener(qtyDec, "click", (e) => {
       e.preventDefault();
-      qtyInput.value = Math.max(1, parseInt(qtyInput.value || "1", 10) - 1);
+      const current = sanitizeQtyValue(qtyInput.value);
+      qtyInput.value = Math.max(1, current - STEP);
       updateTotalFromQty();
     });
 
-    qtyInc.addEventListener("click", (e) => {
+    safeAddListener(qtyInc, "click", (e) => {
       e.preventDefault();
-      qtyInput.value = Math.min(
-        product.stock || 9999,
-        parseInt(qtyInput.value || "1", 10) + 1
-      );
+      const current = sanitizeQtyValue(qtyInput.value);
+      const max = typeof product.stock === "number" ? product.stock : 9999;
+      qtyInput.value = Math.min(max, current + STEP);
       updateTotalFromQty();
     });
 
-    qtyInput.addEventListener("change", updateTotalFromQty);
+    safeAddListener(qtyInput, "input", () => {
+      qtyInput.value = qtyInput.value.replace(/[^\d-]/g, "");
+    });
+
+    safeAddListener(qtyInput, "change", () => {
+      updateTotalFromQty();
+    });
+
     updateTotalFromQty();
 
-    addToCartBtn.addEventListener("click", async () => {
+    safeAddListener(addToCartBtn, "click", async () => {
       const token = await getAuthToken();
       if (!token) {
         alert("Você precisa estar logado para adicionar ao carrinho.");
@@ -88,7 +121,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
       }
 
-      const quantity = Math.max(1, parseInt(qtyInput.value || "1", 10));
+      const quantity = sanitizeQtyValue(qtyInput.value);
 
       try {
         const res = await fetch(`${API_URL}/cart`, {
